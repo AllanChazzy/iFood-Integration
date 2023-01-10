@@ -1,0 +1,12 @@
+# Introdução
+
+O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso. 
+
+# Roadmap
+1. Criar uma Tela específica para comportar filtros e funções
+2. Implementar recursos para gravação da lista de produtos enviados, com objetivo de controlar os envios.
+3. Implementar recursos para gravação da logs de envio.
+
+# Requisitos
+
+# Simulações
