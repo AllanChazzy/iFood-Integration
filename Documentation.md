@@ -23,11 +23,11 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
 
-_**Nota: :thinking: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
+**:thinking: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**
 
 ## Cadastro de Produtos :label:
 
-No Cadastro de Produtos são necessários criar recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
+No Cadastro de Produtos são necessários recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
 
 | Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                             |
 | :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,7 +89,7 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                    |
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar o Usuário sobre a ação. |
 
-## Mensagens ao Usuário :incoming_envelope;
+## Mensagens ao Usuário :incoming_envelope:
 
 | Ação                                                    | Mensagem                                                                                                                          | Tratativa                                                               |
 | :------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
@@ -98,7 +98,7 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | Clicar no Botão "Enviar para iFood"                     | "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                             | Enviar Produtos selecionados na Lista                                   |
 | Selecionar e Enviar mais que 10.000 Produtos em um Lote | "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
 
-# Simulações
+# Simulações :abacus:
 
 | Cenário de Homologação                              | Resultado esperado                                                                                        |
 | :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
