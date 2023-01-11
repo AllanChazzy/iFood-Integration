@@ -23,7 +23,7 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
 
-_**Nota: :check: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
+_**Nota: :check_mark: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
 
 ## Cadastro de Produtos
 
