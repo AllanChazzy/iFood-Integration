@@ -1,8 +1,8 @@
-# Introdução
+# Introdução :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso.
 
-# Roadmap
+# Roadmap :rocket:
 
 1. Implementar Parâmetros para comportamento da Rotina.
 2. Criar uma Tela específica para comportar filtros e funções de envio de produtos.
@@ -11,7 +11,7 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 # Requisitos
 
-## Parâmetros
+## Parâmetros :gear:
 
 Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações** e uma sub-aba **iFood** para organizar os Parâmetros descritos na tabela a seguir.
 
@@ -23,9 +23,9 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
 
-_**Nota: :check_mark: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
+_**Nota: :thinking: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
 
-## Cadastro de Produtos
+## Cadastro de Produtos :label:
 
 No Cadastro de Produtos são necessários criar recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
 
@@ -35,11 +35,11 @@ No Cadastro de Produtos são necessários criar recursos para controlar os Produ
 | Campo     | Enviado para iFood  | Campo para identificar se o Produto foi enviado para iFood. Esta informação deve ser exibida em local de fácil visualização. Também será utilizada como filtro na Tela de Envio de Produtos. |
 | Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Também será utilizada como filtro na Tela de Envio de Produtos.                                               |
 
-## Nova Tela - Produtos iFood
+## Nova Tela - Produtos iFood :package:
 
 Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento. Dentre os principais recursos, deve ser possível listar vários produtos através de filtros, obedecendo às Regras de Negócio especificadas.
 
-### Filtros
+### Filtros :mag:
 
 Os filtros necessários foram classificados em dois grupos para melhor experiência do usuário e clareza de informações em tela.
 
@@ -53,7 +53,7 @@ Além dos Grupos de Filtros, são necessárias duas ações principais para esta
 1.  Pesquisar - Utilizando os filtros informados, que inclusive deve ser permitido combiná-los.
 2.  Limpar Filtros - Função que facilita novas pesquisas.
 
-### Grade de Dados
+### Grade de Dados :open_file_folder:
 
 A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os elementos necessários para exibição e controle de dados são:
 
@@ -73,7 +73,7 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                         | -                                                                                                       |
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na Grade | -                                                                                                       |
 
-### Ações
+### Ações :pushpin:
 
 | Função                      | Descritivo                                                                                                                           | Regra de Negócio                                                    |
 | :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
@@ -81,7 +81,7 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | Ação Desativar Selecionados | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".   |
 | Ação Enviar para iFood      | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                   |
 
-### Regras de Negócio
+### Regras de Negócio :lock:
 
 | Regra | Descrição                                                                 | Tratativa                                                                                                    |
 | :---- | :------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------- |
@@ -89,7 +89,7 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                    |
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar o Usuário sobre a ação. |
 
-## Mensagens ao Usuário
+## Mensagens ao Usuário :incoming_envelope;
 
 | Ação                                                    | Mensagem                                                                                                                          | Tratativa                                                               |
 | :------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
