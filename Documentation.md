@@ -13,12 +13,25 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 ## Parâmetros
 
-| Parâmetro                                   | Descritivo                                                                                                                                            | Regra de Negócio                                                                                                                                                                                                                                                                                                                                            |
-| :------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Atualizar Estoques e Preços automaticamente | Opção para definir se ao movimentar Estoque dos Produtos ou atualizar Preço de Venda, uma atualização automática deve ser gerada para envio ao iFood. | Se ocorrer alterações manuais no Estoque ou Baixas automatizadas, disparar comando para envio da quantidade atualizada do Produto para a base do iFood. <br><br> Se ocorrer alterações de Preço de Venda manuais ou automatizadas, disparar comando para envio dos preços de venda atualizados para a base do iFood, observando a margem de lucro definida. |
-| Política de Preço                           | Opção para definir a Política de Preço de Venda no iFood.                                                                                             | Deve existir três opções: <br> 1 - Preço Fixo (Preço de Venda Normal) <br> 2 - Preço Fixo + Promoção (Preço de Venda Normal ou da Promoção, quando ativa) <br> 3 - Preço Especial (Percentual sobre o Preço Normal ou de Promoção, quando ativa) <br> Quando opção 3, permitir que o usuário informe o Percentual.                                          |
-| Estoque Padrão de Envio iFood               | Campo para definir o Código do Estoque a considerar para envio das Quantidades ao iFood.                                                              | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
-| Tipo de Estoque                             | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro)                                                                                                                                                              |
+| Parâmetro                     | Descritivo                                                                                                                                            | Regra de Negócio                                                                                                                                                                                                                                                                                                                                            |
+| :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ativar Integração iFood       | Opção para Ativar Integração iFood                                                                                                                    | -                                                                                                                                                                                                                                                                                                                                                           |
+| Atualizações Automáticas      | Opção para definir se ao movimentar Estoque dos Produtos ou atualizar Preço de Venda, uma atualização automática deve ser gerada para envio ao iFood. | Se ocorrer alterações manuais no Estoque ou Baixas automatizadas, disparar comando para envio da quantidade atualizada do Produto para a base do iFood. <br><br> Se ocorrer alterações de Preço de Venda manuais ou automatizadas, disparar comando para envio dos preços de venda atualizados para a base do iFood, observando a margem de lucro definida. |
+| Política de Preço             | Opção para definir a Política de Preço de Venda no iFood.                                                                                             | Deve existir três opções: <br> 1 - Preço Fixo (Preço de Venda Normal) <br> 2 - Preço Fixo + Promoção (Preço de Venda Normal ou da Promoção, quando ativa) <br> 3 - Preço Especial (Percentual sobre o Preço Normal ou de Promoção, quando ativa) <br> Quando opção 3, permitir que o usuário informe o Percentual.                                          |
+| Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
+| Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
+
+_Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos_
+
+## Cadastro de Produtos
+
+Para o correto funcionamento da Integração, serão necessários recursos de controle no Cadastro do Produto.
+
+| Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                             |
+| :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parâmetro | Não Vender no iFood | Parâmetro do Produto que restinge o Envio do mesmo ao Integrador iFood. Ativando este parâmetro, o Produto não será listado na Tela de Envio.                                                |
+| Campo     | Enviado para iFood  | Campo para identificar se o Produto foi enviado para iFood. Esta informação deve ser exibida em local de fácil visualização. Também será utilizada como filtro na Tela de Envio de Produtos. |
+| Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Também será utilizada como filtro na Tela de Envio de Produtos.                                               |
 
 ## Nova Tela - Produtos iFood
 
@@ -36,28 +49,35 @@ De modo a gerenciar os Produtos que devem ser enviados ao iFood, é necessário 
 
 A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os elementos necessários são:
 
-| Campo/Função                             | Descritivo                                                                                                      | Regra de Negócio                                                                                        |
-| :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado                                              | Selecionado, Não Selecionado, Selecionar Todos                                                          |
-| Código Interno                           | Código Interno do Produto                                                                                       | -                                                                                                       |
-| Código de Barras                         | Código de Barras Padrão do Produto                                                                              | -                                                                                                       |
-| Descrição                                | Descrição Completa do Produto                                                                                   | -                                                                                                       |
-| Preço Normal                             | Preço de Venda Normal do Cadastro                                                                               | -                                                                                                       |
-| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                                                         | Considerar apenas Promoções da Modalidade Unitário                                                      |
-| Preço Preço iFood                        | Preço de Venda para o iFood                                                                                     | Considerar parametrização da Gestão de Preço                                                            |
-| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                                                          | -                                                                                                       |
-| Estoque Atual                            | Estoque Atual do Produto a enviar                                                                               | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
-| Status iFood                             | Situação do Produto na Plataforma iFood (Disponível/Indisponível)                                               | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
-| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados                                                         | -                                                                                                       |
-| [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                                                                  | -                                                                                                       |
-| Ação Desativar Selecionados              | Botão de Ação para Desativar/Remover Produtos selecionados da Base do iFood, quando Status igual a "Disponível" | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                       |
-| Ação Enviar iFood                        | Botão de Ação para Enviar Produtos selecionados para o iFood                                                    | -                                                                                                       |
+| Campo/Função                             | Descritivo                                                         | Regra de Negócio                                                                                        |
+| :--------------------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado | Selecionado, Não Selecionado, Selecionar Todos                                                          |
+| Código Interno                           | Código Interno do Produto                                          | -                                                                                                       |
+| Código de Barras                         | Código de Barras Padrão do Produto                                 | -                                                                                                       |
+| Descrição                                | Descrição Completa do Produto                                      | -                                                                                                       |
+| Preço Normal                             | Preço de Venda Normal do Cadastro                                  | -                                                                                                       |
+| Preço Promoção                           | Preço de Venda na Promoção quando ativa                            | Considerar apenas Promoções da Modalidade Unitário                                                      |
+| Preço iFood                              | Preço de Venda para o iFood                                        | Considerar parametrização da Gestão de Preço                                                            |
+| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                             | -                                                                                                       |
+| Estoque Atual                            | Estoque Atual do Produto a enviar                                  | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
+| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)            | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados            | -                                                                                                       |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                     | -                                                                                                       |
+
+### Ações
+
+| Função                      | Descritivo                                                                                                                           | Regra de Negócio                                                    |
+| :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| Ação Reativar Selecionados  | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos". |
+| Ação Desativar Selecionados | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".   |
+| Ação Enviar para iFood      | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                   |
 
 ### Regras de Negócio
 
-| Regra | Descrição | Tratativa |
-| :---- | :-------- | :-------- |
-| RN01  |
+| Regra | Descrição                                                           | Tratativa                                                        |
+| :---- | :------------------------------------------------------------------ | :--------------------------------------------------------------- |
+| RN01  | Não listar Produtos de "Aplicação de Direta"                        | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos |
+| RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima" | Verifiar o campo Tipo do Produto do Cadastro de Produtos         |
 
 ## Mensagens ao Usuário
 
@@ -67,3 +87,20 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | Clicar no Botão "Enviar iFood"           | "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?" | Enviar Produtos selecionados na Lista |
 
 # Simulações
+
+| Cenário de Homologação                              | Resultado esperado                                                                                        |
+| :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| Carga de Produtos do tipo EAN                       | Recebimento dos produtos                                                                                  |
+| Atualização de Status do Produto do tipo EAN        | Recebimento de produtos com alteração de status (Ativo / Inativo)                                         |
+| Atualização de Preços do Produto do tipo EAN        | Atualização de preço de produtos saindo de A para B                                                       |
+| Atualização de Preços De / Por do tipo EAN          | Atualização de preço de produtos saindo de A para B tendo o DE/POR                                        |
+| Atualização de Estoque do tipo EAN                  | Atualização do valor de estoque de A para B                                                               |
+| Atualização da descrição do produto do tipo EAN     | Atualização do nome do produto saindo de A para B                                                         |
+| Carga de Produtos do tipo PRÓPRIO                   | Recebimento dos produtos                                                                                  |
+| Atualização de Status do Produto do tipo PRÓPRIO    | Recebimento de produtos com alteração de status (Ativo / Inativo)                                         |
+| Atualização de Preços do Produto do tipo PRÓPRIO    | Atualização de preço de produtos saindo de A para B                                                       |
+| Atualização de Preços De / Por do tipo PRÓPRIO      | Atualização de preço de produtos saindo de A para B tendo o DE/POR                                        |
+| Atualização de Estoque do tipo PRÓPRIO              | Atualização do valor de estoque de A para B                                                               |
+| Atualização da descrição do produto do tipo PRÓPRIO | Atualização do nome do produto saindo de A para B                                                         |
+| Atualização geral dos itens                         | Recebimento da atualização somente dos itens que houve alteração do lado do ERP ao invés da base completa |
+| Tempo de Atualização                                | Validação da atualização da base (Com update) com tempo de 120 minutos                                    |
