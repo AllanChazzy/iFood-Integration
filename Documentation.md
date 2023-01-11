@@ -13,6 +13,8 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 ## Parâmetros
 
+Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações** e uma sub-aba **iFood** para organizar os Parâmetros descritos na tabela a seguir.
+
 | Parâmetro                     | Descritivo                                                                                                                                            | Regra de Negócio                                                                                                                                                                                                                                                                                                                                            |
 | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ativar Integração iFood       | Opção para Ativar Integração iFood                                                                                                                    | -                                                                                                                                                                                                                                                                                                                                                           |
@@ -21,11 +23,11 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
 
-_Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos_
+_**Nota: :check: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**_
 
 ## Cadastro de Produtos
 
-Para o correto funcionamento da Integração, serão necessários recursos de controle no Cadastro do Produto.
+No Cadastro de Produtos são necessários criar recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
 
 | Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                             |
 | :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,34 +37,41 @@ Para o correto funcionamento da Integração, serão necessários recursos de co
 
 ## Nova Tela - Produtos iFood
 
-De modo a gerenciar os Produtos que devem ser enviados ao iFood, é necessário a criação de um Tela de Gerenciamento. Dentre os recursos, deve conter Filtros para consultar Produtos Cadastrados no Sistema, Exibir tais Produtos filtrados e obedecer Regras de Negócio específicadas.
+Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento. Dentre os principais recursos, deve ser possível listar vários produtos através de filtros, obedecendo às Regras de Negócio especificadas.
 
 ### Filtros
 
-| Grupo              | Descritivo                                       | Campos do Grupo                                                                                                                                                                                                                                                                                           |
-| :----------------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Segmentação        | Grupo de Filtros para Segmentação do Produto     | Marca, Seção, Grupo, Subgrupo, Ambiente de Utilização, Fornecedor Padrão, Agrupador de Preços                                                                                                                                                                                                             |
-| Produto            | Grupo de Filtros para Características do Produto | Descrição, Referência Fabricante, Referência Auxiliar e Localização com critérios (Contém, Começa Com, Termina Com, Igual a), Status do Produto, Empresas, Período de Alteração de Preços (Log Preços), Apenas Produtos com Estoque Positivo, Produtos não Enviados ao iFood e Produtos Desativados iFood |
-| Ações para Filtros | Botões de Ação para ambos grupos de filtros      | Botão Limpar Filtros e Botão Pesquisar.                                                                                                                                                                                                                                                                   |
+Os filtros necessários foram classificados em dois grupos para melhor experiência do usuário e clareza de informações em tela.
+
+| Grupo       | Descritivo                                       | Campos do Grupo                                                                                                                                                                                                                                                                                           |
+| :---------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Segmentação | Grupo de Filtros para Segmentação do Produto     | Marca, Seção, Grupo, Subgrupo, Ambiente de Utilização, Fornecedor Padrão, Agrupador de Preços                                                                                                                                                                                                             |
+| Produto     | Grupo de Filtros para Características do Produto | Descrição, Referência Fabricante, Referência Auxiliar e Localização com critérios (Contém, Começa Com, Termina Com, Igual a), Status do Produto, Empresas, Período de Alteração de Preços (Log Preços), Apenas Produtos com Estoque Positivo, Produtos não Enviados ao iFood e Produtos Desativados iFood |
+
+Além dos Grupos de Filtros, são necessárias duas ações principais para esta etapa:
+
+1.  Pesquisar - Utilizando os filtros informados, que inclusive deve ser permitido combiná-los.
+2.  Limpar Filtros - Função que facilita novas pesquisas.
 
 ### Grade de Dados
 
-A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os elementos necessários são:
+A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os elementos necessários para exibição e controle de dados são:
 
-| Campo/Função                             | Descritivo                                                         | Regra de Negócio                                                                                        |
-| :--------------------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado | Selecionado, Não Selecionado, Selecionar Todos                                                          |
-| Código Interno                           | Código Interno do Produto                                          | -                                                                                                       |
-| Código de Barras                         | Código de Barras Padrão do Produto                                 | -                                                                                                       |
-| Descrição                                | Descrição Completa do Produto                                      | -                                                                                                       |
-| Preço Normal                             | Preço de Venda Normal do Cadastro                                  | -                                                                                                       |
-| Preço Promoção                           | Preço de Venda na Promoção quando ativa                            | Considerar apenas Promoções da Modalidade Unitário                                                      |
-| Preço iFood                              | Preço de Venda para o iFood                                        | Considerar parametrização da Gestão de Preço                                                            |
-| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                             | -                                                                                                       |
-| Estoque Atual                            | Estoque Atual do Produto a enviar                                  | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
-| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)            | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
-| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados            | -                                                                                                       |
-| [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                     | -                                                                                                       |
+| Campo/Função                             | Descritivo                                                             | Regra de Negócio                                                                                        |
+| :--------------------------------------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado     | Selecionado, Não Selecionado, Selecionar Todos                                                          |
+| Código Interno                           | Código Interno do Produto                                              | -                                                                                                       |
+| Código de Barras                         | Código de Barras Padrão do Produto                                     | -                                                                                                       |
+| Descrição                                | Descrição Completa do Produto                                          | -                                                                                                       |
+| Preço Normal                             | Preço de Venda Normal do Cadastro                                      | -                                                                                                       |
+| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                | Considerar apenas Promoções da Modalidade Unitário                                                      |
+| Preço iFood                              | Preço de Venda para o iFood                                            | Considerar parametrização da Gestão de Preço                                                            |
+| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                 | -                                                                                                       |
+| Estoque Atual                            | Estoque Atual do Produto a enviar                                      | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
+| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados                | -                                                                                                       |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                         | -                                                                                                       |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na Grade | -                                                                                                       |
 
 ### Ações
 
@@ -74,17 +83,20 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 
 ### Regras de Negócio
 
-| Regra | Descrição                                                           | Tratativa                                                        |
-| :---- | :------------------------------------------------------------------ | :--------------------------------------------------------------- |
-| RN01  | Não listar Produtos de "Aplicação de Direta"                        | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos |
-| RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima" | Verifiar o campo Tipo do Produto do Cadastro de Produtos         |
+| Regra | Descrição                                                                 | Tratativa                                                                                                    |
+| :---- | :------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------- |
+| RN01  | Não listar Produtos de "Aplicação de Direta"                              | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                             |
+| RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                    |
+| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar o Usuário sobre a ação. |
 
 ## Mensagens ao Usuário
 
-| Ação                                     | Mensagem                                                                              | Tratativa                             |
-| :--------------------------------------- | :------------------------------------------------------------------------------------ | :------------------------------------ |
-| Clicar no Botão "Desativar Selecionados" | "Os Produtos Selecionados serão Desativados na Plataforma iFood. Deseja continuar ?"  | Enviar Desativação para a Plataforma. |
-| Clicar no Botão "Enviar iFood"           | "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?" | Enviar Produtos selecionados na Lista |
+| Ação                                                    | Mensagem                                                                                                                          | Tratativa                                                               |
+| :------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| Clicar no Botão "Desativar Selecionados"                | "Os Produtos Selecionados serão Desativados na Plataforma iFood. Deseja continuar ?"                                              | Enviar Desativação para a Plataforma através do comando correspondente. |
+| Clicar no Botão "Reativar Selecionados"                 | "Os Produtos Selecionados serão Reativados na Plataforma iFood. Deseja continuar ?"                                               | Enviar Reativação para a Plataforma através do comando correspondente.  |
+| Clicar no Botão "Enviar para iFood"                     | "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                             | Enviar Produtos selecionados na Lista                                   |
+| Selecionar e Enviar mais que 10.000 Produtos em um Lote | "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
 
 # Simulações
 
