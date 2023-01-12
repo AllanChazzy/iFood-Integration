@@ -22,7 +22,7 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood. | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                            |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.       | Deve ser permitido definir valores entre "Físico" ou "Presumido". Se "Físico", considerar a Quantidade Fisica total do Produto. Se "Presumido", considerar o Cálculo Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro). Sempre enviar o valor resultante, mesmo que zero ou negativo. |
 
-**:thinking: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.**
+**:bulb: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.**
 
 ## Cadastro de Produtos :label:
 
@@ -49,36 +49,38 @@ Os filtros necessários foram classificados em dois grupos para melhor experiên
 
 Além dos Grupos de Filtros, são necessárias duas Ações principais para os Filtros:
 
-1.  <button>**Pesquisar**</button> - Utilizando os filtros informados, que inclusive deve ser permitido combiná-los.
-2.  <button>**Limpar Filtros**</button> - Função para facilitar recomeçar pesquisas.
+1.  **Pesquisar** - Envolve todos os filtros informados, que inclusive deve ser permitido combiná-los.
+2.  **Limpar Filtros** - Facilita recomeçar pesquisas.
 
 ### Grid de Exibição de Dados :open_file_folder:
 
 Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
-| Campo/Função                             | Descritivo                                                             | Regra de Negócio                                                                                        |
-| :--------------------------------------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado     | Selecionado, Não Selecionado                                                                            |
-| Código Interno                           | Código Interno do Produto                                              | -                                                                                                       |
-| Código de Barras                         | Código de Barras Padrão do Produto                                     | -                                                                                                       |
-| Descrição                                | Descrição Completa do Produto                                          | -                                                                                                       |
-| Preço Normal                             | Preço de Venda Normal do Cadastro                                      | -                                                                                                       |
-| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                | Considerar apenas Promoções da Modalidade Unitário                                                      |
-| Preço iFood                              | Preço de Venda para o iFood                                            | Considerar parametrização da Gestão de Preço                                                            |
-| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                 | -                                                                                                       |
-| Estoque Atual                            | Estoque Atual do Produto a enviar                                      | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
-| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
-| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados                | -                                                                                                       |
-| [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                         | -                                                                                                       |
-| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na Grade | Exibir abaixo da _Grid_                                                                                 |
+| Campo/Função                             | Descritivo                                                              | Regra de Negócio                                                                                        |
+| :--------------------------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado      | Selecionado, Não Selecionado                                                                            |
+| Código Interno                           | Código Interno do Produto                                               | -                                                                                                       |
+| Código de Barras                         | Código de Barras Padrão do Produto                                      | -                                                                                                       |
+| Descrição                                | Descrição Completa do Produto                                           | -                                                                                                       |
+| Preço Normal                             | Preço de Venda Normal do Cadastro                                       | -                                                                                                       |
+| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                 | Considerar apenas Promoções da Modalidade Unitário                                                      |
+| Preço iFood                              | Preço de Venda para o iFood                                             | Considerar parametrização da Política de Preço                                                          |
+| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                  | -                                                                                                       |
+| Estoque Atual                            | Estoque Atual do Produto a enviar                                       | Considerar parametrização do Tipo de Estoque (Físico ou Presumido)                                      |
+| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                 | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_ de Dados                | -                                                                                                       |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                                       |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                                 |
 
 ### Ações da Tela :pushpin:
 
-| Botão                  | Descritivo                                                                                                                           | Regra de Negócio                                                    |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
-| Reativar Selecionados  | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos". |
-| Desativar Selecionados | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".   |
-| Enviar para iFood      | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                   |
+| Botão/Função              | Descritivo                                                                                                                           | Regra de Negócio                                                                                                                                           |
+| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Alterar Estoque de Envio  | Campo que exibe o Estoque Padrão de Envio, com permissão de edição.                                                                  | Reprocessar as Quantidades na _Grid_ conforme o Código de Estoque informado.                                                                               |
+| Alterar Política de Preço | Campo que exibe a Política de Preço, com permissão de edição.                                                                        | Reprocessar Preços iFood na _Grid_ conforme alteração da Política. <br> Se Política igual a 3 - Preço Especial, considerar alteração do Percentual padrão. |
+| Reativar Selecionados     | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos".                                                                                        |
+| Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
+| Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                                                                                                          |
 
 ### Regras de Negócio :lock:
 
