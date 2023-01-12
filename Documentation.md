@@ -4,7 +4,7 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 # Roadmap :rocket:
 
-1. Implementar Parâmetros para comportamento da Rotina.
+1. Implementar Parâmetros e Alterações no Cadastro de Produtos.
 2. Criar uma Tela específica para comportar filtros e funções de envio de produtos.
 3. Implementar recursos para gravação da lista de produtos enviados.
 4. Implementar recursos para gravação da logs de envio.
@@ -19,11 +19,11 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ativar Integração iFood       | Opção para Ativar Integração iFood                                                                                                                    | -                                                                                                                                                                                                                                                                                                                                                           |
 | Atualizações Automáticas      | Opção para definir se ao movimentar Estoque dos Produtos ou atualizar Preço de Venda, uma atualização automática deve ser gerada para envio ao iFood. | Se ocorrer alterações manuais no Estoque ou Baixas automatizadas, disparar comando para envio da quantidade atualizada do Produto para a base do iFood. <br><br> Se ocorrer alterações de Preço de Venda manuais ou automatizadas, disparar comando para envio dos preços de venda atualizados para a base do iFood, observando a margem de lucro definida. |
-| Política de Preço             | Opção para definir a Política de Preço de Venda no iFood.                                                                                             | Deve existir três opções: <br> 1 - Preço Fixo (Preço de Venda Normal) <br> 2 - Preço Fixo + Promoção (Preço de Venda Normal ou da Promoção, quando ativa) <br> 3 - Preço Especial (Percentual sobre o Preço Normal ou de Promoção, quando ativa) <br> Quando opção 3, permitir que o usuário informe o Percentual.                                          |
+| Política de Preço             | Opção para definir a Política de Preço de Venda no iFood.                                                                                             | Deve existir três opções: <br> 1 - Preço Fixo (Preço de Venda Normal, sempre) <br> 2 - Preço Variável (Preço de Venda Normal ou da Promoção, quando ativa) <br> 3 - Preço Especial (Percentual de Majoração sobre o Variável) <br><br> Quando opção 3, solicitar que o usuário informe o Percentual.                                                        |
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                                                       | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                                                                      |
-| Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve aceitar Valores entre "Físico" ou "Presumido". Se Físico, considerar a Quantidade Fisica total do Produto. Se Presumido, considerar Físico - Reservado - A Retirar (se ativado parâmetro). Sempre enviar a Quantidade disponível, mesmo que zero ou negativa.                                                                                          |
+| Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                                                             | Deve ser permitido definir valores entre "Físico" ou "Presumido". Se "Físico", considerar a Quantidade Fisica total do Produto. Se "Presumido", considerar o Cálculo Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro). Sempre enviar o valor resultante, mesmo que zero ou negativo.                                           |
 
-**:thinking: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos**
+**:thinking: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.**
 
 ## Cadastro de Produtos :label:
 
@@ -53,13 +53,13 @@ Além dos Grupos de Filtros, são necessárias duas ações principais para esta
 1.  Pesquisar - Utilizando os filtros informados, que inclusive deve ser permitido combiná-los.
 2.  Limpar Filtros - Função que facilita novas pesquisas.
 
-### Grade de Dados :open_file_folder:
+### Grid de Exibição de Dados :open_file_folder:
 
-A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os elementos necessários para exibição e controle de dados são:
+Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
 | Campo/Função                             | Descritivo                                                             | Regra de Negócio                                                                                        |
 | :--------------------------------------- | :--------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado     | Selecionado, Não Selecionado, Selecionar Todos                                                          |
+| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado     | Selecionado, Não Selecionado                                                                            |
 | Código Interno                           | Código Interno do Produto                                              | -                                                                                                       |
 | Código de Barras                         | Código de Barras Padrão do Produto                                     | -                                                                                                       |
 | Descrição                                | Descrição Completa do Produto                                          | -                                                                                                       |
@@ -71,15 +71,15 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
 | [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da Grade de Dados                | -                                                                                                       |
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da Grade de Dados                         | -                                                                                                       |
-| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na Grade | -                                                                                                       |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na Grade | Exibir abaixo da _Grid_                                                                                 |
 
-### Ações :pushpin:
+### Ações da Tela :pushpin:
 
-| Função                      | Descritivo                                                                                                                           | Regra de Negócio                                                    |
-| :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
-| Ação Reativar Selecionados  | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos". |
-| Ação Desativar Selecionados | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".   |
-| Ação Enviar para iFood      | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                   |
+| Botão                  | Descritivo                                                                                                                           | Regra de Negócio                                                    |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| Reativar Selecionados  | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos". |
+| Desativar Selecionados | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".   |
+| Enviar para iFood      | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                   |
 
 ### Regras de Negócio :lock:
 
@@ -89,14 +89,18 @@ A Grade de Dados deve exibir os Produtos resultantes dos filtros aplicados. Os e
 | RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                    |
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar o Usuário sobre a ação. |
 
-## Mensagens ao Usuário :incoming_envelope:
+### Mensagens ao Usuário :incoming_envelope:
 
-| Ação                                                    | Mensagem                                                                                                                          | Tratativa                                                               |
-| :------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
-| Clicar no Botão "Desativar Selecionados"                | "Os Produtos Selecionados serão Desativados na Plataforma iFood. Deseja continuar ?"                                              | Enviar Desativação para a Plataforma através do comando correspondente. |
-| Clicar no Botão "Reativar Selecionados"                 | "Os Produtos Selecionados serão Reativados na Plataforma iFood. Deseja continuar ?"                                               | Enviar Reativação para a Plataforma através do comando correspondente.  |
-| Clicar no Botão "Enviar para iFood"                     | "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                             | Enviar Produtos selecionados na Lista                                   |
-| Selecionar e Enviar mais que 10.000 Produtos em um Lote | "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
+| Ação                                                    | Mensagem                                                                                                                                             | Tratativa                                                               |
+| :------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| Clicar no Botão "Desativar Selecionados"                | Mensagem de Confirmação: "Os Produtos Selecionados serão Desativados na Plataforma iFood. Deseja continuar ?"                                        | Enviar Desativação para a Plataforma através do comando correspondente. |
+| Clicar no Botão "Reativar Selecionados"                 | Mensagem de Confirmação: "Os Produtos Selecionados serão Reativados na Plataforma iFood. Deseja continuar ?"                                         | Enviar Reativação para a Plataforma através do comando correspondente.  |
+| Clicar no Botão "Enviar para iFood"                     | Mensagem de Confirmação: "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                       | Enviar Produtos selecionados na Lista                                   |
+| Selecionar e Enviar mais que 10.000 Produtos em um Lote | Mensagem de Aviso: "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
+
+### Protótipo de Tela :desktop_computer:
+
+![Protótipo de Tela](./Tela.png)
 
 # Simulações :abacus:
 
