@@ -1,44 +1,66 @@
+<!-- vscode-markdown-toc -->
+
+- 1. [Parâmetros :gear:](#Parmetros:gear:)
+- 2. [Cadastro de Produtos :label:](#CadastrodeProdutos:label:)
+- 3. [Nova Tela - Produtos iFood :package:](#NovaTela-ProdutosiFood:package:)
+  - 3.1. [Filtros :mag:](#Filtros:mag:)
+  - 3.2. [Grid de Exibição de Dados :open_file_folder:](#GriddeExibiodeDados:open_file_folder:)
+  - 3.3. [Ações da Tela :pushpin:](#AesdaTela:pushpin:)
+  - 3.4. [Regras de Negócio :lock:](#RegrasdeNegcio:lock:)
+  - 3.5. [Mensagens ao Usuário :incoming_envelope:](#MensagensaoUsurio:incoming_envelope:)
+  - 3.6. [Protótipo de Tela :desktop_computer:](#ProttipodeTela:desktop_computer:)
+  - 3.7. [Tabela de Dados para iFood :abacus:](#TabeladeDadosparaiFood:abacus:)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
 # Introdução :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso.
 
 # Roadmap :rocket:
 
-1. Implementar Parâmetros e Alterações no Cadastro de Produtos.
-2. Criar uma Tela específica para comportar filtros e funções de envio de produtos.
-3. Implementar recursos para gravação da lista de produtos enviados.
-4. Implementar recursos para gravação da logs de envio.
+1. Implementar [Parâmetros](#parâmetros-gear) e Alterações no [Cadastro de Produtos](#cadastro-de-produtos-label).
+2. Criar uma [Tela Nova](#nova-tela---produtos-ifood-package) para comportar filtros e funções de envio de produtos.
+3. Implementar recursos para gravação da [Lista de Produtos](#tabela-de-dados-para-ifood-abacus) a sincronizar.
+4. Implementar recursos para gravação de [Logs](#logs-de-envio-passport_control) de Envio.
+5. Realizar Testes Unitários de acordo com a Etapa de [Simulações](#simulações-test_tube) para Homologar o Recurso.
 
 # Requisitos
 
-## Parâmetros :gear:
+## 1. <a name='Parmetros:gear:'></a>Parâmetros :gear:
 
 Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações** e uma sub-aba **iFood** para organizar os Parâmetros descritos na tabela a seguir.
 
 | Parâmetro                     | Descritivo                                                                                      | Regra de Negócio                                                                                                                                                                                                                                                                                                  |
 | :---------------------------- | :---------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ativar Integração iFood       | Opção para Ativar Integração iFood                                                              | -                                                                                                                                                                                                                                                                                                                 |
+| Ativar Integração iFood       | Opção para Ativar Integração iFood                                                              | Ativa a Integração pelo _GansoAgent_, habilita os Campos do [Cadastro de Produtos](#cadastro-de-produtos-label) e a [Tela de Produtos iFood](#nova-tela---produtos-ifood-package).                                                                                                                                |
 | Política de Preço             | Opção para definir a Política de Preço de Venda no iFood.                                       | Deve existir três opções: <br> 1 - Preço Fixo (Preço de Venda Normal, sempre) <br> 2 - Preço Variável (Preço de Venda Normal ou da Promoção, quando ativa) <br> 3 - Preço Especial (Percentual de Majoração sobre o Variável) <br><br> Quando opção 3, solicitar que o usuário informe o Percentual.              |
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood. | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                            |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.       | Deve ser permitido definir valores entre "Físico" ou "Presumido". Se "Físico", considerar a Quantidade Fisica total do Produto. Se "Presumido", considerar o Cálculo Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro). Sempre enviar o valor resultante, mesmo que zero ou negativo. |
 
 **:bulb: Nota:** Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.
 
-## Cadastro de Produtos :label:
+## 2. <a name='CadastrodeProdutos:label:'></a>Cadastro de Produtos :label:
 
 No Cadastro de Produtos são necessários recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
 
-| Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                             |
-| :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Parâmetro | Não Vender no iFood | Parâmetro do Produto que restinge o Envio do mesmo ao Integrador iFood. Ativando este parâmetro, o Produto não será listado na Tela de Envio.                                                |
-| Campo     | Enviado para iFood  | Campo para identificar se o Produto foi enviado para iFood. Esta informação deve ser exibida em local de fácil visualização. Também será utilizada como filtro na Tela de Envio de Produtos. |
-| Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Também será utilizada como filtro na Tela de Envio de Produtos.                                               |
+| Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                                              |
+| :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Parâmetro | Não Vender no iFood | Parâmetro do Produto que restinge o Envio do mesmo ao Integrador iFood. Ativando este parâmetro, o Produto não deve listado na Tela de Envio, nem mesmo ser enviado ao iFood por outros meios.                |
+| Campo     | Enviado para iFood  | Campo para identificar se o Produto foi enviado para iFood na carga Inicial. Esta informação deve ser exibida em local de fácil visualização. Também será utilizado como filtro na Tela de Envio de Produtos. |
+| Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Também será utilizado como filtro na Tela de Envio de Produtos.                                                                |
 
-## Nova Tela - Produtos iFood :package:
+**:bulb: Nota:** Os campos acima só devem ser exibidos no Cadastro de Produtos se o Parâmetro **"Ativar Integração iFood"** estiver ativado.
+
+## 3. <a name='NovaTela-ProdutosiFood:package:'></a>Nova Tela - Produtos iFood :package:
 
 Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento. Dentre os principais recursos, deve ser possível listar vários produtos através de filtros, obedecendo às Regras de Negócio especificadas.
 
-### Filtros :mag:
+### 3.1. <a name='Filtros:mag:'></a>Filtros :mag:
 
 Os filtros necessários foram classificados em dois grupos para melhor experiência do usuário e clareza de informações em tela.
 
@@ -52,7 +74,7 @@ Além dos Grupos de Filtros, são necessárias duas Ações principais para os F
 1.  **Pesquisar** - Envolve todos os filtros informados, que inclusive deve ser permitido combiná-los.
 2.  **Limpar Filtros** - Facilita recomeçar pesquisas.
 
-### Grid de Exibição de Dados :open_file_folder:
+### 3.2. <a name='GriddeExibiodeDados:open_file_folder:'></a>Grid de Exibição de Dados :open_file_folder:
 
 Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
@@ -72,7 +94,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                                       |
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                                 |
 
-### Ações da Tela :pushpin:
+### 3.3. <a name='AesdaTela:pushpin:'></a>Ações da Tela :pushpin:
 
 | Botão/Função              | Descritivo                                                                                                                           | Regra de Negócio                                                                                                                                           |
 | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -82,7 +104,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
 | Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | Gravar Dados na Tabela de Envio para iFood. Consultar [Tabela de Dados](#tabela-de-dados-para-ifood)                                                       |
 
-### Regras de Negócio :lock:
+### 3.4. <a name='RegrasdeNegcio:lock:'></a>Regras de Negócio :lock:
 
 | Regra | Descrição                                                                  | Tratativa                                                                                                     |
 | :---- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
@@ -91,7 +113,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação. |
 | RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit.               |
 
-### Mensagens ao Usuário :incoming_envelope:
+### 3.5. <a name='MensagensaoUsurio:incoming_envelope:'></a>Mensagens ao Usuário :incoming_envelope:
 
 | Ação                                                    | Mensagem                                                                                                                                             | Tratativa                                                               |
 | :------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
@@ -100,11 +122,11 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Clicar no Botão "Enviar para iFood"                     | Mensagem de Confirmação: "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                       | Enviar Produtos selecionados na Lista                                   |
 | Selecionar e Enviar mais que 10.000 Produtos em um Lote | Mensagem de Aviso: "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
 
-### Protótipo de Tela :desktop_computer:
+### 3.6. <a name='ProttipodeTela:desktop_computer:'></a>Protótipo de Tela :desktop_computer:
 
 ![Protótipo de Tela](./Tela.png)
 
-### Tabela de Dados para iFood
+### 3.7. <a name='TabeladeDadosparaiFood:abacus:'></a>Tabela de Dados para iFood :abacus:
 
 Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados na Tabela relacionada a seguir.
 
@@ -134,7 +156,9 @@ Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é n
 | `multiploEanOriginal`     |   `Texto (15)`    | Código de Barras do Produto de Fabricação Própria.        | Enviar vazio ''.                                                                                                                                                                                                   | Preenchimento Não Obrigatório.                                                                                             |
 | `multiploQtd`             | `Numérico (10,4)` | Quantidade do Produto na Embalagem de Fabricação Própria. | Enviar 0.                                                                                                                                                                                                          | Preenchimento Não Obrigatório.                                                                                             |
 
-# Simulações :abacus:
+# Logs de Envio :passport_control:
+
+# Simulações :test_tube:
 
 | Cenário de Homologação                              | Resultado esperado                                                                                        |
 | :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
