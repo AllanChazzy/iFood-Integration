@@ -1,3 +1,21 @@
+---
+- [Introdução :wave:](#introdução-wave)
+- [Roadmap :rocket:](#roadmap-rocket)
+- [Requisitos](#requisitos)
+  - [Parâmetros :gear:](#parâmetros-gear)
+  - [Cadastro de Produtos :label:](#cadastro-de-produtos-label)
+  - [Nova Tela - Produtos iFood :package:](#nova-tela---produtos-ifood-package)
+    - [Filtros :mag:](#filtros-mag)
+    - [Grid de Exibição de Dados :open\_file\_folder:](#grid-de-exibição-de-dados-open_file_folder)
+    - [Ações da Tela :pushpin:](#ações-da-tela-pushpin)
+    - [Regras de Negócio :lock:](#regras-de-negócio-lock)
+    - [Mensagens ao Usuário :incoming\_envelope:](#mensagens-ao-usuário-incoming_envelope)
+    - [Protótipo de Tela :desktop\_computer:](#protótipo-de-tela-desktop_computer)
+    - [Tabela de Dados para iFood :abacus:](#tabela-de-dados-para-ifood-abacus)
+- [Logs de Envio :passport\_control:](#logs-de-envio-passport_control)
+- [Simulações :test\_tube:](#simulações-test_tube)
+---
+
 # Introdução :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso.
