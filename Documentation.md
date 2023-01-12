@@ -1,22 +1,3 @@
-<!-- vscode-markdown-toc -->
-
-- 1. [Parâmetros :gear:](#Parmetros:gear:)
-- 2. [Cadastro de Produtos :label:](#CadastrodeProdutos:label:)
-- 3. [Nova Tela - Produtos iFood :package:](#NovaTela-ProdutosiFood:package:)
-  - 3.1. [Filtros :mag:](#Filtros:mag:)
-  - 3.2. [Grid de Exibição de Dados :open_file_folder:](#GriddeExibiodeDados:open_file_folder:)
-  - 3.3. [Ações da Tela :pushpin:](#AesdaTela:pushpin:)
-  - 3.4. [Regras de Negócio :lock:](#RegrasdeNegcio:lock:)
-  - 3.5. [Mensagens ao Usuário :incoming_envelope:](#MensagensaoUsurio:incoming_envelope:)
-  - 3.6. [Protótipo de Tela :desktop_computer:](#ProttipodeTela:desktop_computer:)
-  - 3.7. [Tabela de Dados para iFood :abacus:](#TabeladeDadosparaiFood:abacus:)
-
-<!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
 # Introdução :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso.
@@ -31,7 +12,7 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 # Requisitos
 
-## 1. <a name='Parmetros:gear:'></a>Parâmetros :gear:
+## Parâmetros :gear:
 
 Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações** e uma sub-aba **iFood** para organizar os Parâmetros descritos na tabela a seguir.
 
@@ -44,7 +25,7 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 
 **:bulb: Nota:** Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.
 
-## 2. <a name='CadastrodeProdutos:label:'></a>Cadastro de Produtos :label:
+## Cadastro de Produtos :label:
 
 No Cadastro de Produtos são necessários recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
 
@@ -56,11 +37,11 @@ No Cadastro de Produtos são necessários recursos para controlar os Produtos qu
 
 **:bulb: Nota:** Os campos acima só devem ser exibidos no Cadastro de Produtos se o Parâmetro **"Ativar Integração iFood"** estiver ativado.
 
-## 3. <a name='NovaTela-ProdutosiFood:package:'></a>Nova Tela - Produtos iFood :package:
+## Nova Tela - Produtos iFood :package:
 
 Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento. Dentre os principais recursos, deve ser possível listar vários produtos através de filtros, obedecendo às Regras de Negócio especificadas.
 
-### 3.1. <a name='Filtros:mag:'></a>Filtros :mag:
+### Filtros :mag:
 
 Os filtros necessários foram classificados em dois grupos para melhor experiência do usuário e clareza de informações em tela.
 
@@ -74,7 +55,7 @@ Além dos Grupos de Filtros, são necessárias duas Ações principais para os F
 1.  **Pesquisar** - Envolve todos os filtros informados, que inclusive deve ser permitido combiná-los.
 2.  **Limpar Filtros** - Facilita recomeçar pesquisas.
 
-### 3.2. <a name='GriddeExibiodeDados:open_file_folder:'></a>Grid de Exibição de Dados :open_file_folder:
+### Grid de Exibição de Dados :open_file_folder:
 
 Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
@@ -94,7 +75,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                                       |
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                                 |
 
-### 3.3. <a name='AesdaTela:pushpin:'></a>Ações da Tela :pushpin:
+### Ações da Tela :pushpin:
 
 | Botão/Função              | Descritivo                                                                                                                           | Regra de Negócio                                                                                                                                           |
 | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -104,7 +85,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
 | Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | Gravar Dados na Tabela de Envio para iFood. Consultar [Tabela de Dados](#tabela-de-dados-para-ifood)                                                       |
 
-### 3.4. <a name='RegrasdeNegcio:lock:'></a>Regras de Negócio :lock:
+### Regras de Negócio :lock:
 
 | Regra | Descrição                                                                  | Tratativa                                                                                                     |
 | :---- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
@@ -113,7 +94,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação. |
 | RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit.               |
 
-### 3.5. <a name='MensagensaoUsurio:incoming_envelope:'></a>Mensagens ao Usuário :incoming_envelope:
+### Mensagens ao Usuário :incoming_envelope:
 
 | Ação                                                    | Mensagem                                                                                                                                             | Tratativa                                                               |
 | :------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
@@ -122,11 +103,11 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Clicar no Botão "Enviar para iFood"                     | Mensagem de Confirmação: "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                       | Enviar Produtos selecionados na Lista                                   |
 | Selecionar e Enviar mais que 10.000 Produtos em um Lote | Mensagem de Aviso: "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
 
-### 3.6. <a name='ProttipodeTela:desktop_computer:'></a>Protótipo de Tela :desktop_computer:
+### Protótipo de Tela :desktop_computer:
 
 ![Protótipo de Tela](./Tela.png)
 
-### 3.7. <a name='TabeladeDadosparaiFood:abacus:'></a>Tabela de Dados para iFood :abacus:
+### Tabela de Dados para iFood :abacus:
 
 Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados na Tabela relacionada a seguir.
 
