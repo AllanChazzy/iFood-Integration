@@ -22,7 +22,7 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood. | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam a Filial configurada.                                                                                                                                                                                            |
 | Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.       | Deve ser permitido definir valores entre "Físico" ou "Presumido". Se "Físico", considerar a Quantidade Fisica total do Produto. Se "Presumido", considerar o Cálculo Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro). Sempre enviar o valor resultante, mesmo que zero ou negativo. |
 
-**:bulb: Nota: Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.**
+**:bulb: Nota:** Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.
 
 ## Cadastro de Produtos :label:
 
@@ -42,10 +42,10 @@ Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender
 
 Os filtros necessários foram classificados em dois grupos para melhor experiência do usuário e clareza de informações em tela.
 
-| Grupo       | Descritivo                                       | Campos do Grupo                                                                                                                                                                                                                                                                                                                                             |
-| :---------- | :----------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Segmentação | Grupo de Filtros para Segmentação do Produto     | Marca, Seção, Grupo, Subgrupo, Ambiente de Utilização, Fornecedor Padrão, Agrupador de Preços                                                                                                                                                                                                                                                               |
-| Produto     | Grupo de Filtros para Características do Produto | Com critérios (Contém, Começa Com, Termina Com, Igual a): Descrição, Referência Fabricante, Referência Auxiliar e Localização. <br><br> Sem critérios: Status do Produto, Empresas. Período de Data: Alteração de Preços (Log Preços). <br><br> Checkbox: Apenas Produtos com Estoque Positivo, Produtos não Enviados ao iFood e Produtos Desativados iFood |
+| Grupo       | Descritivo                                       | Campos do Grupo                                                                                                                                                                                                                                                                                                                                                 |
+| :---------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Segmentação | Grupo de Filtros para Segmentação do Produto     | Marca, Seção, Grupo, Subgrupo, Ambiente de Utilização, Fornecedor Padrão, Agrupador de Preços                                                                                                                                                                                                                                                                   |
+| Produto     | Grupo de Filtros para Características do Produto | Com critérios (Contém, Começa Com, Termina Com, Igual a): Descrição, Referência Fabricante, Referência Auxiliar e Localização. <br><br> Sem critérios: Status do Produto, Empresas. <br>Período de Data: Alteração de Preços (Log Preços). <br><br> Checkbox: Apenas Produtos com Estoque Positivo, Produtos não Enviados ao iFood e Produtos Desativados iFood |
 
 Além dos Grupos de Filtros, são necessárias duas Ações principais para os Filtros:
 
@@ -80,15 +80,15 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Alterar Política de Preço | Campo que exibe a Política de Preço, com permissão de edição.                                                                        | Reprocessar Preços iFood na _Grid_ conforme alteração da Política. <br> Se Política igual a 3 - Preço Especial, considerar alteração do Percentual padrão. |
 | Reativar Selecionados     | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos".                                                                                        |
 | Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
-| Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | -                                                                                                                                                          |
+| Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | Gravar Dados na Tabela de Envio para iFood. Consultar [Tabela de Dados](#tabela-de-dados-para-ifood)                                                       |
 
 ### Regras de Negócio :lock:
 
-| Regra | Descrição                                                                 | Tratativa                                                                                                    |
-| :---- | :------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------- |
-| RN01  | Não listar Produtos de "Aplicação de Direta"                              | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                             |
-| RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                    |
-| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar o Usuário sobre a ação. |
+| Regra | Descrição                                                                 | Tratativa                                                                                                     |
+| :---- | :------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------ |
+| RN01  | Não listar Produtos parametrizados como "Aplicação de Direta"             | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                              |
+| RN02  | Não listar Produtos do Tipo "Kit", "Fracionável" ou "Matéria Prima"       | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                     |
+| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio. | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação. |
 
 ### Mensagens ao Usuário :incoming_envelope:
 
@@ -102,6 +102,17 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 ### Protótipo de Tela :desktop_computer:
 
 ![Protótipo de Tela](./Tela.png)
+
+### Tabela de Dados para iFood
+
+Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados na Tabela relacionada a seguir.
+
+| Campo          | Descritivo              | Preenchimento                                           | Regra de Negócio                                                               |
+| :------------- | :---------------------- | :------------------------------------------------------ | :----------------------------------------------------------------------------- |
+| `idLoja`       | Código da Filial        | Utilizar o Código da Filial logada que gerou o comando. | Preenchimento Obrigatório                                                      |
+| `departamento` | Departamento do Produto | Utilizar a Descrição da **Seção** do Produto.           | Preenchimento Obrigatório. Se **Seção** não existir, informar o texto 'GERAL'. |
+| `categoria`    | Categoria do Produto    | Utilizar a Descrição do **Grupo** do Produto.           | Preenchimento Obrigatório. Se **Grupo** não existir, informar o texto 'GERAL'. |
+| `subCategoria` | SubCategoria do Produto | Utilizar a Descrição do **Subgrupo** do Produto.        | Preenchimento Não Obrigatório. Se **Subgrupo** não existir, informar vazio ''. |
 
 # Simulações :abacus:
 
