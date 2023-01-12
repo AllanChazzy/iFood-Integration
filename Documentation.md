@@ -1,21 +1,3 @@
----
-- [Introdução :wave:](#introdução-wave)
-- [Roadmap :rocket:](#roadmap-rocket)
-- [Requisitos](#requisitos)
-  - [Parâmetros :gear:](#parâmetros-gear)
-  - [Cadastro de Produtos :label:](#cadastro-de-produtos-label)
-  - [Nova Tela - Produtos iFood :package:](#nova-tela---produtos-ifood-package)
-    - [Filtros :mag:](#filtros-mag)
-    - [Grid de Exibição de Dados :open\_file\_folder:](#grid-de-exibição-de-dados-open_file_folder)
-    - [Ações da Tela :pushpin:](#ações-da-tela-pushpin)
-    - [Regras de Negócio :lock:](#regras-de-negócio-lock)
-    - [Mensagens ao Usuário :incoming\_envelope:](#mensagens-ao-usuário-incoming_envelope)
-    - [Protótipo de Tela :desktop\_computer:](#protótipo-de-tela-desktop_computer)
-    - [Tabela de Dados para iFood :abacus:](#tabela-de-dados-para-ifood-abacus)
-- [Logs de Envio :passport\_control:](#logs-de-envio-passport_control)
-- [Simulações :test\_tube:](#simulações-test_tube)
----
-
 # Introdução :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de um Recurso de Gerenciamento de Produtos a enviar para a API iFood. São descritos os métodos, regras de negócio e exemplos de tela para que a implementação desta integração, no ambito do Sistema Ganso.
@@ -43,6 +25,8 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 
 **:bulb: Nota:** Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este.
 
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
 ## Cadastro de Produtos :label:
 
 No Cadastro de Produtos são necessários recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
@@ -54,6 +38,8 @@ No Cadastro de Produtos são necessários recursos para controlar os Produtos qu
 | Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Também será utilizado como filtro na Tela de Envio de Produtos.                                                                |
 
 **:bulb: Nota:** Os campos acima só devem ser exibidos no Cadastro de Produtos se o Parâmetro **"Ativar Integração iFood"** estiver ativado.
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ## Nova Tela - Produtos iFood :package:
 
@@ -72,6 +58,8 @@ Além dos Grupos de Filtros, são necessárias duas Ações principais para os F
 
 1.  **Pesquisar** - Envolve todos os filtros informados, que inclusive deve ser permitido combiná-los.
 2.  **Limpar Filtros** - Facilita recomeçar pesquisas.
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Grid de Exibição de Dados :open_file_folder:
 
@@ -93,6 +81,8 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                                       |
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                                 |
 
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
 ### Ações da Tela :pushpin:
 
 | Botão/Função              | Descritivo                                                                                                                           | Regra de Negócio                                                                                                                                           |
@@ -103,6 +93,8 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
 | Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | Gravar Dados na Tabela de Envio para iFood. Consultar [Tabela de Dados](#tabela-de-dados-para-ifood)                                                       |
 
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
 ### Regras de Negócio :lock:
 
 | Regra | Descrição                                                                  | Tratativa                                                                                                     |
@@ -111,6 +103,8 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | RN02  | Não listar Produtos do Tipo "Fracionável" ou "Matéria Prima"               | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                     |
 | RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação. |
 | RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit.               |
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Mensagens ao Usuário :incoming_envelope:
 
@@ -124,6 +118,8 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 ### Protótipo de Tela :desktop_computer:
 
 ![Protótipo de Tela](./Tela.png)
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Tabela de Dados para iFood :abacus:
 
@@ -155,7 +151,11 @@ Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é n
 | `multiploEanOriginal`     |   `Texto (15)`    | Código de Barras do Produto de Fabricação Própria.        | Enviar vazio ''.                                                                                                                                                                                                   | Preenchimento Não Obrigatório.                                                                                             |
 | `multiploQtd`             | `Numérico (10,4)` | Quantidade do Produto na Embalagem de Fabricação Própria. | Enviar 0.                                                                                                                                                                                                          | Preenchimento Não Obrigatório.                                                                                             |
 
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
 # Logs de Envio :passport_control:
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 # Simulações :test_tube:
 
@@ -175,3 +175,5 @@ Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é n
 | Atualização da descrição do produto do tipo PRÓPRIO | Atualização do nome do produto saindo de A para B                                                         |
 | Atualização geral dos itens                         | Recebimento da atualização somente dos itens que houve alteração do lado do ERP ao invés da base completa |
 | Tempo de Atualização                                | Validação da atualização da base (Com update) com tempo de 120 minutos                                    |
+
+[Voltar ao Início](#introdução-wave)
