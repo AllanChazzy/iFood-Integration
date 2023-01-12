@@ -181,4 +181,12 @@ Os campos _chave_ para envio das informações são: `idLoja e codigoBarra`, com
 | Atualização geral dos itens                         | Recebimento da atualização somente dos itens que houve alteração do lado do ERP ao invés da base completa |
 | Tempo de Atualização                                | Validação da atualização da base (Com update) com tempo de 120 minutos                                    |
 
+# Referências :key:
+
+- [Developers iFood](https://developermercado.ifood.com.br/docs/produtos-api)
+- [Nota Técnica - NF-e](https://developermercado.ifood.com.br/page/nt-2020006)
+- [Tiny ERP](https://ajuda.tiny.com.br/hc/pt-br/articles/8289956453268-Integra%C3%A7%C3%A3o-Tiny-com-o-iFood-Mercado)
+- [Consumer ERP](https://ajuda.programaconsumer.com.br/como-integrar-o-programa-consumer-ao-ifood/)
+- [Linx - Site Mercado Integração](https://share.linx.com.br/pages/viewpage.action?pageId=262389984)
+
 [Voltar ao Início](#introdução-wave)
