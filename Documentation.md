@@ -12,6 +12,9 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 4. Implementar recursos para gravação de [Logs](#logs-de-envio-passport_control) de Envio.
 5. Realizar Testes Unitários de acordo com a Etapa de [Simulações](#simulações-test_tube) para Homologar o Recurso.
 
+
+![Roadmap](./Roadmap.png)
+
 # Requisitos
 
 ## Parâmetros :gear:
@@ -31,7 +34,7 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 
 ## Cadastro de Produtos :label:
 
-No Cadastro de Produtos são necessários recursos para controlar os Produtos que podem ser enviados, se já foram enviados e qual a situação do mesmo na Plataforma iFood.
+A seguir são descritos os recursos necessários para o Cadastro de Produtos para controle de Produtos que podem ser enviados, se houve envio e a situação dos mesmos na Plataforma iFood.
 
 | Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                                              |
 | :-------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -99,12 +102,13 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 
 ### Regras de Negócio :lock:
 
-| Regra | Descrição                                                                  | Tratativa                                                                                                     |
-| :---- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
-| RN01  | Não listar Produtos parametrizados como "Aplicação de Direta"              | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                              |
-| RN02  | Não listar Produtos do Tipo "Fracionável" ou "Matéria Prima"               | Verificar o campo Tipo do Produto do Cadastro de Produtos                                                     |
-| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação. |
-| RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit.               |
+| Regra | Descrição                                                                  | Tratativa                                                                                                                                                |
+| :---- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RN01  | Não listar Produtos "Aplicação de Direta"                                  | Verificar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                                                                         |
+| RN02  | Não listar Produtos do Tipo "Fracionável" ou "Matéria Prima"               | Verificar o campo "Tipo do Produto" do Cadastro de Produtos                                                                                              |
+| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação.                                            |
+| RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
+| RN05  | Aualizar Preço de Venda e Quantidade do Produto.                           | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
@@ -125,7 +129,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 
 ### Tabela de Dados para iFood :abacus:
 
-Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados em uma Tabela de Carga Inicial relacionada a seguir.
+Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados em uma Tabela de Carga Inicial, que pode ser utilizada tanto pelo _GansoAgent_ quanto pelo Software _SMI - Site Mercado Integrador_, que está relacionada a seguir.
 
 | Campo                     | Tipo e Tamanho  | Descritivo                                                           | Preenchimento                                                                                                                                                                                                      | Regra de Negócio                                                                                                           |
 | :------------------------ | :-------------: | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
@@ -159,6 +163,16 @@ Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é n
 Os campos _chave_ para envio das informações são: `idLoja e codigoBarra`, complementados com as informações do Preço ou Estoque. Se a alteração for de Preço de Venda, os campos `valor` e `valorPromocao` devem ser enviados. Se a alteração for de Estoque, o campo `quantidadeEstoqueAtual` deve ser enviado.
 
 # Logs de Envio :passport_control:
+
+Como medida de segurança, é importante que o Sistema Ganso efetue a gravação de Logs dos Processos ocorridos. Os dados necessários para Logs são:
+
+- Data e Hora do Envio
+- Usuário que acionou o envio
+- Número de Produtos selecionados
+- Número de Produtos Ativados
+- Número de Produtos Desativados
+- Percentual de Majoração Aplicado
+- Estoque Enviado
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
