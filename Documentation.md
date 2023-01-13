@@ -12,7 +12,6 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 4. Implementar recursos para gravação de [Logs](#logs-de-envio-passport_control) de Envio.
 5. Realizar Testes Unitários de acordo com a Etapa de [Simulações](#simulações-test_tube) para Homologar o Recurso.
 
-
 ![Roadmap](./Roadmap.png)
 
 # Requisitos
@@ -70,21 +69,21 @@ Além dos Grupos de Filtros, são necessárias duas Ações principais para os F
 
 Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
-| Campo/Função                             | Descritivo                                                              | Regra de Negócio                                                                                        |
-| :--------------------------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado      | Selecionado, Não Selecionado                                                                            |
-| Código Interno                           | Código Interno do Produto                                               | -                                                                                                       |
-| Código de Barras                         | Código de Barras Padrão do Produto                                      | -                                                                                                       |
-| Descrição                                | Descrição Completa do Produto                                           | -                                                                                                       |
-| Preço Normal                             | Preço de Venda Normal do Cadastro                                       | -                                                                                                       |
-| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                 | Considerar apenas Promoções da Modalidade Unitário                                                      |
-| Preço iFood                              | Preço de Venda para o iFood                                             | Considerar parametrização definida em [Política de Preço](#parâmetros-gear)                             |
-| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                  | -                                                                                                       |
-| Estoque Atual                            | Estoque Atual do Produto a enviar                                       | Considerar parametrização do [Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido)                  |
-| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                 | Regra de Negócio da Plataforma. Se Estoque zerado, o Produto é considerado indisponível automaticamente |
-| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_ de Dados                | -                                                                                                       |
-| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                                       |
-| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                                 |
+| Campo/Função                             | Descritivo                                                              | Regra de Negócio                                                                       |
+| :--------------------------------------- | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------- |
+| Caixa de Seleção                         | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado      | Selecionado, Não Selecionado                                                           |
+| Código Interno                           | Código Interno do Produto                                               | -                                                                                      |
+| Código de Barras                         | Código de Barras Padrão do Produto                                      | -                                                                                      |
+| Descrição                                | Descrição Completa do Produto                                           | -                                                                                      |
+| Preço Normal                             | Preço de Venda Normal do Cadastro                                       | -                                                                                      |
+| Preço Promoção                           | Preço de Venda na Promoção quando ativa                                 | Considerar apenas Promoções da Modalidade Unitário                                     |
+| Preço iFood                              | Preço de Venda para o iFood                                             | Considerar parametrização definida em [Política de Preço](#parâmetros-gear)            |
+| Marca, Seção, Grupo, Subgrupo            | Segmentação do Produto                                                  | -                                                                                      |
+| Estoque Atual                            | Estoque Atual do Produto a enviar                                       | Considerar parametrização do [Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido) |
+| Status iFood                             | Situação do Produto na Plataforma iFood (Ativo/Inativo)                 | Regra de Negócio da Plataforma.                                                        |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_ de Dados                | -                                                                                      |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                         | -                                                                                      |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados na _Grid_ | Exibir abaixo da _Grid_                                                                |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
@@ -94,8 +93,9 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Alterar Estoque de Envio  | Campo que exibe o Estoque Padrão de Envio, com permissão de edição.                                                                  | Reprocessar as Quantidades na _Grid_ conforme o Código de Estoque informado.                                                                               |
 | Alterar Política de Preço | Campo que exibe a Política de Preço, com permissão de edição.                                                                        | Reprocessar Preços iFood na _Grid_ conforme alteração da Política. <br> Se Política igual a 3 - Preço Especial, considerar alteração do Percentual padrão. |
-| Reativar Selecionados     | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que esteja "Inativos".                                                                                        |
-| Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que esteja "Ativos".                                                                                          |
+| Aplicar                   | Botão de Ação para Aplicar Estoque e Política de Preço aos Produtos exibidos na _Grid_.                                              | Todos os Produtos. Se seleção ativa, sugerir aplicar apenas à seleção.                                                                                     |
+| Reativar Selecionados     | Botão de Ação para Reativar Produtos selecionados da Base do iFood, quando Status igual a "Inativo" e o Usuário desejar reativá-los. | Somente Produtos uma vez enviados para iFood que estejam "Inativos".                                                                                       |
+| Desativar Selecionados    | Botão de Ação para Desativar Produtos selecionados da Base do iFood, quando Status igual a "Ativo"                                   | Somente Produtos uma vez enviados para iFood que estejam "Ativos".                                                                                         |
 | Enviar para iFood         | Botão de Ação para Enviar Produtos selecionados para o iFood                                                                         | Gravar Dados na Tabela de Envio para iFood. Consultar [Tabela de Dados](#tabela-de-dados-para-ifood)                                                       |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
@@ -116,6 +116,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 
 | Ação                                                    | Mensagem                                                                                                                                             | Tratativa                                                               |
 | :------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| Clicar no Botão "Aplicar"                               | Mensagem de Confirmação: "Aplicar Novo Estoque e Política de Preços ao itens selecionados/todos os itens ?"                                          | Reprocessar os Produtos listados na _Grid_                              |
 | Clicar no Botão "Desativar Selecionados"                | Mensagem de Confirmação: "Os Produtos Selecionados serão Desativados na Plataforma iFood. Deseja continuar ?"                                        | Enviar Desativação para a Plataforma através do comando correspondente. |
 | Clicar no Botão "Reativar Selecionados"                 | Mensagem de Confirmação: "Os Produtos Selecionados serão Reativados na Plataforma iFood. Deseja continuar ?"                                         | Enviar Reativação para a Plataforma através do comando correspondente.  |
 | Clicar no Botão "Enviar para iFood"                     | Mensagem de Confirmação: "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                       | Enviar Produtos selecionados na Lista                                   |
@@ -129,7 +130,9 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 
 ### Tabela de Dados para iFood :abacus:
 
-Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados em uma Tabela de Carga Inicial, que pode ser utilizada tanto pelo _GansoAgent_ quanto pelo Software _SMI - Site Mercado Integrador_, que está relacionada a seguir.
+Segundo a [Documentação do iFood](https://developermercado.ifood.com.br/docs/produtos-api#produto---integra%C3%A7%C3%A3o-utilizando-o-m%C3%A9todo-post), existem 2 métodos de Envio de Dados para API, o Método **POST** e **PATCH**. O Método **POST** deve ser utilizado para envio de uma **Carga Inicial de Dados**. O Método **PATCH** deve ser utilizado para atualizações de dados.
+
+Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é necessário gravar as informações dos Produtos selecionados em uma Tabela de Carga Inicial. Quando o Produto ainda não foi enviado ao iFood ([Campo Enviado para iFood = 'N'](#cadastro-de-produtos-label)) deverá compor a Lista do Método **POST**, se Produto já enviado uma vez, deverá compor a Lista do Método **PATCH**. As informações descritas na tabela abaixo serão utilizadas tanto pelo _GansoAgent_ quanto pelo Software _SMI - Site Mercado Integrador_.
 
 | Campo                     | Tipo e Tamanho  | Descritivo                                                           | Preenchimento                                                                                                                                                                                                      | Regra de Negócio                                                                                                           |
 | :------------------------ | :-------------: | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
@@ -159,12 +162,12 @@ Ao acionar do comando **Enviar para iFood** na Tela descrita anteriormente, é n
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
-:bulb: Para Atualizações dos Produtos já enviados, é necessário utilizar outro método na API do iFood. Quando o produto já existe na Base iFood, não é necessário enviar todos os dados, apenas as informações que sofreram alterações como **Estoque e Preço de Venda**.
-Os campos _chave_ para envio das informações são: `idLoja e codigoBarra`, complementados com as informações do Preço ou Estoque. Se a alteração for de Preço de Venda, os campos `valor` e `valorPromocao` devem ser enviados. Se a alteração for de Estoque, o campo `quantidadeEstoqueAtual` deve ser enviado.
+:bulb: **Nota:** Para Atualizações dos Produtos já enviados, é necessário utilizar outro método na API do iFood. Quando o produto já existe na Base iFood, **não é necessário** enviar todos os dados, apenas as informações que sofreram alterações como **Estoque e Preço de Venda**.
+Os campos _chave_ para envio das informações são: `idLoja` e `codigoBarra`, complementados com as informações do Preço ou Estoque. Se a alteração for de Preço de Venda, os campos `valor` e `valorPromocao` devem ser enviados. Se a alteração for de Estoque, o campo `quantidadeEstoqueAtual` deve ser enviado.
 
 # Logs de Envio :passport_control:
 
-Como medida de segurança, é importante que o Sistema Ganso efetue a gravação de Logs dos Processos ocorridos. Os dados necessários para Logs são:
+Como medida de segurança e auxílio de suporte, é importante que o Sistema Ganso efetue a gravação de Logs dos Processos ocorridos. Os dados necessários para Logs são:
 
 - Data e Hora do Envio
 - Usuário que acionou o envio
