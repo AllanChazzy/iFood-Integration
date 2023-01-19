@@ -49,7 +49,7 @@ A seguir são descritos os recursos necessários para o Cadastro de Produtos par
 ## Nova Tela - Produtos iFood :package:
 
 Para que o Usuário obtenha facilidade de controle de Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento.
-Esta Tela de Gerenciamento, pode aproveitar recursos da Tela de Agrupamento de Promoções Individuais, em que é possível utilizar Filtros, e criar uma Lista de Envio para Promoção.
+Esta Tela de Gerenciamento, pode ser semelhante a Tela de Agrupamento de Promoções Individuais, cuja visualização é dada em duas *Grids*, sendo possível utilizar Filtros, e criar uma Lista de Envio de Produtos.
 Dentre os principais recursos, deve ser possível listar vários produtos obedecendo Regras de Negócio especificas.
 
 ### Filtros :mag:
@@ -81,7 +81,7 @@ Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados
 | Preço Normal                  | Preço de Venda Normal do Cadastro                                  | -                                                                                      |
 | Preço Promoção                | Preço de Venda na Promoção quando ativa                            | Considerar apenas Promoções da Modalidade Unitário                                     |
 | Margem de Lucro %             | Margem de Lucro do Produto                                         | Exibir a Margem Padrão do Parâmetro                                                    |
-| Preço iFood                   | Preço de Venda para o iFood                                        | Considerar parametrização definida em [Política de Preço](#parâmetros-gear)            |
+| Preço iFood                   | Preço de Venda para o iFood                                        | Considerar Margem Adicional parametrizada em [Margem de Lucro nos Parâmetros](#parâmetros-gear)            |
 | Estoque Atual                 | Estoque Atual do Produto a enviar                                  | Considerar parametrização do [Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido) |
 | Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo)            | Regra de Negócio da Plataforma.                                                        |
 | Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                             | -                                                                                      |
