@@ -54,7 +54,45 @@ Dentre os principais recursos, deve ser possível listar vários produtos obedec
 
 ### Protótipo de Tela :desktop_computer:
 
-A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permitir que o Usuário faça a Gestão através de determinadas ações. A seguir um exemplo.
+A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permitir que o Usuário faça a Gestão através de determinadas ações. Deve conter os elementos descritos na tabela abaixo.
+
+Incluir uma _Grid_ nomeada de **Produtos Vendidos no iFood** que deve exibir os Produtos já contidos na Lista com os seguintes dados:
+
+| Campo                         | Descritivo                                              | Regra de Negócio                                                                                                               |
+| :---------------------------- | :------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
+| Caixa de Seleção              | Caixa de Seleção do Item                                | Selecionado, Não Selecionado                                                                                                   |
+| Código Interno                | Código Interno do Produto                               | -                                                                                                                              |
+| Código de Barras              | Código de Barras Padrão do Produto                      | -                                                                                                                              |
+| Descrição                     | Descrição Completa do Produto                           | -                                                                                                                              |
+| Preço Normal                  | Preço de Venda Normal                                   | Preço de Venda Normal enviado                                                                                                  |
+| Preço Promoção                | Preço de Venda de Promoção                              | Preço de Promoção enviado                                                                                                      |
+| Margem de Lucro %             | Margem de Lucro do Produto                              | Margem de Lucro enviada. Permitir digitação no campo para alterações. Solicitar [Chave de Acesso Restrito](#acessos-restritos) |
+| Preço iFood                   | Preço de Venda para o iFood                             | Preço de Venda enviado (Calculado através da Margem)                                                                           |
+| Estoque Atual                 | Estoque Atual do Produto a enviar                       | Quantidade em Estoque enviada                                                                                                  |
+| Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo) | Status Atual do Produto na Plataforma iFood                                                                                    |
+| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                  | Dados Recomendados, mas não são obrigatórios                                                                                   |
+
+Abaixo da _Grid_, incluir legenda para as ações que podem ser executadas nos itens:
+
+| Elemento                       | Descritivo                                              | Regra de Negócio                                                       |
+| :----------------------------- | :------------------------------------------------------ | :--------------------------------------------------------------------- |
+| Atalho [F3] - Pesquisar        | Acionar a Pesquisa na coluna selecionada                | -                                                                      |
+| Atalho [F4] - Selecionar Todos | Inverter a Seleção ou Selecionar todos os itens da Grid | -                                                                      |
+| Atalho [F5] - Limpar Seleção   | Limpar a Seleção da Grid                                | -                                                                      |
+| Atalho [F6] - Excluir          | Excluir os Itens Selecionados na Grid                   | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos) |
+| Atalho [F7] - Ativar/Desativar | Ativar ou Desativar Itens Selecionados na Grid          | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos) |
+| Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos) |
+| Texto                          | Número de Itens selecionados do Total                   | Exibir no formato x de y registros.                                    |
+
+A seguir, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid contendo:
+
+| Elemento            | Descritivo        | Regra de Negócio                                           |
+| :------------------ | :---------------- | :--------------------------------------------------------- |
+| Campo               | Estoque Padrão    | Campo para permitir alterar o Estoque aplicado aos itens   |
+| Campo               | Margem de Lucro   | Campo para permitir alterar a Margem aplicada aos itens    |
+| Caixa de Combinação | Precisão de Preço | Opções para configurar a Precisão do Preço de Venda iFood. |
+
+Continuar daqui...
 
 ![Protótipo de Tela](./Main-Screen.png)
 
@@ -139,6 +177,15 @@ Assim como ocorre com o recurso de **Enviar para Promoção**, entre a Grid de F
 | Clicar no Botão "Ativar" Selecionados                   | Mensagem de Confirmação: "Os Produtos Selecionados serão Reativados na Plataforma iFood. Deseja continuar ?"                                         | Enviar Reativação para a Plataforma através do comando correspondente.  |
 | Clicar no Botão "Enviar para iFood"                     | Mensagem de Confirmação: "Os Produtos Selecionados serão Enviados para a Plataforma iFood. Deseja continuar ?"                                       | Enviar Produtos selecionados na Lista                                   |
 | Selecionar e Enviar mais que 10.000 Produtos em um Lote | Mensagem de Aviso: "A iFood recomenda que sejam enviados apenas 10.000 itens por Pacote. O Sistema irá gerar um novo pacote a cada limite atingido." | Gerar um novo pacote a cada 10.000 Produtos selecionados para envio.    |
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
+### Acessos Restritos
+
+- Excluir Item do iFood
+- Ativar / Desativar Item do iFood
+- Alterar a Margem de Lucro
+- Aplicar Alteração aos demais itens
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
