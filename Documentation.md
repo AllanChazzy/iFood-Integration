@@ -109,13 +109,11 @@ Ao final da implementação dos recursos, o resultado será semelhante a imagem 
 
 A Tela de filtros e inclusão deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos** e deve conter os elementos abaixo:
 
-1. Duas _Grids_, uma no topo da Tela, uma _Grid_ que exibe o resultado dos filtros informados em [Filtros](#filtros-mag) e uma na parte de baixo da tela que exibe os Produtos selecionados para envio para Lista iFoood.
+1. Duas _Grids_, uma no topo da Tela que exibe o resultado dos filtros informados em [Filtros](#filtros-mag) e uma na parte de baixo da tela que exibe os Produtos selecionados para envio para Lista iFood.
 2. Entre as duas _Grids_, deve existir um grupo de funções chamado **Política de Preço** contendo funções básicas para adicionar e remover item, e um Botão de Ação para Acionar o filtro (**[Esc / F3] - Filtrar**).
 3. Quando o Usuário clicar no botão para acionar o filtro, um painel pop-up com todos os [Filtros](#filtros-mag) deve ser exibido no topo da tela.
 
 #### Filtros (Painel Pop-up) :mag:
-
-Os filtros necessários estão classificados em dois Grupos para melhor experiência do usuário e clareza de informações em tela.
 
 | Filtro                                         | Descritivo                                                                                                   | Regras de Negócio                                                                                                                                                          |
 | :--------------------------------------------- | :----------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -132,11 +130,17 @@ Os filtros necessários estão classificados em dois Grupos para melhor experiê
 | Opção Listar Não Vendidos no iFood             | Opção para permitir Listar Produtos com parâmetro [Não vender no iFood](#cadastro-de-produtos-label) marcado | Caixa de Seleção.                                                                                                                                                          |
 | Botões de Ação Filtrar e Limpar Filtros        | Ações para acionar o Filtro e Limpar os Filtros                                                              | **[F3] - Filtrar** - Aciona a Pesquisa envolvendo todos os filtros informados permitindo combinações. <br>**[F12] - Limpar Filtros** - Permite o reinício de uma pesquisa. |
 
+:bulb: **Nota:** Após usuário acionar a função **[F3] - Filtrar** o "Pop-up" de filtros deve ser ocultado, e somente deve ser exibido se o Usuário acionar novamente a função **[Esc / F3] - Filtrar** presente ao centro da Tela.
+
+Após implementação da Tela de Filtros Pop-Up, o resultado final deve ser semelhante a:
+
+![Pop-up Filtros](./Pop-up-Filters-Active.png)
+
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Resultado dos Filtros :open_file_folder:
 
-Incluir uma _Grid_ que deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
+Uma _Grid_ deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
 
 | Campo             | Descritivo                                                         | Regra de Negócio                                                                                                |
 | :---------------- | :----------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
