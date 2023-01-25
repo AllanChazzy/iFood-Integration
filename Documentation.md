@@ -110,8 +110,8 @@ Ao final da implementação dos recursos, o resultado será semelhante a imagem 
 A Tela de filtros e inclusão deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos** e deve conter os elementos abaixo:
 
 1. Duas _Grids_, uma no topo da Tela que exibe o resultado dos filtros informados em [Filtros](#filtros-mag) e uma na parte de baixo da tela que exibe os Produtos selecionados para envio para Lista iFood.
-2. Entre as duas _Grids_, deve existir um grupo de funções chamado **Política de Preço** contendo funções básicas para adicionar e remover item, e um Botão de Ação para Acionar o filtro (**[Esc / F3] - Filtrar**).
-3. Quando o Usuário clicar no botão para acionar o filtro, um painel pop-up com todos os [Filtros](#filtros-mag) deve ser exibido no topo da tela.
+2. Entre as duas _Grids_, deve existir um grupo de funções chamado **Configurações de Envio** contendo os campos de Margem de Lucro e Precisão de Preço, funções básicas para Adicionar e Remover item da Lista, e um Botão de Ação para Acionar o filtro **[Esc / F3] - Filtrar**.
+3. Quando o Usuário clicar no botão para acionar o filtro, um painel pop-up com todos os [Filtros](#filtros-mag) deve ser exibido no topo da tela, sobrepondo a _Grid_ do topo da tela.
 
 #### Filtros (Painel Pop-up) :mag:
 
@@ -163,6 +163,10 @@ Abaixo desta _Grid_, incluir legenda para as ações que podem ser executadas no
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_ | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
+### Ações de Tela
+
+Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configurações de Envio**
 
 ### Regras de Negócio Geral :lock:
 
