@@ -107,13 +107,19 @@ Ao final da implementação dos recursos, o resultado será semelhante a imagem 
 
 ### Tela de Filtros e Inclusão de Produtos
 
-A Tela de filtros e inclusão deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos** e deve conter os elementos abaixo:
+A Tela de filtros e inclusão deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos**. Esta tela deve funcionar como uma "Montagem de Lista" e deve conter os elementos abaixo:
 
-1. Duas _Grids_, uma no topo da Tela que exibe o resultado dos filtros informados em [Filtros](#filtros-mag) e uma na parte de baixo da tela que exibe os Produtos selecionados para envio para Lista iFood.
-2. Entre as duas _Grids_, deve existir um grupo de funções chamado **Configurações de Envio** contendo os campos de Margem de Lucro e Precisão de Preço, funções básicas para Adicionar e Remover item da Lista, e um Botão de Ação para Acionar o filtro **[Esc / F3] - Filtrar**.
-3. Quando o Usuário clicar no botão para acionar o filtro, um painel pop-up com todos os [Filtros](#filtros-mag) deve ser exibido no topo da tela, sobrepondo a _Grid_ do topo da tela.
+1. Uma _Grid_ chamada "**Resultado dos Filtros**" que deve exibir o resultado dos filtros. 
+2. Os filtros devem ser exibidos quando o Usuário acionar a função **[Esc / F3] - Filtrar**. Esta [Tela de Filtros](#filtros-painel-pop-up-mag) deve ser um Pop-up sobre a *Grid* de **Resultados dos Filtros**.
+3. Abaixo do **Resultado dos Filtros** deve existir um grupo de funções chamado **Configurações de Envio** contendo os campos de **Margem de Lucro** e **Precisão de Preço**, funções básicas para **Adicionar e Remover** item da Lista, e um Botão Principal de Ação para o Pop-up de Filtro (**[Esc / F3] - Filtrar**).
+4. Abaixo de **Configurações de Envio** deve existir uma _Grid_ chamada **"Itens a Enviar"** que deve exibir os Produtos que foram selecionados para compor a **Lista de Produtos Vendidos no iFood**.
+5. Por fim, deve existir uma ação **"Enviar para Lista"** todos os Produtos selecionados na *Grid* **Itens a Enviar**.
 
-#### Filtros (Painel Pop-up) :mag:
+Após implementações dos recursos, o resultado final deve ser semelhante a imagem abaixo.
+
+![Protótipo de Tela](./Secondary-Screen.png)
+
+### Filtros (Painel Pop-up) :mag:
 
 | Filtro                                         | Descritivo                                                                                                   | Regras de Negócio                                                                                                                                                          |
 | :--------------------------------------------- | :----------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -132,15 +138,15 @@ A Tela de filtros e inclusão deve ser ativada quando o Usuário clicar no Botã
 
 :bulb: **Nota:** Após usuário acionar a função **[F3] - Filtrar** o "Pop-up" de filtros deve ser ocultado, e somente deve ser exibido se o Usuário acionar novamente a função **[Esc / F3] - Filtrar** presente ao centro da Tela.
 
-Após implementação da Tela de Filtros Pop-Up, o resultado final deve ser semelhante a:
+Após implementação da Tela de Filtros Pop-Up, o resultado final deve ser semelhante a imagem abaixo.
 
-![Pop-up Filtros](./Pop-up-Filters-Active.png)
+![Pop-up Filtros](./Pop-up.png)
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Resultado dos Filtros :open_file_folder:
 
-Uma _Grid_ deve exibir os Produtos resultantes dos filtros aplicados. As colunas e elementos necessários para exibição e controle são:
+Dos Produtos resultantes dos Filtros aplicados, devem ser exibidas as seguintes informações:
 
 | Campo             | Descritivo                                                         | Regra de Negócio                                                                                                |
 | :---------------- | :----------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
@@ -154,7 +160,7 @@ Uma _Grid_ deve exibir os Produtos resultantes dos filtros aplicados. As colunas
 | Preço iFood       | Preço de Venda para o iFood                                        | Preço calculado conforme a Margem Adicional parametrizada em [Margem de Lucro nos Parâmetros](#parâmetros-gear) |
 | Estoque Atual     | Estoque Atual do Produto a enviar                                  | Estoque Conforme parametrização do [Estoque Padrão e Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido)   |
 
-Abaixo desta _Grid_, incluir legenda para as ações que podem ser executadas nos itens:
+Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser executadas para itens:
 
 | Elemento                                 | Descritivo                                                                       | Regra de Negócio                                |
 | :--------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------- |
@@ -164,7 +170,7 @@ Abaixo desta _Grid_, incluir legenda para as ações que podem ser executadas no
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
-### Ações de Tela
+### Configurações de Envio
 
 Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configurações de Envio**
 
