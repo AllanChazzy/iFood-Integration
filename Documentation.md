@@ -90,7 +90,7 @@ A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permit
 | Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos)     |
 | Texto                          | Número de Itens selecionados do Total                   | Exibir no formato x de y registros. Ex.: Selecionados: 10 de 18 registros. |
 
-4. A seguir, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid contendo:
+4. A seguir, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid, e ações padrão de Tela contendo:
 
 | Elemento            | Descritivo              | Regra de Negócio                                                                                                    |
 | :------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------ |
