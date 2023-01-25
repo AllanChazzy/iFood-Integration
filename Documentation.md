@@ -172,7 +172,7 @@ Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser exec
 
 ### Configurações de Envio
 
-Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configurações de Envio**
+Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configurações de Envio** contendo funções para alterar a Margem de Lucro e Precisão de Preço, e botões de ação para Adicionar ou Remover Itens da Lista.
 
 ### Regras de Negócio Geral :lock:
 
