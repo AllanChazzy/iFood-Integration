@@ -93,14 +93,14 @@ A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permit
 
 1. No rodapé da Tela, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid, e ações padrão que são:
 
-| Elemento            | Descritivo              | Regra de Negócio                                                                                                    |
-| :------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| Campo               | Estoque Padrão          | Campo para permitir alterar o Estoque aplicado aos itens                                                            |
-| Campo               | Margem de Lucro         | Campo para permitir alterar a Margem aplicada aos itens                                                             |
-| Caixa de Combinação | Precisão de Preço       | Opções para configurar a Precisão do Preço de Venda iFood, como por exemplo, arredondamento de casas decimais.      |
-| Botão de Ação       | Aplicar                 | Botão para Aplicar as configurações de Estoque, Margem de Lucro e Precisão de Preço aos itens selecionados na Grid. |
-| Botão de Ação       | Editar/Gravar           | Botão para Editar e Gravar alterações na Lista de Produtos.                                                         |
-| Botão de Ação       | [F10] - Lançar Produtos | Botão para Acionar a Tela de Lançamento de Produtos.                                                                |
+| Elemento            | Descritivo              | Regra de Negócio                                                                                                                                                                                                                                                                   |
+| :------------------ | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Campo               | Estoque Padrão          | Campo para permitir alterar o Estoque aplicado aos itens                                                                                                                                                                                                                           |
+| Campo               | Margem de Lucro         | Campo para permitir alterar a Margem aplicada aos itens                                                                                                                                                                                                                            |
+| Caixa de Combinação | Precisão de Preço       | Opções para configurar a Precisão do Preço de Venda iFood, como por exemplo, arredondamento de casas decimais. Disponibilizar opções como: <br>Final 9 - Ex.: 4,77 > 4,79 <br>Final 0 - Ex.: 4,77 > 4,70 <br>Próx. Inteiro - Ex.: 4,77 > 5,00 <br>Valor Inteiro - Ex.: 4,77 > 4,00 |
+| Botão de Ação       | Aplicar                 | Botão para Aplicar as configurações de Estoque, Margem de Lucro e Precisão de Preço aos itens **selecionados** na Grid.                                                                                                                                                            |
+| Botão de Ação       | Editar/Gravar           | Botão para Editar e Gravar alterações na Lista de Produtos.                                                                                                                                                                                                                        |
+| Botão de Ação       | [F10] - Lançar Produtos | Botão para Acionar a Tela de Lançamento de Produtos.                                                                                                                                                                                                                               |
 
 Ao final da implementação dos recursos, o resultado será semelhante a imagem abaixo:
 
