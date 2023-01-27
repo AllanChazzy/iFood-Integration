@@ -120,6 +120,8 @@ Após implementações dos recursos, o resultado final deve ser semelhante a ima
 
 ![Protótipo de Tela](./Secondary-Screen.png)
 
+Na sequencia, o detalhamento dos recursos.
+
 ### Filtros (Painel Pop-up) :mag:
 
 Quando o usuário acessar a Tela de Lançamento pela primeira vez, os filtros devem ser exibidos sobre a Grid de Resultado. Uma vez realizado filtros, o Pop-up deve ser ocultado e exibido somente se o Usuário acionar a função **[Esc / F3] - Filtrar**. Os filtros necessários são:
@@ -182,7 +184,7 @@ As configurações objetivam a alteração individual ou de uma seleção de pro
 | :------------------------- | :--------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Campo                      | Margem de Lucro                                                                          | Margem de Lucro parametrizada com permissão de edição. Solicitar [Acesso Restrito AR04](#acessos-restritos)                                                         |
 | Combo                      | Precisão de Preço. Método para determinar o "arredondamento" do Preço de Venda no iFood. | Disponibilizar opções como: <br>Final 9 - Ex.: 4,77 > 4,79 <br>Final 0 - Ex.: 4,77 > 4,70 <br>Próx. Inteiro - Ex.: 4,77 > 5,00 <br>Valor Inteiro - Ex.: 4,77 > 4,00 |
-| Botão Adicionar e Remover  | Adicionar ou Remover item da Lista                                                       | -                                                                                                                                                                   |
+| Botão Adicionar e Remover  | Adicionar ou Remover item da Lista de Itens a Enviar                                     | -                                                                                                                                                                   |
 | Botão [Esc / F3] - Filtrar | Acionar o Pop-up de Filtros                                                              | -                                                                                                                                                                   |
 
 ### Itens a Enviar :dart:
@@ -201,14 +203,15 @@ Incluir uma _Grid_ nomeada de **Itens a Enviar** que deve exibir os Produtos adi
 | Preço iFood       | Preço de Venda para o iFood        | Preço de Venda calculado pela Margem de Lucro configurada e com a precisão definida. |
 | Estoque Atual     | Estoque Atual do Produto           | Quantidade em Estoque do Estoque definido.                                           |
 
-Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser executadas para itens:
+Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as ações que podem ser executadas para itens e ação final:
 
-| Elemento                                 | Descritivo                                                                       | Regra de Negócio                                |
-| :--------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------- |
-| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_                                  | -                                               |
-| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_                                           | -                                               |
-| [Del / F6] - Remover                     | Função para remover itens selecionados na _Grid_                                 | -                                               |
-| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_ | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
+| Elemento                                 | Descritivo                                                                                                | Regra de Negócio                                |
+| :--------------------------------------- | :-------------------------------------------------------------------------------------------------------- | :---------------------------------------------- |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_                                                           | -                                               |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_                                                                    | -                                               |
+| [Del / F6] - Remover                     | Função para remover itens selecionados na _Grid_                                                          | -                                               |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_                          | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
+| Botão de Ação [F10] - Enviar para Lista  | Função para adicionar à Lista de Produtos iFood, todos os Itens selecionados na _Grid_ de Itens a Enviar. | Solicitar Confirmação.                          |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
