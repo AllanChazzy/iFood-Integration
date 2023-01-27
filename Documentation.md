@@ -58,19 +58,19 @@ A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permit
 
 1. Incluir uma _Grid_ nomeada de **Produtos Vendidos no iFood** que deve exibir os Produtos já contidos na Lista com os seguintes dados:
 
-| Campo                         | Descritivo                                              | Regra de Negócio                                                                                                                |
-| :---------------------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção              | Caixa de Seleção do Item                                | Selecionado, Não Selecionado                                                                                                    |
-| Código Interno                | Código Interno do Produto                               | -                                                                                                                               |
-| Código de Barras              | Código de Barras Padrão do Produto                      | -                                                                                                                               |
-| Descrição                     | Descrição Completa do Produto                           | -                                                                                                                               |
-| Preço Normal                  | Preço de Venda Normal                                   | Preço de Venda Normal enviado.                                                                                                  |
-| Preço Promoção                | Preço de Venda de Promoção                              | Preço de Promoção enviado.                                                                                                      |
-| Margem de Lucro %             | Margem de Lucro do Produto                              | Margem de Lucro enviada. Permitir digitação no campo para alterações. Solicitar [Chave de Acesso Restrito](#acessos-restritos). |
-| Preço iFood                   | Preço de Venda para o iFood                             | Preço de Venda enviado (Calculado através da Margem).                                                                           |
-| Estoque Atual                 | Estoque Atual do Produto a enviar                       | Quantidade em Estoque enviada.                                                                                                  |
-| Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo) | Status Atual do Produto na Plataforma iFood.                                                                                    |
-| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                  | Dados Recomendados, mas não são obrigatórios.                                                                                   |
+| Campo                         | Descritivo                                              | Regra de Negócio                                                                                                          |
+| :---------------------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+| Caixa de Seleção              | Caixa de Seleção do Item                                | Selecionado, Não Selecionado                                                                                              |
+| Código Interno                | Código Interno do Produto                               | -                                                                                                                         |
+| Código de Barras              | Código de Barras Padrão do Produto                      | -                                                                                                                         |
+| Descrição                     | Descrição Completa do Produto                           | -                                                                                                                         |
+| Preço Normal                  | Preço de Venda Normal                                   | Preço de Venda Normal do Produto.                                                                                         |
+| Preço Promoção                | Preço de Venda de Promoção                              | Preço de Promoção enviado, se houve promoção durante o envio.                                                             |
+| Margem de Lucro %             | Margem de Lucro do Produto                              | Margem de Lucro enviada. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito](#acessos-restritos). |
+| Preço iFood                   | Preço de Venda para o iFood                             | Preço de Venda enviado conforme o calculado pela Margem e que está atualmente na Plataforma.                              |
+| Estoque Atual                 | Estoque Atual do Produto                                | Quantidade em Estoque enviada.                                                                                            |
+| Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo) | Status Atual do Produto na Plataforma iFood.                                                                              |
+| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                  | Dados Recomendados, mas não são obrigatórios.                                                                             |
 
 1. Acima da _Grid_, incluir um campo para **Inserção Rápida** de Produto com as funcionalidades de:
 
@@ -150,17 +150,17 @@ Após implementação da Tela de Filtros Pop-Up, o resultado final deve ser seme
 
 Após usuário acionar a função **[F3] - Filtrar**, o Pop-up de filtros deve ser ocultado, e a _Grid_ de resultados deve exibir as seguintes informações dos Produtos:
 
-| Campo             | Descritivo                                                         | Regra de Negócio                                                                                                |
-| :---------------- | :----------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| Caixa de Seleção  | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado | Selecionado, Não Selecionado                                                                                    |
-| Código Interno    | Código Interno do Produto                                          | -                                                                                                               |
-| Código de Barras  | Código de Barras Padrão do Produto                                 | -                                                                                                               |
-| Descrição         | Descrição Completa do Produto                                      | -                                                                                                               |
-| Preço Normal      | Preço de Venda Normal do Cadastro                                  | -                                                                                                               |
-| Preço Promoção    | Preço de Venda na Promoção quando ativa                            | Considerar apenas Promoções da Modalidade Unitário. Se não existir promoção, exibir 0,00.                       |
-| Margem de Lucro % | Margem de Lucro do Produto                                         | Exibir a Margem Padrão do Parâmetro                                                                             |
-| Preço iFood       | Preço de Venda para o iFood                                        | Preço calculado conforme a Margem Adicional parametrizada em [Margem de Lucro nos Parâmetros](#parâmetros-gear) |
-| Estoque Atual     | Estoque Atual do Produto a enviar                                  | Estoque Conforme parametrização do [Estoque Padrão e Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido)   |
+| Campo             | Descritivo                                                         | Regra de Negócio                                                                                               |
+| :---------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| Caixa de Seleção  | Caixa de Seleção do Item para indicar que o mesmo deve ser enviado | Selecionado, Não Selecionado                                                                                   |
+| Código Interno    | Código Interno do Produto                                          | -                                                                                                              |
+| Código de Barras  | Código de Barras Padrão do Produto                                 | -                                                                                                              |
+| Descrição         | Descrição Completa do Produto                                      | -                                                                                                              |
+| Preço Normal      | Preço de Venda Normal do Cadastro                                  | Preço de Venda Atual                                                                                           |
+| Preço Promoção    | Preço de Venda na Promoção se ativa no momento                     | Considerar apenas Promoções da Modalidade Unitário. Se não existir promoção, exibir 0,00.                      |
+| Margem de Lucro % | Margem de Lucro do Produto                                         | Exibir a Margem Padrão do Parâmetro                                                                            |
+| Preço iFood       | Preço de Venda para o iFood                                        | Preço calculado conforme a Margem de Lucro parametrizada em [Margem de Lucro nos Parâmetros](#parâmetros-gear) |
+| Estoque Atual     | Estoque Atual do Produto a enviar                                  | Estoque Conforme parametrização do [Estoque Padrão e Tipo de Estoque](#parâmetros-gear) (Físico ou Presumido)  |
 
 Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser executadas para itens:
 
