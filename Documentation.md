@@ -7,8 +7,8 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 # Roadmap :rocket:
 
 1. Implementar [Parâmetros](#parâmetros-gear) e Alterações no [Cadastro de Produtos](#cadastro-de-produtos-label).
-2. Criar uma [Tela Nova](#nova-tela---produtos-ifood-package) para comportar filtros e funções de envio de produtos.
-3. Implementar recursos para gravação da [Lista de Produtos](#tabela-de-dados-para-ifood-abacus) a sincronizar.
+2. Criar uma [Tela Nova](#nova-tela---produtos-ifood-package) para exibir os Produtos integrados com funções de gerenciamento.
+3. Implementar recursos para gravação da [Lista de Produtos](#dados-requeridos-pelo-ifood-abacus) a sincronizar.
 4. Implementar recursos para gravação de [Logs](#logs-de-envio-passport_control) de Envio.
 5. Realizar Testes Unitários de acordo com a Etapa de [Simulações](#simulações-test_tube) para Homologar o Recurso.
 
@@ -20,13 +20,13 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações** e uma sub-aba **iFood** para organizar os Parâmetros descritos na tabela a seguir.
 
-| Parâmetro                     | Descritivo                                                                                                           | Regra de Negócio                                                                                                                                                                                                                                                                                                                               |
-| :---------------------------- | :------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ativar Integração iFood       | Opção para Ativar Integração iFood                                                                                   | Ativa a Integração pelo _GansoAgent_, habilita os Campos do [Cadastro de Produtos](#cadastro-de-produtos-label) e a [Tela de Nova de Gerenciamento](#nova-tela---produtos-ifood-package).                                                                                                                                                      |
-| Margem de Lucro               | Campo para definir o Percentual de Margem de Lucro aplicável sobre o Preço de Venda do Produto no iFood.             | O Percentual deve ser obrigatório, e deve ser aplicado ao Preço de Venda Normal e sobre o Preço de Promoção, se o Usuário optar por Enviar o Preço de Promoção do Produto. Este percentual deve ser gravado no Produto quando enviado para a Lista.                                                                                            |
-| Enviar Promoção               | Opção para sinalizar se o Preço de Promoção será enviado, caso uma Promoção Unitária estiver ativada para o Produto. | Se Usuário selecionar esta opção, e o Produto possuir uma Promoção na Modalidade "Unitário" Ativa, enviar o Preço no respectivo campo de `valorPromocao` identificado na Documentação.                                                                                                                                                         |
-| Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                      | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam à Filial configurada.                                                                                                                                                                                                                         |
-| Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                            | Deve ser permitido escolher uma opção entre "Físico" ou "Presumido". <br><br> Se "Físico", considerar a Quantidade Física Total do Produto. <br>Se "Presumido", considerar o Cálculo (Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro específico)). Sempre enviar o valor resultante, mesmo que zero ou negativo. |
+| Parâmetro                     | Descritivo                                                                                                           | Regra de Negócio                                                                                                                                                                                                                                                                                                                                         |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ativar Integração iFood       | Opção para Ativar Integração iFood                                                                                   | Ativa a Integração pelo _GansoAgent_, habilita os Campos do [Cadastro de Produtos](#cadastro-de-produtos-label) e a [Tela de Nova de Gerenciamento](#nova-tela---produtos-ifood-package).                                                                                                                                                                |
+| Margem de Lucro               | Campo para definir o Percentual de Margem de Lucro aplicável sobre o Preço de Venda do Produto no iFood.             | O Percentual deve ser obrigatório, e deve ser aplicado ao Preço de Venda Normal e sobre o Preço de Promoção, se o Usuário optar por Enviar o Preço de Promoção do Produto. Este percentual deve ser gravado no Produto quando enviado para a Lista.                                                                                                      |
+| Enviar Promoção               | Opção para sinalizar se o Preço de Promoção será enviado, caso uma Promoção Unitária estiver ativada para o Produto. | Enviar o Preço da Promoção, se parâmetro ativo e o Produto possuir uma Promoção na Modalidade "Unitário" Ativa.                                                                                                                                                                                                                                          |
+| Estoque Padrão de Envio iFood | Campo para definir o Código do Estoque Padrão a considerar para envio das Quantidades ao iFood.                      | Deve aceitar apenas códigos de estoque cadastrados em Arquivos > Almoxarifados, que correspondam à Filial configurada.                                                                                                                                                                                                                                   |
+| Tipo de Estoque               | Campo para definir qual tipo de Estoque a considerar para envio das Quantidades ao iFood.                            | Deve ser permitido escolher uma opção entre "Físico" ou "Presumido". <br><br> Se "Físico", considerar a Quantidade Física Total do Produto. <br>Se "Presumido", considerar o Cálculo (Estoque Físico - Estoque Reservado - Estoque A Retirar (se ativado parâmetro do Estoque à Retirar)). Sempre enviar o valor resultante, mesmo que zero ou negativo. |
 
 **:bulb: Nota:** Conforme documentação do iFood, o envio de atualizações deve obedecer o Rate Limit de 60 minutos, não permitindo um intervalo menor que este. Deste modo não é necessário existir um Parâmetro para configurar um "Tempo Limite" ou "Tempo de Resposta".
 
@@ -34,13 +34,13 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 
 ## Cadastro de Produtos :label:
 
-A seguir são descritos os recursos necessários a implementar no Cadastro de Produtos para controle quais podem ser enviados, se houve envio e a situação dos mesmos na Plataforma iFood.
+Nesta Seção são descritos os recursos necessários a implementar no Cadastro de Produtos para controle.
 
-| Tipo      | Descrição           | Regra de Negócio                                                                                                                                                                                                         |
-| :-------- | :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Parâmetro | Não Vender no iFood | Parâmetro do Produto que restinge o Envio do mesmo ao Integrador iFood. Ativando este parâmetro, o Produto não deve ser listado na Tela de Envio/Gerenciamento, e não deve ser enviado por outros meios.                 |
-| Campo     | Enviado para iFood  | Campo para identificar se o Produto foi enviado para iFood na carga Inicial. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos.   |
-| Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos. |
+| Elemento  | Descrição           | Regra de Negócio                                                                                                                                                                                                                                                                                                                                                        |
+| :-------- | :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parâmetro | Não Vender no iFood | Parâmetro do Produto que restinge o Envio do mesmo ao Integrador iFood. Ativando este parâmetro, o Produto não deve ser listado na Tela de Envio/Gerenciamento por padrão, e não deve ser enviado por outros meios. Se por decisão do usuário, o produto precisar ser enviado, é necessário desativar este parâmetro ou gerar o envio através da Tela de Gerenciamento. |
+| Campo     | Enviado para iFood  | Campo para identificar se o Produto pertence à Lista de Produtos iFood. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos.                                                                                                                                                       |
+| Campo     | Status iFood        | Campo para identificar se o Produto está Ativo ou Inativo na Plataforma iFood. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos.                                                                                                                                                |
 
 **:bulb: Nota:** Como Regra de Negócio, os campos acima só devem ser exibidos e gerenciados se o Parâmetro **"Ativar Integração iFood"** estiver ativado.
 
@@ -50,29 +50,28 @@ A seguir são descritos os recursos necessários a implementar no Cadastro de Pr
 
 Para que o Usuário obtenha melhor experiência de controle dos Produtos que deseja vender no iFood, é necessário a criação de uma Tela de Gerenciamento.
 Esta Tela de Gerenciamento, deve ser semelhante a Tela de Agrupamento de Promoções Individuais, cuja principal função é compor uma **Lista de Produtos**, com possibilidade de utilizar Filtros.
-Dentre os principais recursos, deve ser possível listar vários produtos obedecendo Regras de Negócio especificas.
 
-### Protótipo de Tela Principal :desktop_computer:
+### Recursos da Tela Principal :desktop_computer:
 
-A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permitir que o Usuário faça a Gestão através de determinadas ações. Deve conter os elementos descritos na tabela abaixo.
+A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permitir que o Usuário faça a Gestão através de determinadas ações. Deve conter os elementos descritos a seguir.
 
 1. Incluir uma _Grid_ nomeada de **Produtos Vendidos no iFood** que deve exibir os Produtos já contidos na Lista com os seguintes dados:
 
-| Campo                         | Descritivo                                              | Regra de Negócio                                                                                                          |
-| :---------------------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
-| Caixa de Seleção              | Caixa de Seleção do Item                                | Selecionado, Não Selecionado                                                                                              |
-| Código Interno                | Código Interno do Produto                               | -                                                                                                                         |
-| Código de Barras              | Código de Barras Padrão do Produto                      | -                                                                                                                         |
-| Descrição                     | Descrição Completa do Produto                           | -                                                                                                                         |
-| Preço Normal                  | Preço de Venda Normal                                   | Preço de Venda Normal do Produto.                                                                                         |
-| Preço Promoção                | Preço de Venda de Promoção                              | Preço de Promoção enviado, se houve promoção durante o envio.                                                             |
-| Margem de Lucro %             | Margem de Lucro do Produto                              | Margem de Lucro enviada. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito](#acessos-restritos). |
-| Preço iFood                   | Preço de Venda para o iFood                             | Preço de Venda enviado conforme o calculado pela Margem e que está atualmente na Plataforma.                              |
-| Estoque Atual                 | Estoque Atual do Produto                                | Quantidade em Estoque enviada.                                                                                            |
-| Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo) | Status Atual do Produto na Plataforma iFood.                                                                              |
-| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                  | Dados Recomendados, mas não são obrigatórios.                                                                             |
+| Campo                         | Descritivo                                              | Regra de Negócio                                                                                                               |
+| :---------------------------- | :------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
+| Caixa de Seleção              | Caixa de Seleção do Item                                | Selecionado, Não Selecionado                                                                                                   |
+| Código Interno                | Código Interno do Produto                               | -                                                                                                                              |
+| Código de Barras              | Código de Barras Padrão do Produto                      | -                                                                                                                              |
+| Descrição                     | Descrição Completa do Produto                           | -                                                                                                                              |
+| Preço Normal                  | Preço de Venda Normal                                   | Preço de Venda Normal do Produto.                                                                                              |
+| Preço Promoção                | Preço de Venda de Promoção                              | Preço de Promoção enviado, se houve promoção durante o envio.                                                                  |
+| Margem de Lucro %             | Margem de Lucro do Produto                              | Margem de Lucro enviada. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito AR04](#acessos-restritos). |
+| Preço iFood                   | Preço de Venda para o iFood                             | Preço de Venda enviado conforme o calculado pela Margem e que está atualmente na Plataforma.                                   |
+| Estoque Atual                 | Estoque Atual do Produto                                | Quantidade em Estoque enviada.                                                                                                 |
+| Status iFood                  | Situação do Produto na Plataforma iFood (Ativo/Inativo) | Status Atual do Produto na Plataforma iFood.                                                                                   |
+| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                  | Dados Recomendados, mas não são obrigatórios.                                                                                  |
 
-1. Acima da _Grid_, incluir um campo para **Inserção Rápida** de Produto com as funcionalidades de:
+2. Acima da _Grid_, incluir um campo para **Inserção Rápida** de Produto com as funcionalidades:
 
    - Atalho de Teclado para ativar a Função, por exemplo: **[F1] - Inserção Rápida**.
    - Digitação e adição do Produto ao teclar <Enter>.
@@ -80,19 +79,19 @@ A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permit
    - Permitir utilização da Consulta [F2] padrão do Sistema.
    - O Produto digitado deve ser inserido na lista com as Configurações de Estoque e Margem de Lucro padrões dos Parâmetros.
 
-2. Abaixo da _Grid_, incluir legenda para as ações que podem ser executadas nos itens:
+3. Abaixo da _Grid_, incluir legenda para as ações que podem ser executadas nos itens:
 
 | Elemento                       | Descritivo da Ação                                      | Regra de Negócio                                                            |
 | :----------------------------- | :------------------------------------------------------ | :-------------------------------------------------------------------------- |
 | Atalho [F3] - Pesquisar        | Acionar a Pesquisa na coluna selecionada                | Exibir um diálogo com um campo para usuário digitar o critério de pesquisa. |
 | Atalho [F4] - Selecionar Todos | Inverter a Seleção ou Selecionar todos os itens da Grid | -                                                                           |
 | Atalho [F5] - Limpar Seleção   | Limpar a Seleção da Grid                                | -                                                                           |
-| Atalho [F6] - Excluir          | Excluir os Itens Selecionados na Grid                   | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos)      |
-| Atalho [F7] - Ativar/Desativar | Ativar ou Desativar Itens Selecionados na Grid          | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos)      |
-| Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito](#acessos-restritos)      |
+| Atalho [F6] - Excluir          | Excluir os Itens Selecionados na Grid                   | Solicitar Confirmação e [Chave de Acesso Restrito AR01](#acessos-restritos) |
+| Atalho [F7] - Ativar/Desativar | Ativar ou Desativar Itens Selecionados na Grid          | Solicitar Confirmação e [Chave de Acesso Restrito AR02](#acessos-restritos) |
+| Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito AR06](#acessos-restritos) |
 | Texto                          | Exibição do Número de Itens selecionados do Total       | Exibir no formato x de y registros. Ex.: Selecionados: 10 de 18 registros.  |
 
-4. A seguir, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid, e ações padrão de Tela contendo:
+1. No rodapé da Tela, incluir um grupo de funções para **Reprocessar Estoque e Preços** dos Itens da Grid, e ações padrão que são:
 
 | Elemento            | Descritivo              | Regra de Negócio                                                                                                    |
 | :------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------ |
@@ -101,18 +100,18 @@ A Tela Inicial deve exibir a Lista de Produtos já enviados ao iFood para permit
 | Caixa de Combinação | Precisão de Preço       | Opções para configurar a Precisão do Preço de Venda iFood, como por exemplo, arredondamento de casas decimais.      |
 | Botão de Ação       | Aplicar                 | Botão para Aplicar as configurações de Estoque, Margem de Lucro e Precisão de Preço aos itens selecionados na Grid. |
 | Botão de Ação       | Editar/Gravar           | Botão para Editar e Gravar alterações na Lista de Produtos.                                                         |
-| Botão de Ação       | [F10] - Lançar Produtos | Botão para Acionar a Tela de Filtros para Inserção de Produtos.                                                     |
+| Botão de Ação       | [F10] - Lançar Produtos | Botão para Acionar a Tela de Lançamento de Produtos.                                                                |
 
 Ao final da implementação dos recursos, o resultado será semelhante a imagem abaixo:
 
 ![Protótipo de Tela](./Main-Screen.png)
 
-### Tela de Filtros e Inclusão de Produtos :mag_right:
+### Recursos da Tela de Lançamento de Produtos :mag_right:
 
-A Tela de filtros e inclusão de produtos deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos**. Esta tela deve funcionar como uma "Montagem de Lista" e deve conter os elementos abaixo:
+A Tela de Lançamento de Produtos deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos**. Esta tela deve funcionar como uma "Montagem de Lista" e deve conter os elementos abaixo:
 
 1. Uma _Grid_ chamada "**Resultado dos Filtros**" que deve exibir o resultado dos filtros.
-2. Os filtros devem ser exibidos quando o Usuário acessar a primeira vez a Tela ou quando acionar a função **[Esc / F3] - Filtrar**. Esta [Tela de Filtros](#filtros-painel-pop-up-mag) deve ser um Pop-up sobre a _Grid_ de **Resultados**.
+2. Os filtros devem ser exibidos quando o Usuário acessar a primeira vez a Tela ou quando acionar a função **[Esc / F3] - Filtrar**. Estes [Filtros](#filtros-painel-pop-up-mag) devem ser exibidos como um Pop-up sobre a _Grid_ de **Resultados**.
 3. Abaixo do **Resultado dos Filtros** deve existir um grupo de funções chamado **Configurações de Envio** contendo os campos de **Margem de Lucro** e **Precisão de Preço**, funções básicas para **Adicionar e Remover** item da Lista, e um Botão Principal de Ação para acesso ao Pop-up de Filtro (**[Esc / F3] - Filtrar**).
 4. Abaixo de **Configurações de Envio** deve existir uma _Grid_ chamada **"Itens a Enviar"** que deve exibir os Produtos que foram selecionados para compor a **Lista de Produtos Vendidos no iFood**.
 5. Por fim, deve existir uma ação de **"Enviar para Lista"** todos os Produtos selecionados na _Grid_ **Itens a Enviar**.
@@ -122,6 +121,8 @@ Após implementações dos recursos, o resultado final deve ser semelhante a ima
 ![Protótipo de Tela](./Secondary-Screen.png)
 
 ### Filtros (Painel Pop-up) :mag:
+
+Quando o usuário acessar a Tela de Lançamento pela primeira vez, os filtros devem ser exibidos sobre a Grid de Resultado. Uma vez realizado filtros, o Pop-up deve ser ocultado e exibido somente se o Usuário acionar a função **[Esc / F3] - Filtrar**. Os filtros necessários são:
 
 | Filtro                                         | Descritivo                                                                                                   | Regras de Negócio                                                                                                                                                                                   |
 | :--------------------------------------------- | :----------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -140,7 +141,7 @@ Após implementações dos recursos, o resultado final deve ser semelhante a ima
 
 :bulb: **Nota:** Após usuário acionar a função **[F3] - Filtrar** o "Pop-up" de filtros deve ser ocultado, e somente deve ser exibido se o Usuário acionar novamente a função **[Esc / F3] - Filtrar** presente ao centro da Tela.
 
-Após implementação da Tela de Filtros Pop-Up, o resultado final deve ser semelhante a imagem abaixo.
+Após implementação dos Filtros Pop-Up, o resultado final deve ser semelhante a imagem abaixo.
 
 ![Pop-up Filtros](./Pop-up.png)
 
@@ -175,6 +176,41 @@ Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser exec
 ### Configurações de Envio
 
 Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configurações de Envio** contendo funções para alterar a Margem de Lucro e Precisão de Preço, e botões de ação para Adicionar ou Remover Itens da Lista.
+As configurações objetivam a alteração individual ou de uma seleção de produtos. Devem existir os elementos;
+
+| Elemento                   | Descritivo                                                                               | Regra de Negócio                                                                                                                                                    |
+| :------------------------- | :--------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Campo                      | Margem de Lucro                                                                          | Margem de Lucro parametrizada com permissão de edição. Solicitar [Acesso Restrito AR04](#acessos-restritos)                                                         |
+| Combo                      | Precisão de Preço. Método para determinar o "arredondamento" do Preço de Venda no iFood. | Disponibilizar opções como: <br>Final 9 - Ex.: 4,77 > 4,79 <br>Final 0 - Ex.: 4,77 > 4,70 <br>Próx. Inteiro - Ex.: 4,77 > 5,00 <br>Valor Inteiro - Ex.: 4,77 > 4,00 |
+| Botão Adicionar e Remover  | Adicionar ou Remover item da Lista                                                       | -                                                                                                                                                                   |
+| Botão [Esc / F3] - Filtrar | Acionar o Pop-up de Filtros                                                              | -                                                                                                                                                                   |
+
+### Itens a Enviar :dart:
+
+Incluir uma _Grid_ nomeada de **Itens a Enviar** que deve exibir os Produtos adicionados na Lista Prévia com os seguintes dados:
+
+| Campo             | Descritivo                         | Regra de Negócio                                                                     |
+| :---------------- | :--------------------------------- | :----------------------------------------------------------------------------------- |
+| Caixa de Seleção  | Caixa de Seleção do Item           | Selecionado, Não Selecionado                                                         |
+| Código Interno    | Código Interno do Produto          | -                                                                                    |
+| Código de Barras  | Código de Barras Padrão do Produto | -                                                                                    |
+| Descrição         | Descrição Completa do Produto      | -                                                                                    |
+| Preço Normal      | Preço de Venda Normal              | Preço de Venda Normal do Produto.                                                    |
+| Preço Promoção    | Preço de Venda de Promoção         | Preço de Promoção se parametrizado para envio e se houve promoção durante a seleção. |
+| Margem de Lucro % | Margem de Lucro do Produto         | Margem de Lucro definida.                                                            |
+| Preço iFood       | Preço de Venda para o iFood        | Preço de Venda calculado pela Margem de Lucro configurada e com a precisão definida. |
+| Estoque Atual     | Estoque Atual do Produto           | Quantidade em Estoque do Estoque definido.                                           |
+
+Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser executadas para itens:
+
+| Elemento                                 | Descritivo                                                                       | Regra de Negócio                                |
+| :--------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------- |
+| [F4] - Selecionar Todos/Inverter Seleção | Função para Selecionar todos os itens da _Grid_                                  | -                                               |
+| [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_                                           | -                                               |
+| [Del / F6] - Remover                     | Função para remover itens selecionados na _Grid_                                 | -                                               |
+| Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_ | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
 ### Regras de Negócio Geral :lock:
 
@@ -200,14 +236,14 @@ Após a _Grid_ dos itens resultantes dos filtros, incluir o grupo **Configuraç�
 
 ### Acessos Restritos
 
-| Grupo    | Descritivo                                                               | Regra de Negócio                                                                                                   |
-| :------- | :----------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| Produtos | Remover Item da Lista de Vendidos no iFood                               | Eliminar o Item da Lista                                                                                           |
-| Produtos | Ativar / Desativar Item selecionado na Lista de Vendidos no iFood        | Manter o Item na Lista e alterar o Status                                                                          |
-| Produtos | Reprocessar Estoque e Preços da Lista de Vendidos no iFood               | Aplicar apenas aos itens selecionados conforme parâmetros definidos nos campos                                     |
-| Produtos | Permitir alteração da Margem de Lucro do Item                            | Permitir edição da coluna Margem de Lucro no Item                                                                  |
-| Produtos | Ativar/Desativar parâmetro "Não Vender no iFood" no Cadastro de Produtos | Se Produto parametrizado para "Não Vender no iFood" enviado para Lista, alterar o parâmetro no Cadastro do Produto |
-| Produtos | Aplicar Alteração aos demais itens                                       | Se marcada a opção "Aplicar aos demais itens", processar alterações para os itens selecionados                     |
+| #    | Grupo    | Descritivo                                                               | Regra de Negócio                                                                                                   |
+| :--- | :------- | :----------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| AR01 | Produtos | Remover Item da Lista de Vendidos no iFood                               | Eliminar o Item da Lista                                                                                           |
+| AR02 | Produtos | Ativar / Desativar Item selecionado na Lista de Vendidos no iFood        | Manter o Item na Lista e alterar o Status                                                                          |
+| AR03 | Produtos | Reprocessar Estoque e Preços da Lista de Vendidos no iFood               | Aplicar apenas aos itens selecionados conforme parâmetros definidos nos campos                                     |
+| AR04 | Produtos | Permitir alteração da Margem de Lucro do Item                            | Permitir edição da coluna Margem de Lucro no Item                                                                  |
+| AR05 | Produtos | Ativar/Desativar parâmetro "Não Vender no iFood" no Cadastro de Produtos | Se Produto parametrizado para "Não Vender no iFood" enviado para Lista, alterar o parâmetro no Cadastro do Produto |
+| AR06 | Produtos | Aplicar Alteração aos demais itens                                       | Se marcada a opção "Aplicar aos demais itens", processar alterações para os itens selecionados                     |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
@@ -250,6 +286,8 @@ Além das informações requeridas pelo iFood, campos para controle devem ser cr
 | CODIGO_FILIAL  | Código da Filial que enviou o Produto para Lista do iFood | Código da Filial com a Integração Ativada que estava logada no momento da criação da lista.                                                                 |
 | CODIGO_ESTOQUE | Código do Estoque enviado do Produto                      | Código do Estoque definido em parâmetro ou definido no reprocessamento. A informação é importante para manter os dados atualizados do local correto.        |
 | MARGEM_LUCRO   | Margem de Lucro enviada do Produto                        | Margem de Lucro definida em parâmetro, no reprocessamento ou na digitação do item. A informação é importante para manter os dados atualizados corretamente. |
+| SINCRONIZADO   | Sinalização de Sincronização                              | Sim ou Não. Indica se o Produto está "atualizado" no iFood.                                                                                                 |
+| DATA_HORA_SINC | Data e Hora da última Sincronização                       | Data e Hora da última sincronização ocorrida.                                                                                                               |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
