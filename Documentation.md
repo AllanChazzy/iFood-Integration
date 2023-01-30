@@ -221,9 +221,8 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 | :---- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | RN01  | Não listar Produtos "Aplicação de Direta"                                  | Considerar o Parâmetro "Aplicação Direta" do Cadastro de Produtos                                                                                        |
 | RN02  | Não listar Produtos do Tipo "Fracionável" ou "Matéria Prima"               | Considerar o campo "Tipo do Produto" do Cadastro de Produtos                                                                                             |
-| RN03  | Não Permitir enviar mais que 10.000 Produtos em um único pacote de envio.  | Se a seleção do usuário ultrapassar 10.000 Produtos, gerar um novo pacote e informar ao Usuário sobre a ação.                                            |
-| RN04  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
-| RN05  | Aualizar Preço de Venda e Quantidade do Produto.                           | Se houver atualizações de Preço de Venda e Estoque do Produto, atualizar periódicamente a Lista.                                                         |
+| RN03  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
+| RN04  | Aualizar Preço de Venda e Quantidade do Produto.                           | Se houver atualizações de Preço de Venda e Estoque do Produto, atualizar periódicamente a Lista.                                                         |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
@@ -283,13 +282,13 @@ O Método **POST** deve ser utilizado para envio de uma **Carga Inicial de Dados
 
 Além das informações requeridas pelo iFood, campos para controle devem ser criados. Abaixo exemplos de possíveis informações.
 
-| Campo          | Descritivo                                                | Preenchimento                                                                                                                                               |
-| :------------- | :-------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CODIGO_FILIAL  | Código da Filial que enviou o Produto para Lista do iFood | Código da Filial com a Integração Ativada que estava logada no momento da criação da lista.                                                                 |
-| CODIGO_ESTOQUE | Código do Estoque enviado do Produto                      | Código do Estoque definido em parâmetro ou definido no reprocessamento. A informação é importante para manter os dados atualizados do local correto.        |
-| MARGEM_LUCRO   | Margem de Lucro enviada do Produto                        | Margem de Lucro definida em parâmetro, no reprocessamento ou na digitação do item. A informação é importante para manter os dados atualizados corretamente. |
-| SINCRONIZADO   | Sinalização de Sincronização                              | Sim ou Não. Indica se o Produto está "atualizado" no iFood.                                                                                                 |
-| DATA_HORA_SINC | Data e Hora da última Sincronização                       | Data e Hora da última sincronização ocorrida.                                                                                                               |
+| Campo                 | Descritivo                                                | Preenchimento                                                                                                                                               |
+| :-------------------- | :-------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Código Filial         | Código da Filial que enviou o Produto para Lista do iFood | Código da Filial com a Integração Ativada que estava logada no momento da criação da lista.                                                                 |
+| Código Estoque        | Código do Estoque enviado do Produto                      | Código do Estoque definido em parâmetro ou definido no reprocessamento. A informação é importante para manter os dados atualizados do local correto.        |
+| Margem Lucro          | Margem de Lucro enviada do Produto                        | Margem de Lucro definida em parâmetro, no reprocessamento ou na digitação do item. A informação é importante para manter os dados atualizados corretamente. |
+| Sincronizado          | Sinalização de Sincronização                              | Sim ou Não. Indica se o Produto está "atualizado" no iFood.                                                                                                 |
+| Data Hora Sincronismo | Data e Hora da última Sincronização                       | Data e Hora da última sincronização ocorrida.                                                                                                               |
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
