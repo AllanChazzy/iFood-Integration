@@ -226,6 +226,12 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 
 [Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
 
+### Fluxo Ilustrado :dizzy:
+
+![Fluxo Básico](./Flow01.png)
+
+[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+
 ### Mensagens ao Usuário :incoming_envelope:
 
 | Ação                                                                                      | Mensagem                                                                                                                 | Tratativa                                    |
