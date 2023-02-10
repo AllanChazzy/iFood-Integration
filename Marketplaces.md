@@ -29,19 +29,19 @@ A Tela Principal deve exibir a Lista de Produtos já enviados ao Marketplace par
 
 1. Incluir uma _Grid_ nomeada de **Produtos do Marketplace** que deve exibir os Produtos já contidos na Lista com os seguintes dados:
 
-| Campo                         | Descritivo                                                    | Regra de Negócio                                                                                                               |
-| :---------------------------- | :------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
-| Caixa de Seleção              | Caixa de Seleção do Item                                      | Selecionado, Não Selecionado                                                                                                   |
-| Código Interno                | Código Interno do Produto                                     | -                                                                                                                              |
-| Código de Barras              | Código de Barras Padrão do Produto                            | -                                                                                                                              |
-| Descrição                     | Descrição Completa do Produto                                 | -                                                                                                                              |
-| Preço Normal                  | Preço de Venda Normal                                         | Preço de Venda Normal do Produto.                                                                                              |
-| Preço Promoção                | Preço de Venda de Promoção                                    | Preço de Promoção enviado, se houve promoção durante o envio.                                                                  |
-| Margem de Lucro %             | Margem de Lucro do Produto                                    | Margem de Lucro enviada. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito AR04](#acessos-restritos). |
-| Preço Marketplace             | Preço de Venda para o Marketplace                             | Preço de Venda enviado conforme o calculado pela Margem e que está atualmente na Plataforma.                                   |
-| Estoque Atual                 | Estoque Atual do Produto                                      | Quantidade em Estoque enviada.                                                                                                 |
-| Status Marketplace            | Situação do Produto na Plataforma Marketplace (Ativo/Inativo) | Status Atual do Produto na Plataforma Marketplace.                                                                             |
-| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                        | Dados Recomendados, mas não são obrigatórios.                                                                                  |
+| Campo                         | Descritivo                                                    | Regra de Negócio                                                                                                                                                                                                    |
+| :---------------------------- | :------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Caixa de Seleção              | Caixa de Seleção do Item                                      | Selecionado, Não Selecionado                                                                                                                                                                                        |
+| Código Interno                | Código Interno do Produto                                     | -                                                                                                                                                                                                                   |
+| Código de Barras              | Código de Barras Padrão do Produto                            | -                                                                                                                                                                                                                   |
+| Descrição                     | Descrição Completa do Produto                                 | -                                                                                                                                                                                                                   |
+| Preço Normal                  | Preço de Venda Normal                                         | Preço de Venda Normal do Produto.                                                                                                                                                                                   |
+| Preço Promoção                | Preço de Venda de Promoção                                    | Preço de Promoção enviado, se houve promoção durante o envio.                                                                                                                                                       |
+| Margem de Lucro %             | Margem de Lucro do Produto                                    | Margem de Lucro enviada. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito AR04](#acessos-restritos-passport_control).                                                                     |
+| Preço Marketplace             | Preço de Venda para o Marketplace                             | Preço de Venda enviado conforme o calculado pela Margem e que está atualmente na Plataforma. Permitir digitação na própria colunas. Solicitar [Chave de Acesso Restrito AR04](#acessos-restritos-passport_control). |
+| Estoque Atual                 | Estoque Atual do Produto                                      | Quantidade em Estoque enviada.                                                                                                                                                                                      |
+| Status Marketplace            | Situação do Produto na Plataforma Marketplace (Ativo/Inativo) | Status Atual do Produto na Plataforma Marketplace.                                                                                                                                                                  |
+| Marca, Seção, Grupo, Subgrupo | Segmentação do Produto                                        | Dados Recomendados, mas não são obrigatórios.                                                                                                                                                                       |
 
 2. Acima da _Grid_ anterior, incluir um campo para **Inserção Rápida** de Produto com as funcionalidades de:
 
@@ -53,15 +53,15 @@ A Tela Principal deve exibir a Lista de Produtos já enviados ao Marketplace par
 
 3. Abaixo da _Grid_, incluir legenda para as ações que podem ser executadas nos itens:
 
-| Elemento                       | Descritivo da Ação                                      | Regra de Negócio                                                            |
-| :----------------------------- | :------------------------------------------------------ | :-------------------------------------------------------------------------- |
-| Atalho [F3] - Pesquisar        | Acionar a Pesquisa na coluna selecionada                | Exibir um diálogo com um campo para usuário digitar o critério de pesquisa. |
-| Atalho [F4] - Selecionar Todos | Inverter a Seleção ou Selecionar todos os itens da Grid | -                                                                           |
-| Atalho [F5] - Limpar Seleção   | Limpar a Seleção da Grid                                | -                                                                           |
-| Atalho [F6] - Excluir          | Excluir os Itens Selecionados na Grid                   | Solicitar Confirmação e [Chave de Acesso Restrito AR01](#acessos-restritos) |
-| Atalho [F7] - Ativar/Desativar | Ativar ou Desativar Itens Selecionados na Grid          | Solicitar Confirmação e [Chave de Acesso Restrito AR02](#acessos-restritos) |
-| Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito AR06](#acessos-restritos) |
-| Texto                          | Exibição do Número de Itens selecionados do Total       | Exibir no formato x de y registros. Ex.: Selecionados: 10 de 18 registros.  |
+| Elemento                       | Descritivo da Ação                                      | Regra de Negócio                                                                             |
+| :----------------------------- | :------------------------------------------------------ | :------------------------------------------------------------------------------------------- |
+| Atalho [F3] - Pesquisar        | Acionar a Pesquisa na coluna selecionada                | Exibir um diálogo com um campo para usuário digitar o critério de pesquisa.                  |
+| Atalho [F4] - Selecionar Todos | Inverter a Seleção ou Selecionar todos os itens da Grid | -                                                                                            |
+| Atalho [F5] - Limpar Seleção   | Limpar a Seleção da Grid                                | -                                                                                            |
+| Atalho [F6] - Excluir          | Excluir os Itens Selecionados na Grid                   | Solicitar Confirmação e [Chave de Acesso Restrito AR01](#acessos-restritos-passport_control) |
+| Atalho [F7] - Ativar/Desativar | Ativar ou Desativar Itens Selecionados na Grid          | Solicitar Confirmação e [Chave de Acesso Restrito AR02](#acessos-restritos-passport_control) |
+| Caixa de Seleção               | Aplicar alteração as demais selecionados \*             | Solicitar Confirmação e [Chave de Acesso Restrito AR06](#acessos-restritos-passport_control) |
+| Texto                          | Exibição do Número de Itens selecionados do Total       | Exibir no formato x de y registros. Ex.: Selecionados: 10 de 18 registros.                   |
 
 4. No rodapé da Tela, incluir um grupo de Funções Rápidas para **Reprocessar Estoque e Preços** dos Itens da Grid, e ações padrão que são:
 
@@ -195,5 +195,28 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 | RN02  | Não listar Produtos do Tipo "Fracionável" ou "Matéria Prima"               | Considerar o campo "Tipo do Produto" do Cadastro de Produtos                                                                                             |
 | RN03  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
 | RN04  | Aualizar Preço de Venda e Quantidade do Produto.                           | Se houver atualizações de Preço de Venda e Estoque do Produto, atualizar periódicamente a Lista.                                                         |
+
+[Voltar ao Início](#introdução---minuta-wave)
+
+### Mensagens ao Usuário :incoming_envelope:
+
+| Ação                                                                                      | Mensagem                                                                                                                 | Tratativa                                    |
+| :---------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- | :------------------------------------------- |
+| Clicar no Botão **Aplicar** do Grupo "Reprocessar Estoque e Preços" da Tela Principal     | Mensagem de Confirmação: "Aplicar novo Estoque e Preços ao itens selecionados/todos os itens ?"                          | Reprocessar os Produtos listados na _Grid_   |
+| Utilizar a função **[F7] - Ativar / Desativar** para itens selecionados na Tela Principal | Mensagem de Confirmação: "Os Produtos Selecionados serão Ativados / Desativados na Plataforma iFood. Deseja continuar ?" | Atualizar o Status iFood dos Itens da Lista. |
+| Clicar no Botão **[F10] - Enviar para Lista** na tela de Lançamento de Itens              | Mensagem de Confirmação: "Os Produtos Selecionados serão enviados para a Lista de Vendidos no iFood. Deseja continuar ?" | Enviar Produtos selecionados para Lista      |
+
+[Voltar ao Início](#introdução---minuta-wave)
+
+### Acessos Restritos :passport_control:
+
+| #    | Grupo    | Descritivo                                                               | Regra de Negócio                                                                                                   |
+| :--- | :------- | :----------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| AR01 | Produtos | Remover Item da Lista de Vendidos no iFood                               | Eliminar o Item da Lista                                                                                           |
+| AR02 | Produtos | Ativar / Desativar Item selecionado na Lista de Vendidos no iFood        | Manter o Item na Lista e alterar o Status                                                                          |
+| AR03 | Produtos | Reprocessar Estoque e Preços da Lista de Vendidos no iFood               | Aplicar apenas aos itens selecionados conforme parâmetros definidos nos campos                                     |
+| AR04 | Produtos | Permitir alterações no Item                                              | Permitir edição da coluna Margem de Lucro ou Preço Marketplace no Item                                             |
+| AR05 | Produtos | Ativar/Desativar parâmetro "Não Vender no iFood" no Cadastro de Produtos | Se Produto parametrizado para "Não Vender no iFood" enviado para Lista, alterar o parâmetro no Cadastro do Produto |
+| AR06 | Produtos | Aplicar Alteração aos demais itens                                       | Se marcada a opção "Aplicar aos demais itens", processar alterações para os itens selecionados                     |
 
 [Voltar ao Início](#introdução---minuta-wave)
