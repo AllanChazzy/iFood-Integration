@@ -1,4 +1,4 @@
-# Introdução :wave:
+# Introdução - Minuta :wave:
 
 O presente documento objetiva descrever os requisitos básicos para implementação de Recursos para Gerenciamento de Produtos a enviar para Marketplaces. Em suma, o recurso atenderá a maioria das integrações e os requisitos são genéricos de preparação do Sistema Ganso.
 
