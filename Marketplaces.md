@@ -16,7 +16,7 @@ Nesta Seção são descritos os recursos necessários a implementar no Cadastro 
 
 **:bulb: Nota:** Como Regra de Negócio primária, os campos acima só devem ser exibidos e gerenciados se houver **Integração** ativada com algum **Marketplace**.
 
-[Voltar ao Início](#introdução-wave)
+[Voltar ao Início](#introdução---minuta-wave)
 
 ## Nova Tela - Gerenciamentos de Produtos do Marketplace :package:
 
@@ -83,7 +83,7 @@ Ao final da implementação dos recursos, o resultado será semelhante a imagem 
 A Tela de Lançamento de Produtos deve ser ativada quando o Usuário clicar no Botão de Ação **[F10] - Lançar Produtos**. Esta tela deve funcionar como uma "Montagem de Lista" e deve conter os elementos abaixo:
 
 1. Uma _Grid_ chamada "**Resultado dos Filtros**" (Grid1) que deve exibir o resultado dos filtros.
-2. Os filtros devem ser exibidos quando o Usuário acessar a primeira vez a Tela ou quando acionar a função **[Esc / F3] - Filtrar**. Estes [Filtros](#filtros-painel-pop-up-mag) devem ser exibidos como um Pop-up sobre a _Grid_ de **Resultados**.
+2. Os filtros devem ser exibidos quando o Usuário acessar a primeira vez a Tela ou quando acionar a função **[Esc / F3] - Filtrar**. Estes [Filtros](#resultado-dos-filtros-grid1-open_file_folder) devem ser exibidos como um Pop-up sobre a _Grid_ de **Resultados**.
 3. Abaixo do **Resultado dos Filtros** deve existir um grupo de funções chamado **Configurações de Envio** contendo os campos de **Margem de Lucro** e **Precisão de Preço**, funções básicas para **Adicionar e Remover** item da Lista, e um Botão Principal de Ação para acesso ao Pop-up de Filtro (**[Esc / F3] - Filtrar**).
 4. Abaixo de **Configurações de Envio** deve existir uma _Grid_ chamada **"Itens a Enviar"** (Grid2) que deve exibir os Produtos que foram selecionados para compor a **Lista de Produtos Vendidos no Marketplace**.
 5. Por fim, deve existir uma ação de **"Enviar para Lista"** todos os Produtos selecionados na _Grid_ **Itens a Enviar**.
@@ -119,7 +119,7 @@ Após implementação dos Filtros Pop-Up, o resultado final deve ser semelhante 
 
 ![Pop-up Filtros](./Pop-up.png)
 
-[Voltar ao Início](#introdução-wave)
+[Voltar ao Início](#introdução---minuta-wave)
 
 ### Resultado dos Filtros (Grid1) :open_file_folder:
 
@@ -145,7 +145,7 @@ Abaixo desta _Grid_ de Dados, incluir legenda para as ações que podem ser exec
 | [F5] - Limpar Seleção                    | Função para limpar a seleção da _Grid_ de Dados                                  | -                                               |
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_ | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
 
-[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+[Voltar ao Início](#introdução---minuta-wave)
 
 ### Configurações de Envio
 
@@ -185,7 +185,7 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 | Contagem de Produtos selecionados        | Texto informativo sobre a quantidade de Produtos selecionados do total na _Grid_                                | Exibir uma Contagem [x] de [y] abaixo da _Grid_ |
 | Botão de Ação [F10] - Enviar para Lista  | Função para adicionar à Lista de Produtos Marketplace, todos os Itens selecionados na _Grid_ de Itens a Enviar. | Solicitar Confirmação.                          |
 
-[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+[Voltar ao Início](#introdução---minuta-wave)
 
 ### Regras de Negócio Geral :lock:
 
@@ -196,4 +196,4 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 | RN03  | Calcular Preço de Venda Total do Kit ao Listar Kit de Produtos para Envio. | Se usuário selecionar a Opção "Listar Kit de Produtos", calcular o Preço de Venda Total do Kit, utilizando as configurações e produtos incluídos no Kit. |
 | RN04  | Aualizar Preço de Venda e Quantidade do Produto.                           | Se houver atualizações de Preço de Venda e Estoque do Produto, atualizar periódicamente a Lista.                                                         |
 
-[Voltar ao Roadmap](#roadmap-rocket) | [Voltar ao Início](#introdução-wave)
+[Voltar ao Início](#introdução---minuta-wave)
