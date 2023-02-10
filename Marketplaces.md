@@ -1,22 +1,23 @@
-# Introdução - Minuta :wave:
+# Introdução :wave:
 
-O presente documento objetiva descrever os requisitos básicos para implementação de Recursos para Gerenciamento de Produtos a enviar para Marketplaces. Em suma, o recurso atenderá a maioria das integrações e os requisitos são genéricos de preparação do Sistema Ganso.
+O presente documento objetiva descrever os requisitos básicos para implementação de Recursos para Gerenciamento de Produtos a enviar para Marketplaces. Inicialmente, o recurso atenderá a maioria das integrações e os requisitos são genéricos de preparação do Sistema Ganso.
 
 ![Integração Tray](./Integration02.png)
 
 ## Cadastro de Produtos :label:
 
-Nesta Seção são descritos os recursos necessários a implementar no Cadastro de Produtos para controle.
+Nesta Seção são descritos os recursos necessários a implementar no Cadastro de Produtos para controle. Estas informações devem ser gravadas por **Filial** conforme estrutura de `PRODUTO_PARAMETROS`.
 
-| Elemento  | Descrição                 | Regra de Negócio                                                                                                                                                                                                                                                                                                                                                  |
-| :-------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Parâmetro | Não Vender em Marketplace | Parâmetro do Produto que restinge o Envio do mesmo ao Marketplace. Ativando este parâmetro, o Produto não deve ser listado na Tela de Envio/Gerenciamento por padrão, e não deve ser enviado por outros meios. Se por decisão do usuário o produto precisar ser enviado, é necessário desativar este parâmetro ou gerar o envio através da Tela de Gerenciamento. |
-| Campo     | Enviado para Marketplace  | Campo para identificar se o Produto pertence à Lista de Produtos do Marketplace. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos. Além disso, pode ser utilizado para gerar atualização para o Produto na Lista de Marketplace.                                          |
-| Campo     | Status Marketplace        | Campo para identificar se o Produto está Ativo ou Inativo no Marketplace. Esta informação deve ser exibida em local de fácil visualização, e será utilizada como filtro na Tela de Envio/Gerenciamento de Produtos.                                                                                                                                               |
+| Elemento                   | Pai              | Nome                        | Descritivo e Regra de Negócio                                                                                                                                                                                                                                                                                                                                                                            |
+| :------------------------- | :--------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Aba                        | Cadastro         | Marketplaces                | Criar uma aba que concentra todas as Configurações de Marketplace do Produto. Deve exibir em quais Marketplaces o Produto está ativo, com informações de Código do Integrador, Nome, Margem de Lucro (quando for o caso), Preço de Venda no Marketplace e Status do Produto no Marketplace.                                                                                                              |
+| Lista de Caixas de Seleção | Aba Marketplaces | Não Vender nos Marketplaces | Parâmetros do Produto que define para quais Marketplaces não deve ser permitido enviar o Produto à Lista. Ativando este parâmetro, o Produto não deve ser listado na Tela de Envio/Gerenciamento por padrão, e não deve ser enviado por outros meios. Se por decisão do usuário o produto precisar ser enviado, é necessário desativar este parâmetro ou gerar o envio através da Tela de Gerenciamento. |
+| Campo                      | Aba Marketplaces | Código da Filial            | Campo para filtrar a Filial para exibir os dados carregados na Grid de informações dos Marketplaces.                                                                                                                                                                                                                                                                                                     |
+| Grid                       | Aba Marketplaces | Marketplaces do Produto     | Grid para exibir em quais Marketplaces o Produto está incluído. É importante exibir as informações de Código do Integrador, Nome do Integrador, Margem de Lucro, Preço de Venda e Status do Marketplace.                                                                                                                                                                                                 |
 
-**:bulb: Nota:** Como Regra de Negócio primária, os campos acima só devem ser exibidos e gerenciados se houver **Integração** ativada com algum **Marketplace**.
+> **:bulb: Nota:** Como Regra de Negócio principal, a Aba Marketplaces só deve ser exibida e gerenciadas se houver **Integração** ativada para qualquer **Marketplace**.
 
-[Voltar ao Início](#introdução---minuta-wave)
+[Voltar ao Início](#introdução-wave)
 
 ## Nova Tela - Gerenciamentos de Produtos do Marketplace :package:
 
