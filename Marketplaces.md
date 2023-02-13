@@ -274,7 +274,7 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 
 [Voltar ao Início](#introdução-wave)
 
-### Acessos Restritos :passport_control:
+## Acessos Restritos :passport_control:
 
 | #    | Grupo    | Descritivo                                                               | Regra de Negócio                                                                                                   |
 | :--- | :------- | :----------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
@@ -286,9 +286,17 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 
 [Voltar ao Início](#introdução-wave)
 
-## Simulações :test_tube:
+# Automatizações
 
-# Especificação de Dados por Integrador
+Durante análise da Integração possíveis automatismos foram levantandos para melhor Gestão do Recurso. Inicialmente, tem-se as seguintes automatizações.
+
+| #   | Descritivo                                  | Condições                                                                                                                                                                                                                                                                                                                                        |
+| :-- | :------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A01 | Inclusão de Produto na Lista do Marketplace | Se Usuário Cadastrar um Novo Produto e a Integração com Marketplace está ativada, sugerir inclusão do mesmo na Lista dos Marketplaces ativos através do Próprio Cadastro de Produtos. Sugerir apenas se houver um Preço de Venda maior que zero informado no Cadastro e para os Marketplaces não contidos no Parâmetro "Restringir Marketplace". |
+| A02 | Atualização de Preço de Venda               | Se Usuário atualizar o Preço de Venda de um Produto que está contido na Lista do Marketplace, atualizar o Preço de Venda obedecendo a Margem de Lucro aplicada ao Produto.                                                                                                                                                                       |
+| A03 | Atualizar Estoque de Produtos da Lista      | Se Usuário atualizar o Estoque de um Produto que está contido na Lista do Marketplace, atualizar o Estoque Atual obedecendo Local de Estoque e Tipo de Estoque definidos durante o Envio do Produto.                                                                                                                                             |
+
+# Especificação de Dados Requeridos por Integrador
 
 Via de Regra, os Integradores requerem dados específicos para Cadastro de Produtos, contudo, para **controle da própria Aplicação Ganso**, é necessário que exista campos específicos, conforme descrito abaixo:
 
