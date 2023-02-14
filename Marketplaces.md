@@ -380,6 +380,25 @@ O Método **POST** deve ser utilizado para envio de uma **Carga Inicial de Dados
 
 # Simulações :test_tube:
 
+## Integração iFood
+
+| Cenário de Homologação                              | Resultado esperado                                                                                                                |
+| :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| Carga de Produtos do tipo EAN                       | Recebimento dos produtos na Base iFood                                                                                            |
+| Atualização de Status do Produto do tipo EAN        | Recebimento de produtos com alteração de status (Ativo / Inativo)                                                                 |
+| Atualização de Preços do Produto do tipo EAN        | Atualização de preço de produtos saindo de A para B                                                                               |
+| Atualização de Preços De / Por do tipo EAN          | Atualização de preço de produtos saindo de A para B tendo o DE/POR (Envio de Preço da Promoção)                                   |
+| Atualização de Estoque do tipo EAN                  | Atualização do valor de estoque de A para B (Atualizações Automáticas ou Manuais)                                                 |
+| Atualização da descrição do produto do tipo EAN     | Atualização do nome/descrição do produto saindo de A para B                                                                       |
+| Carga de Produtos do tipo PRÓPRIO                   | Recebimento dos produtos do tipo Kit ou Produzido                                                                                 |
+| Atualização de Status do Produto do tipo PRÓPRIO    | Recebimento de produtos com alteração de status (Ativo / Inativo)                                                                 |
+| Atualização de Preços do Produto do tipo PRÓPRIO    | Atualização de preço de produtos saindo de A para B                                                                               |
+| Atualização de Preços De / Por do tipo PRÓPRIO      | Atualização de preço de produtos saindo de A para B tendo o DE/POR (Envio de Preço da Promoção)                                   |
+| Atualização de Estoque do tipo PRÓPRIO              | Atualização do valor de estoque de A para B                                                                                       |
+| Atualização da descrição do produto do tipo PRÓPRIO | Atualização do nome do produto saindo de A para B                                                                                 |
+| Atualização geral dos itens                         | Recebimento da atualização somente dos itens que houve alteração do lado do ERP ao invés da base completa. (Atualização em massa) |
+| Tempo de Atualização                                | Validação da atualização da base (com update) com tempo de 120 minutos                                                            |
+
 # Referências :key:
 
 - [Developers iFood](https://developermercado.ifood.com.br/docs/produtos-api)
