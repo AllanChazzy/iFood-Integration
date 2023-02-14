@@ -22,3 +22,23 @@
     1. Que parâmetros devem existir para estes casos ?
 17. Deve haver uma limitação de quantidade em estoque disponibilizada no ifood ?
 18. Implementar dados do Intermediador da Transação no Documento Fiscal (NFC-e/NF-e)
+
+
+# Meeting 02 - 14.02.2023
+
+- Sobre a Limitação de Quantidade de Produtos conforme contrato comercial com a Tray.
+	- Criar tabela de Planos.
+	- Descrever regra de negócio para atualização automatizada. 
+- Sobre os campos de Dimensão do Produto.
+	- Definir na Aba 2.Adicional.
+	- Exibir como informação na Aba Marketplaces. Sinalizar que o preenchimento é obrigatório, e oferecer um atalho para alteração. 
+
+
+
+- Parâmetro Restringir Marketplaces no Produto: Descartar.
+
+- Criar Informações de orientação sobre a quantidade contratada no plano (Itens selecionados).
+	- Tela Principal da Lista
+	- Tela de Filtros.
+
+- Ver sobre a Política de Atualização de Preços - Parte II.
