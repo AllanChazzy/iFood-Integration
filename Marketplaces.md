@@ -11,7 +11,6 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 3. Criar uma [Tela Nova](#nova-tela---gerenciamentos-de-produtos-do-marketplace-package) para exibir os Produtos Vendidos em Marketplaces com funções de Gerenciamento.
 4. Implementar recursos para gravação da [Lista de Produtos](#especificação-de-dados-por-integrador) conforme dados requeridos a sincronizar.
 5. Implementar recursos de [Acesso Restrito](#acessos-restritos-passport_control).
-6. Realizar Testes Unitários de acordo com a Etapa de [Simulações](#simulações-test_tube) para Homologar o Recurso de acordo com o Integrador.
 
 # Requisitos
 
@@ -41,6 +40,8 @@ Na Tela Principal de Parâmetros do Sistema Ganso, criar uma aba **Integrações
 | Plano Contratado    | Aba Integrações / Marketplaces / Tray | Parâmetro para definir o Plano Contratado pelo Usuário na Plataforma Tray, correspondente ao Limite de Produtos que podem ser enviados ao Marketplace. | Utilizar uma Caixa de Combinação que lista os Planos obtidos diretamente na API da Tray, e armazenar em uma tabela. |
 
 > :bulb: Nota: É estritamente importante relacionar o ID da Categoria Cadastrada na API de Categorias com o ID do Cadastro enviado como Categoria no Parâmetro definir Categorias. Este processo é importante para que o Produto tenha o ID correto durante o Envio Cadastral.
+
+[Voltar ao Início](#introdução-wave)
 
 ## Cadastro de Produtos :label:
 
@@ -83,6 +84,8 @@ A Tela Principal deve exibir, inicialmente, a Lista de Produtos já enviados ao 
 | Legendas (3) | Legendas para ações da Grid e demais informações relevantes.                                                                                                      |
 | Grupo (4)    | Grupo de elementos para **Reprocessar Estoque e Preços**, agrupando campos para alterar o Estoque e Precisão de Preços, posicionado no rodapé à esquerda da Tela. |
 | Botões (4)   | Botões de Ação padrão para **Editar/Gravar** e **Lançar Produtos**, posicionados no rodapé à direita da Tela.                                                     |
+
+[Voltar ao Início](#introdução-wave)
 
 ### Detalhamento dos elementos da Tela Principal
 
@@ -138,6 +141,8 @@ A Tela Principal deve exibir, inicialmente, a Lista de Produtos já enviados ao 
 Ao final da implementação dos recursos, o resultado deve assemelhar-se com a imagem abaixo:
 
 ![Protótipo de Tela](./Main-Screen02.png)
+
+[Voltar ao Início](#introdução-wave)
 
 ### Recursos da Tela Secundária para Lançamento de Produtos :mag_right:
 
@@ -222,6 +227,8 @@ As configurações objetivam a alteração individual ou de uma seleção de pro
 | Combo                        | Precisão de Preço. Método para determinar o "arredondamento" do Preço de Venda no Marketplace. | Disponibilizar opções como: <br>Final 9 - Ex.: 4,77 > 4,79 <br>Final 0 - Ex.: 4,77 > 4,70 <br>Próx. Inteiro - Ex.: 4,77 > 5,00 <br>Valor Inteiro - Ex.: 4,77 > 4,00 <br> e outras opções de arredondamento como: <br> Arredondar acima - Ex.: 4,77 > 4,80 <br> Arredondar abaixo - Ex.: 4,77 > 4,75 |
 | Botão Adicionar e Remover    | Adicionar ou Remover item da Lista de Adicionar à Lista                                        | -                                                                                                                                                                                                                                                                                                   |
 | Botão `<Esc / F3>` - Filtrar | Acionar o Pop-up de Filtros                                                                    | -                                                                                                                                                                                                                                                                                                   |
+
+[Voltar ao Início](#introdução-wave)
 
 ### Adicionar à Lista (Grid2):dart:
 
@@ -310,6 +317,8 @@ Via de Regra, os Integradores requerem dados específicos para Cadastro de Produ
 | Sincronizado                    | Sinalização de Sincronização                                    | Sim ou Não. Indica se o Produto está atualizado no Marketplace.                                                                                             |
 | Data Hora Sincronismo           | Data e Hora da última Sincronização                             | Data e Hora da última sincronização ocorrida.                                                                                                               |
 
+[Voltar ao Início](#introdução-wave)
+
 ## Dados Requeridos pela Tray
 
 Segundo a [Documentação de Integração da Tray](https://developers.tray.com.br/), os campos da API de Produtos Requeridos, e conforme disponibilidade no Sistema Ganso, são:
@@ -346,64 +355,7 @@ Segundo a [Documentação de Integração da Tray](https://developers.tray.com.b
 | `type`              | Texto          | Tipo de _Metatag_                      | Enviar sempre "type=keywords".                                                                                                                                                                                                                                                                                                                |
 | `content`           | Texto          | Palavras Chave do Produto              | Utilizar o novo campo "Palavras Chave" da Aba Marketplaces do [Produto](#cadastro-de-produtos-label)                                                                                                                                                                                                                                          |
 
-## Dados Requeridos pelo iFood
-
-Segundo a [Documentação do iFood](https://developermercado.ifood.com.br/docs/produtos-api#produto---integra%C3%A7%C3%A3o-utilizando-o-m%C3%A9todo-post), existem 2 métodos de Envio de Dados para API, o Método **POST** e **PATCH**.
-O Método **POST** deve ser utilizado para envio de uma **Carga Inicial de Dados**. O Método **PATCH** deve ser utilizado para atualizações de dados. De modo a compreender todas as informações necessárias para integração, abaixo estão relacionados os dados extraídos da documentação.
-
-| Campo                     | Tipo e Tamanho  | Descritivo                                                           | Preenchimento                                                                                                                                                                                                      | Regra de Negócio                                                                                                           |
-| :------------------------ | :-------------: | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| `idLoja`                  |     Inteiro     | Código da Filial                                                     | Utilizar o Código da Filial logada que gerou o comando.                                                                                                                                                            | Preenchimento Obrigatório.                                                                                                 |
-| `departamento`            |   Texto (100)   | Departamento do Produto                                              | Utilizar a Descrição da **Seção** do Produto.                                                                                                                                                                      | Preenchimento Obrigatório. Se **Seção** não existir, informar o texto 'GERAL'.                                             |
-| `categoria`               |   Texto (100)   | Categoria do Produto                                                 | Utilizar a Descrição do **Grupo** do Produto.                                                                                                                                                                      | Preenchimento Obrigatório. Se **Grupo** não existir, informar o texto 'GERAL'.                                             |
-| `subCategoria`            |   Texto (100)   | SubCategoria do Produto                                              | Utilizar a Descrição do **Subgrupo** do Produto.                                                                                                                                                                   | Preenchimento Não Obrigatório. Se **Subgrupo** não existir, informar vazio ''.                                             |
-| `marca`                   |   Texto (100)   | Marca do Produto                                                     | Utilizar a Descrição da **Marca** do Produto.                                                                                                                                                                      | Preenchimento Não Obrigatório. Se **Marca** não existir, informar vazio ''.                                                |
-| `unidade`                 |   Texto (100)   | Unidade de Medida de Venda do Produto                                | Utilizar a Sigla vinculada ao Código da Medida de Venda do Produto.                                                                                                                                                | Preenchimento Não Obrigatório. Se não existir, informar vazio ''.                                                          |
-| `volume`                  |   Texto (100)   | Volume em Unidade de Venda do Produto                                | Utilizar a Fração da Unidade de Venda vinculada ao Código da Medida de Venda do Produto concatenado com a Sigla da Unidade de Venda. Ex.: "1KG", "1UN"                                                             | Preenchimento Não Obrigatório. Se não existir, informar vazio ''.                                                          |
-| `codigoBarra`             |   Texto (15)    | Código de Barras do Produto                                          | Utilizar o Código de Barras padrão do Produto.                                                                                                                                                                     | Preenchimento Obrigatório.                                                                                                 |
-| `nome`                    |   Texto (150)   | Descrição do Produto                                                 | Utilizar a Descrição padrão do Produto.                                                                                                                                                                            | Preenchimento Obrigatório.                                                                                                 |
-| `valor`                   | Numérico (10,4) | Preço de Venda do Produto                                            | Utilizar o campo Preço de Venda do Produto.                                                                                                                                                                        | Preenchimento Obrigatório.                                                                                                 |
-| `valorPromocao`           | Numérico (10,4) | Preço de Promoção do Produto                                         | Utilizar o Preço de Venda da Promoção quando existir uma Promoção da Modalidade "Unitário". Se Promoção do tipo Percentual, calcular o Preço de Venda da Promoção aplicando o Percentual a uma unidade do Produto. | Preenchimento Não Obrigatório. Se não existir Promoção Ativa, informar vazio ''.                                           |
-| `valorAtacado`            | Numérico (10,4) | Preço de Venda no Atacado do Produto                                 | Enviar 0.                                                                                                                                                                                                          | Preenchimento Não Obrigatório.                                                                                             |
-| `valorCompra`             | Numérico (10,4) | Custo do Produto                                                     | Utilizar o Custo PMZ do Produto.                                                                                                                                                                                   | Preenchimento Não Obrigatório. Verificar Parâmetro "Enviar Custo", se inativo, enviar 0.                                   |
-| `quantidadeEstoqueAtual`  | Numérico (10,4) | Estoque Atual do Produto (Físico ou Presumido)                       | Utilizar o Valor do Estoque definido no Parâmetro "Tipo de Estoque" (Físico ou Presumido).                                                                                                                         | Preenchimento Obrigatório.                                                                                                 |
-| `quantidadeEstoqueMinimo` | Numérico (10,4) | Estoque Mínimo do Produto                                            | Enviar 0.                                                                                                                                                                                                          | Preenchimento Não Obrigatório.                                                                                             |
-| `quantidadeAtacado`       | Numérico (10,4) | Quantidade de Estoque para Venda no Atacado do Produto               | Enviar 0.                                                                                                                                                                                                          | Preenchimento Não Obrigatório.                                                                                             |
-| `descricao`               |  Texto (8000)   | Descrição detalhada das Características do Produto                   | Utilizar a Referência do Fabricante. Se não existir, enviar vazio.                                                                                                                                                 | Preenchimento Não Obrigatório.                                                                                             |
-| `ativo`                   |    Booleano     | Situação (Status) do Produto                                         | `true` para 'Ativo' e `false` para 'Inativo'.                                                                                                                                                                      | Preenchimento Obrigatório. Se campo 'Status iFood' do Cadastro de Produtos for igual a 'A' então 'Ativo', senão 'Inativo'. |
-| `plu`                     |     Inteiro     | Código Interno do Produto                                            | Utilizar o Código do Produto. Se Produto é do Tipo Kit que contenha apenas um único Produto, concatenar ao Código um _underline_ e quantidade do item do Kit. Ex.: 102030_12 ou 78978978945613_12                  | Preenchimento Não Obrigatório.                                                                                             |
-| `validadeProxima`         |    Booleano     | Produto Próximo do Vencimento                                        | `true` para 'Sim' e `false` para 'Não'. Enviar `false`.                                                                                                                                                            | Preenchimento Não Obrigatório.                                                                                             |
-| `imageURL`                |   Texto (150)   | URL de Imagem de Produto.                                            | Enviar vazio.                                                                                                                                                                                                      | Preenchimento Não Obrigatório.                                                                                             |
-| `multiploEanOriginal`     |   Texto (15)    | Código de Barras do Produto de Fabricação Própria ou Item de um Kit. | Utilizar o Código de Barras do Item do Kit.                                                                                                                                                                        | Preenchimento Não Obrigatório.                                                                                             |
-| `multiploQtd`             | Numérico (10,4) | Quantidade do Produto na Embalagem de Fabricação Própria ou Kit.     | Utilizar a Quantidade do Produto original informada no Kit.                                                                                                                                                        | Preenchimento Não Obrigatório.                                                                                             |
-
 [Voltar ao Início](#introdução-wave)
-
-# Simulações :test_tube:
-
-## Integração iFood
-
-| Cenário de Homologação                              | Resultado esperado                                                                                                                |
-| :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
-| Carga de Produtos do tipo EAN                       | Recebimento dos produtos na Base iFood                                                                                            |
-| Atualização de Status do Produto do tipo EAN        | Recebimento de produtos com alteração de status (Ativo / Inativo)                                                                 |
-| Atualização de Preços do Produto do tipo EAN        | Atualização de preço de produtos saindo de A para B                                                                               |
-| Atualização de Preços De / Por do tipo EAN          | Atualização de preço de produtos saindo de A para B tendo o DE/POR (Envio de Preço da Promoção)                                   |
-| Atualização de Estoque do tipo EAN                  | Atualização do valor de estoque de A para B (Atualizações Automáticas ou Manuais)                                                 |
-| Atualização da descrição do produto do tipo EAN     | Atualização do nome/descrição do produto saindo de A para B                                                                       |
-| Carga de Produtos do tipo PRÓPRIO                   | Recebimento dos produtos do tipo Kit ou Produzido                                                                                 |
-| Atualização de Status do Produto do tipo PRÓPRIO    | Recebimento de produtos com alteração de status (Ativo / Inativo)                                                                 |
-| Atualização de Preços do Produto do tipo PRÓPRIO    | Atualização de preço de produtos saindo de A para B                                                                               |
-| Atualização de Preços De / Por do tipo PRÓPRIO      | Atualização de preço de produtos saindo de A para B tendo o DE/POR (Envio de Preço da Promoção)                                   |
-| Atualização de Estoque do tipo PRÓPRIO              | Atualização do valor de estoque de A para B                                                                                       |
-| Atualização da descrição do produto do tipo PRÓPRIO | Atualização do nome do produto saindo de A para B                                                                                 |
-| Atualização geral dos itens                         | Recebimento da atualização somente dos itens que houve alteração do lado do ERP ao invés da base completa. (Atualização em massa) |
-| Tempo de Atualização                                | Validação da atualização da base (com update) com tempo de 120 minutos                                                            |
-
-## Integração Tray
-
-| Cenário de Homologação | Resultado esperado |
-| :--------------------- | :----------------- |
 
 # Referências :key:
 
