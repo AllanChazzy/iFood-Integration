@@ -10,7 +10,7 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 2. Implementar Alterações no [Cadastro de Produtos](#cadastro-de-produtos-label).
 3. Criar uma [Tela Nova](#nova-tela---gerenciamentos-de-produtos-do-marketplace-package) para exibir os Produtos Vendidos em Marketplaces com funções de Gerenciamento.
 4. Implementar recursos para gravação da [Lista de Produtos](#especificação-de-dados-por-integrador) conforme dados requeridos a sincronizar.
-5. Implementar recursos de [Acesso Restrito](#acessos-restritos-passport_control).
+5. Implementar recursos de [Acesso Restrito](#acessos-restritos-passport_control), [Mensagens para Usuário](#mensagens-ao-usuário-incoming_envelope) e [Automatizações](#automatizações).
 
 # Requisitos
 
