@@ -8,7 +8,7 @@ O presente documento objetiva descrever os requisitos básicos para implementaç
 
 1. Implementar [Parâmetros](#parâmetros) Gerais e Específicos.
 2. Implementar Alterações no [Cadastro de Produtos](#cadastro-de-produtos).
-3. Criar uma [Tela Nova](#nova-tela---gerenciamentos-de-produtos-do-marketplace-package) para exibir os Produtos Vendidos em Marketplaces com funções de Gerenciamento.
+3. Criar uma [Tela Nova](#nova-tela---gerenciamentos-de-produtos-do-marketplace) para exibir os Produtos Vendidos em Marketplaces com funções de Gerenciamento.
 4. Implementar recursos para gravação da [Lista de Produtos](#especificação-de-dados-por-integrador) conforme dados requeridos a sincronizar.
 5. Implementar recursos de [Acesso Restrito](#acessos-restritos-passport_control), [Mensagens para Usuário](#mensagens-ao-usuário-incoming_envelope) e [Automatizações](#automatizações).
 
@@ -163,10 +163,11 @@ Ao final da implementação dos recursos, o resultado deve assemelhar-se com a i
 A Tela de Log de Eventos deve ser exibida quando o Usuário clicar sobre a mensagem indicativa de Problemas na Sincronização, posicionada no topo da [Tela Principal](#detalhamento-dos-elementos-da-tela-principal).
 Esta Tela deve conter Logs organizados por Categorias como nos exemplos abaixo.
 
-| Categoria do Evento | Descritivo                                                                                                    |
-| :------------------ | :------------------------------------------------------------------------------------------------------------ |
-| Autenticação        | Exibe eventos quanto à Autenticação da Empresa na API do Integrador, como Loja Bloqueada, Loja Inativa e etc. |
-| Produtos            | Exibe eventos relacionados ao Produto, como falha de Sincronização, Dados ausentes, e outros.                 |
+| Categoria do Evento | Descritivo                                                                                                                                                                            |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Autenticação        | Exibe eventos quanto à Autenticação da Empresa na API do Integrador, como Loja Bloqueada, Loja Inativa e etc.                                                                         |
+| Produtos            | Exibe eventos relacionados ao Produto, como falha de Sincronização, Dados ausentes, e outros.                                                                                         |
+| Produtos - Exclusão | Se Usuário excluir um Produto do Marketplace, e a API retornar erro, usuário deverá ser informado via Log da Ocorrência. [Ver Regra de Negócio - RN09](#regras-de-negócio-geral-lock) |
 
 Além dos recursos acima, o usuário deve conseguir selecionar um evento e marcá-lo como **Resolvido**.
 
@@ -300,28 +301,31 @@ Abaixo desta _Grid_ de Dados, no rodapé da tela, incluir legenda para as açõe
 | RN06  | Efetuar Comparativo de Preços de Promoção quando o Parâmetro "Enviar Promoção" estiver marcado, e o Usuário criar uma Promoção para um Produto que está no Marketplace.            | Ao Configurar Promoção no Ganso (seja individual ou agrupada), se o produto estiver no Marketplace, perguntar se usuário deseja enviar a promoção criada para o Marketplace, exibindo o Comparativo de Valores entre Ganso e Marketplace. Oferecer Opções para decidir se mantém a Promoção do Marketplace ou se envia a Promoção Ganso. <br> Se Promoção Agrupada, exibir item a item mensagem de Confirmação, com opções de "Sim", "Não", "Sim para Todos" ou "Não para Todos". |
 | RN07  | Armazenar a Precisão de Preço definida pelo Usuário por Item, para que, havendo Atualizações ou Reprocessamento, seja possível reaplicar as configurações definidas anteriormente. | Ao definir uma Precisão de Preços, armazenar a decisão do Usuário para cada item para permitir que seja possível utilizar o mesmo critério em casos de reprocessamento ou edição do Item na Grid.                                                                                                                                                                                                                                                                                 |
 | RN08  | Recalcular o Campo de **Desconto Valor da Promoção** da Tela Principal quando o Usuário digitar um Percentual no campo **Desconto Percentual da Promoção**, e vice-versa.          | Ao definir uma Precisão de Preços, armazenar a decisão do Usuário para cada item para permitir que seja possível utilizar o mesmo critério em casos de reprocessamento ou edição do Item na Grid.                                                                                                                                                                                                                                                                                 |
+| RN09  | Excluir o Produto do Marketplace após Inativação.                                                                                                                                  | Se Usuário utilizar a função `<F6> - Excluir` na [Tela de Gerenciamento de Produtos](#nova-tela---gerenciamentos-de-produtos-do-marketplace), o Serviço de Sincronização deve gerar um comando para **Inativar** o Produto e em seguida, alterar os seguintes campos: <br><br> ATIVO='N' <br>PENDENTE_ENVIO='S'<br>EXCLUIR='S'. Solicitar [Acesso Restrito - AR06](#acessos-restritos-passport_control)                                                                           |
 
 [Voltar ao Início](#introdução-wave)
 
 ### Mensagens ao Usuário :incoming_envelope:
 
-| Ação                                                                                        | Mensagem                                                                                                                       | Tratativa                                    |
-| :------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------- |
-| Clicar no Botão **Aplicar** do Grupo **"Reprocessar Estoque e Preços"** da Tela Principal   | Mensagem de Confirmação: "Aplicar novo Estoque e Preços ao itens selecionados/todos os itens ?"                                | Reprocessar os Produtos listados na _Grid_   |
-| Utilizar a função **`<F7>` - Ativar / Desativar** para itens selecionados na Tela Principal | Mensagem de Confirmação: "Os Produtos Selecionados serão Ativados / Desativados no Marketplace. Deseja continuar ?"            | Atualizar o Status iFood dos Itens da Lista. |
-| Clicar no Botão **`<F10>` - Enviar para Lista** na tela de Lançamento de Itens              | Mensagem de Confirmação: "Os Produtos Selecionados serão enviados para a Lista de Vendidos no Marketplace. Deseja continuar ?" | Enviar Produtos selecionados para Lista      |
+| Ação                                                                                        | Mensagem                                                                                                                       | Tratativa                                                           |
+| :------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| Clicar no Botão **Aplicar** do Grupo **"Reprocessar Estoque e Preços"** da Tela Principal   | Mensagem de Confirmação: "Aplicar novo Estoque e Preços ao itens selecionados/todos os itens ?"                                | Reprocessar os Produtos listados na _Grid_                          |
+| Utilizar a função **`<F7>` - Ativar / Desativar** para itens selecionados na Tela Principal | Mensagem de Confirmação: "Os Produtos Selecionados serão Ativados / Desativados no Marketplace. Deseja continuar ?"            | Atualizar o Status iFood dos Itens da Lista.                        |
+| Clicar no Botão **`<F10>` - Enviar para Lista** na tela de Lançamento de Itens              | Mensagem de Confirmação: "Os Produtos Selecionados serão enviados para a Lista de Vendidos no Marketplace. Deseja continuar ?" | Enviar Produtos selecionados para Lista                             |
+| Excluir um Produto do Marketplace `<F6> - Excluir` e não obter sucesso                      | Mensagem de Confirmação: "Ocorreram problemas ao tentar excluir o Produto `nnnn - <descrição>`."                               | Oferecer as opções para "Desistir da Exclusão", "Tentar novamente". |
 
 [Voltar ao Início](#introdução-wave)
 
 ## Acessos Restritos :passport_control:
 
-| #    | Grupo        | Descritivo                                                              | Regra de Negócio                                                               |
-| :--- | :----------- | :---------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
-| AR01 | Marketplaces | Remover Item da Lista de Vendidos no Marketplace                        | Eliminar o Item da Lista                                                       |
-| AR02 | Marketplaces | Ativar / Desativar Item selecionado na Lista de Vendidos no Marketplace | Manter o Item na Lista e alterar o Status                                      |
-| AR03 | Marketplaces | Reprocessar Estoque e Preços da Lista de Vendidos no Marketplace        | Aplicar apenas aos itens selecionados conforme parâmetros definidos nos campos |
-| AR04 | Marketplaces | Permitir alterar Margem de Lucro                                        | Permitir edição da coluna Margem de Lucro no Item da _Grid_                    |
-| AR04 | Marketplaces | Permitir alterar Preço Marketplace                                      | Permitir edição da coluna Preço Marketplace no Item da _Grid_                  |
+| #    | Grupo        | Descritivo                                                              | Regra de Negócio                                                                                                                             |
+| :--- | :----------- | :---------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| AR01 | Marketplaces | Remover Item da Lista de Vendidos no Marketplace                        | Eliminar o Item da Lista                                                                                                                     |
+| AR02 | Marketplaces | Ativar / Desativar Item selecionado na Lista de Vendidos no Marketplace | Manter o Item na Lista e alterar o Status                                                                                                    |
+| AR03 | Marketplaces | Reprocessar Estoque e Preços da Lista de Vendidos no Marketplace        | Aplicar apenas aos itens selecionados conforme parâmetros definidos nos campos                                                               |
+| AR04 | Marketplaces | Permitir alterar Margem de Lucro                                        | Permitir edição da coluna Margem de Lucro no Item da _Grid_                                                                                  |
+| AR05 | Marketplaces | Permitir alterar Preço Marketplace                                      | Permitir edição da coluna Preço Marketplace no Item da _Grid_                                                                                |
+| AR06 | Marketplaces | Excluir Produto do Marketplace                                          | Permitir Exclusão do Item da Lista do Marketplace. Executar a tratativa descrita na [Regra de Negócio - RN09](#regras-de-negócio-geral-lock) |
 
 [Voltar ao Início](#introdução-wave)
 
@@ -340,14 +344,15 @@ Durante análise da Integração possíveis automatismos foram levantandos para 
 
 Via de Regra, os Integradores requerem dados específicos para Cadastro de Produtos, contudo, para **controle da própria Aplicação Ganso**, é necessário que exista campos específicos, conforme descrito abaixo:
 
-| Campo                           | Descritivo                                                      | Preenchimento                                                                                                                                               |
-| :------------------------------ | :-------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Código Filial                   | Código da Filial que enviou o Produto para lista do Marketplace | Código da Filial com a Integração Ativada que estava logada no momento da criação da lista.                                                                 |
-| Código da Integração/Integrador | Código do Marketplace                                           | Código do Marketplace para identificar os itens na Tela caso houver mais de uma Integração ativada.                                                         |
-| Código Estoque                  | Código do Estoque enviado do Produto                            | Código do Estoque definido em parâmetro ou definido no reprocessamento. A informação é importante para manter os dados atualizados do local correto.        |
-| Margem Lucro                    | Margem de Lucro enviada do Produto                              | Margem de Lucro definida em parâmetro, no reprocessamento ou na digitação do item. A informação é importante para manter os dados atualizados corretamente. |
-| Sincronizado                    | Sinalização de Sincronização                                    | Sim ou Não. Indica se o Produto está atualizado no Marketplace.                                                                                             |
-| Data Hora Sincronismo           | Data e Hora da última Sincronização                             | Data e Hora da última sincronização ocorrida.                                                                                                               |
+| Campo                           | Descritivo                                                              | Preenchimento                                                                                                                                               |
+| :------------------------------ | :---------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Código Filial                   | Código da Filial que enviou o Produto para lista do Marketplace         | Código da Filial com a Integração Ativada que estava logada no momento da criação da lista.                                                                 |
+| Código da Integração/Integrador | Código do Marketplace                                                   | Código do Marketplace para identificar os itens na Tela caso houver mais de uma Integração ativada.                                                         |
+| Código Estoque                  | Código do Estoque enviado do Produto                                    | Código do Estoque definido em parâmetro ou definido no reprocessamento. A informação é importante para manter os dados atualizados do local correto.        |
+| Margem Lucro                    | Margem de Lucro enviada do Produto                                      | Margem de Lucro definida em parâmetro, no reprocessamento ou na digitação do item. A informação é importante para manter os dados atualizados corretamente. |
+| Sincronizado                    | Sinalização de Sincronização                                            | Sim ou Não. Indica se o Produto está atualizado no Marketplace.                                                                                             |
+| Data Hora Sincronismo           | Data e Hora da última Sincronização                                     | Data e Hora da última sincronização ocorrida.                                                                                                               |
+| Flag "Excluir"                  | Campo para sinalizar que o Produto deve ser Excluído da Plataforma Tray | S / N. [Ver Regra de Negócio - RN09](#regras-de-negócio-geral-lock)                                                                                         |
 
 [Voltar ao Início](#introdução-wave)
 
