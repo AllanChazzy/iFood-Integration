@@ -1,6 +1,6 @@
 # Introdução
 
-O presente documento é complementar à documentação de [Requisitos Iniciais](./Marketplaces.md), e descreve a **segunda etapa** do processo de Integração com a Plataforma Tray onde descreve os requisitos para importação das Vendas.
+O presente documento é complementar à documentação de [Requisitos Iniciais](./Marketplaces.md), e descreve a **segunda etapa** do processo de Integração com a Plataforma Tray contendo os requisitos para importação das Vendas.
 
 # Roadmap
 
@@ -11,23 +11,23 @@ O presente documento é complementar à documentação de [Requisitos Iniciais](
 
 # Siglas Utilizadas
 
-| Sigla | Descritivo                                |
-| :---- | :---------------------------------------- |
-| RNC   | Regra de Negócio para Clientes            |
-| RNV   | Regra de Negócio para Vendas              |
-| RNP   | Regra de Negócio para Formas de Pagamento |
+| Sigla | Descritivo                               |
+| :---- | :--------------------------------------- |
+| RNC   | Regra de Negócio para Clientes           |
+| RNV   | Regra de Negócio para Vendas             |
+| RND   | Regra de Negócio para Documentos Fiscais |
 
 # Parâmetros
 
 Para controle dos processos de Venda, foram levantados novos parâmetros conforme descritivo abaixo.
 
-| Elemento            | Nome                            | Posição                       | Descritivo                                                                                                                     | Regras de Negócio                                                                                                                                                                    |
-| :------------------ | :------------------------------ | :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Caixa de Combinação | Tipo de Venda Retaguarda        | Integrações/Marketplaces/Tray | Campo para definir o Tipo de Venda Retaguarda a ser criada durante o processo de captura das Vendas realizadas no Marketplace. | Permitir selecionar apenas uma das opções: <br>- Orçamento Aberto<br>- Orçamento Fechado<br>- Condicional Aberto<br>- Condicional Fechado<br>- Pedido Aberto<br>- Pedido Fechado<br> |
-| Campo               | CNPJ Intermediador da Transação | Integrações/Marketplaces/Tray | Campo para definir o CNPJ do Intermediador/Marketplace responsável por processar a Venda.                                      | **Obrigatório** para emissão da NF-e conforme [NT2020.006](https://microsig.my.site.com/a0e4w00000KEmlf?btdid=a0g4w00000JDgsH)                                                       |
-| Campo               | Finalizador Padrão              | Integrações/Marketplaces/Tray | Campo para definir o Código do Finalizador Padrão para as Vendas realizadas no Marketplace                                     | **Não Obrigatório**, mas importante para a Conclusão da Venda no Sistema Ganso.                                                                                                      |
-| Campo               | Caixa Padrão                    | Integrações/Marketplaces/Tray | Campo para definir o Código do Caixa Padrão para as Vendas realizadas no Marketplace                                           | **Não Obrigatório**, mas importante para a Conclusão da Venda no Sistema Ganso.                                                                                                      |
-| Campo               | Vendedor Padrão                 | Integrações/Marketplaces/Tray | Campo para definir o Código do Colaborador/Vendedor Padrão para as Vendas realizadas no Marketplace                            | **Não Obrigatório**, mas importante para a Conclusão da Venda no Sistema Ganso.                                                                                                      |
+| Elemento | Nome                            | Posição                       | Descritivo                                                                                          | Regras de Negócio                                                                                                              |
+| :------- | :------------------------------ | :---------------------------- | :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| Campo    | CNPJ Intermediador da Transação | Integrações/Marketplaces/Tray | Campo para definir o CNPJ do Intermediador/Marketplace responsável por processar a Venda.           | **Obrigatório** para emissão da NF-e conforme [NT2020.006](https://microsig.my.site.com/a0e4w00000KEmlf?btdid=a0g4w00000JDgsH) |
+| Campo    | Finalizador Padrão              | Integrações/Marketplaces/Tray | Campo para definir o Código do Finalizador Padrão para as Vendas realizadas no Marketplace          | **Obrigatório**. Permitir informar apenas Finalizador comum.                                                                   |
+| Campo    | Caixa Padrão                    | Integrações/Marketplaces/Tray | Campo para definir o Código do Caixa Padrão para as Vendas realizadas no Marketplace                | **Obrigatório**                                                                                                                |
+| Campo    | Vendedor Padrão                 | Integrações/Marketplaces/Tray | Campo para definir o Código do Colaborador/Vendedor Padrão para as Vendas realizadas no Marketplace | **Obrigatório**                                                                                                                |
+| Campo    | Cliente Padrão                  | Integrações/Marketplaces/Tray | Campo para definir o Código do Cliente Padrão para as Vendas realizadas no Marketplace              | **Obrigatório**                                                                                                                |
 
 Os novos parâmetros descritos acima estão ilustrados no exemplo a seguir:
 
@@ -35,18 +35,28 @@ Os novos parâmetros descritos acima estão ilustrados no exemplo a seguir:
 
 # Venda Retaguarda
 
-Todas as Vendas com **Pagamento concluído** geradas no Marketplace devem ser capturadas e inseridas no Sistema Ganso obedecendo os [parâmetros](#parâmetros) de vendas definidos por padrão. Para que o Pedido criado no Marketplace seja identificado e controlado corretamente no Sistema Ganso, é necessário criar novos elementos, que são:
+Todas as Vendas com **Pagamento concluído** geradas no Marketplace devem ser capturadas e inseridas no Sistema Ganso obedecendo os [parâmetros](#parâmetros) definidos para o Marketplace:
 
-| Elemento | Nome                                        | Descritivo                                                                                          |        Campo do Retorno         | Regra de Negócio                                                                                                                       |
-| :------- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------- | :-----------------------------: | :------------------------------------------------------------------------------------------------------------------------------------- |
-| Flag     | Criado via Marketplace (nome do Integrador) | Informação Identificadora                                                                           |                -                | Visível ao Usuário. Utilizar o mesmo campo que sinaliza Venda "Mobile". Não permitir alterações.                                       |
-| Campo    | **Código do Pedido no Marketplace**         | Código Identificador do Pedido no Marketplace                                                       |           `Order.id`            | Visível ao Usuário. Não permitir alterações.                                                                                           |
-| Campo    | **Código do Cliente no Marketplace**        | Código Identificador do Cliente no Marketplace                                                      |       `Order.customer_id`       | Não permitir alterações.                                                                                                               |
-| Campo    | Data/Hora do Pedido no Marketplace          | Data e Hora de Criação do Pedido no Marketplace                                                     |   `Order.date` e `Order.hour`   | Não permitir alterações. Converter o formato da Data e Hora.                                                                           |
-| Campo    | Data/Hora do Pagamento no Marketplace       | Data e Hora do Pagamento do Pedido no Marketplace                                                   |    `Payment.Payment.created`    | Não permitir alterações. Converter o formato da Data e Hora.                                                                           |
-| Campo    | Data Estimada para Entrega                  | Data estimada para entrega, quando ocorrer                                                          | `Order.estimated_delivery_date` | Visível ao Usuário. Não permitir alterações. Converter o formato da Data.                                                              |
-| Campo    | Código de Rastreio/Envio                    | Código de Rastreio ou Envio gerado pelo Marketplace, quando disponível dentro da própria Plataforma |      `Order.sending_code`       | Não permitir alterações.                                                                                                               |
-| Campo    | Nome de Usuário                             | Nome do Usuário ou Identificação do Perfil do Vendedor no Marketplace                               |          `User.login`           | Informação obrigatória para NF-e (Campo **idCadIntTran**). Não permitir alterações. [Ver Requisito R03 da NT2020.006](./NT2020-006.md) |
+| Elemento | Nome                                        | Descritivo                                                              |        Campo do Retorno         | Regra de Negócio                                                                                                                                                                             |
+| :------- | :------------------------------------------ | :---------------------------------------------------------------------- | :-----------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Flag     | Criado via Marketplace (nome do Integrador) | Informação Identificadora                                               |                -                | Visível ao Usuário. Utilizar o mesmo campo que sinaliza Venda "Mobile". Não permitir alterações.                                                                                             |
+| Campo    | **Código do Marketplace**                   | Código do Marketplace Ativo                                             |                -                | Vincular o Código do Marketplace Ativo no Sistema Ganso.                                                                                                                                     |
+| Campo    | **Código do Pedido no Marketplace**         | Código Identificador do Pedido no Marketplace                           |           `Order.id`            | Visível ao Usuário. Não permitir alterações.                                                                                                                                                 |
+| Campo    | **Código do Cliente no Marketplace**        | Código Identificador do Cliente no Marketplace                          |       `Order.customer_id`       | Não permitir alterações.                                                                                                                                                                     |
+| Campo    | Data/Hora do Pedido no Marketplace          | Data e Hora de Criação do Pedido no Marketplace                         |   `Order.date` e `Order.hour`   | Não permitir alterações. Converter o formato da Data e Hora.                                                                                                                                 |
+| Campo    | Data/Hora do Pagamento no Marketplace       | Data e Hora do Pagamento do Pedido no Marketplace                       |    `Payment.Payment.created`    | Não permitir alterações. Converter o formato da Data e Hora.                                                                                                                                 |
+| Campo    | Data Estimada para Entrega                  | Data estimada para entrega, quando ocorrer                              | `Order.estimated_delivery_date` | Visível ao Usuário. Não permitir alterações. Converter o formato da Data.                                                                                                                    |
+| Campo    | Código de Rastreio/Envio                    | Código de Rastreio ou Envio gerado pelo Marketplace, quando disponível, |      `Order.sending_code`       | Não permitir alterações.                                                                                                                                                                     |
+| Campo    | Nome de Usuário                             | Nome do Usuário ou Identificação do Perfil do Vendedor no Marketplace   |          `User.login`           | Informação obrigatória para NF-e (Campo **idCadIntTran**). Se vazio, preencher com texto padrão 'vendedor_mkpl'. Não permitir alterações. [Ver Requisito R03 da NT2020.006](./NT2020-006.md) |
+
+## Consulta de Vendas do Marketplace
+
+De modo a Simplificar a gestão dos Pedidos realizados no Marketplace sincronizados com o Sistema Ganso, é necessário incluir um filtro na **Tela de Pesquisa Avançada de DAV** que permite a listagem rápida de Pedidos nesta condição. Além disso, outros recursos são importantes que são:
+
+| #   | Descritivo                                                                                        | Regra de Negócio                                                                                                                                               |
+| :-- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R01 | Incluir filtro **"Somente Vendas Realizadas pelo Marketplace"**                                   | Listar apenas Pedidos gerados pela Sincronização com Marketplace. Utilizar coloração distinta para destaque das informações, como ocorre com as Vendas Mobile. |
+| R02 | Incluir **Código do Pedido do Marketplace** em coluna nova ou no campo **Identificação da Venda** | Exibir a informação para que o Usuário possa identificar no Marketplace o Pedido Realizado.                                                                    |
 
 ## Relacionamento de Dados - Venda Retaguarda
 
@@ -76,71 +86,56 @@ Para as demais informações do Pedido, há campos no Sistema Ganso que devem se
 
 ## Regras de Negócio - Venda Retaguarda
 
-| #     | Descritivo                                                   | Tratativas                                                                                                         |
-| :---- | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| RNV01 | Gravar Código do Vendedor Padrão em Vendas do Marketplace    | Utilizar o Código de Vendedor Padrão quando informado nos [parâmetros](#parâmetros) de vendas do Marketplace.      |
-| RNV02 | Gravar Código do Finalizador Padrão em Vendas do Marketplace | Utilizar o Código do Finalizador Padrão quando informado nos [parâmetros](#parâmetros) de vendas do Marketplace.   |
-| RNV03 | Gravar Código do Cliente Consumidor Final                    | Utilizar o Código do Consumidor Final se o **Planejamento** decidir não incluir a Gravação do Cadastro do Cliente. |
+| #     | Descritivo                                                                                                                                                                   | Tratativas                                                                                                                                                                                           |
+| :---- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RNV01 | Gerar DAV-Pedido Fechado para Vendas Sincronizadas do Marketplace                                                                                                            | Por Padrão, para todas as Vendas geradas através do Marketplace gerar o Tipo DAV-Pedido com Status Fechado.                                                                                          |
+| RNV02 | Gravar Código do Vendedor Padrão em Vendas do Marketplace                                                                                                                    | Utilizar o Código de Vendedor Padrão informado nos [parâmetros](#parâmetros) de vendas do Marketplace.                                                                                               |
+| RNV03 | Gravar Código do Finalizador Padrão em Vendas do Marketplace                                                                                                                 | Utilizar o Código do Finalizador Padrão informado nos [parâmetros](#parâmetros) de vendas do Marketplace.                                                                                            |
+| RNV04 | Gravar Código do Cliente Padrão em Vendas do Marketplace                                                                                                                     | Utilizar o Código do Cliente Padrão informado nos [parâmetros](#parâmetros) de vendas do Marketplace.                                                                                                |
+| RNV05 | Incluir na Rotina `<F10> - Preparar NF` ou `<F10> - Carregar dados da NF` leitura das informações do Cliente e Endereço da Tabela de Relacionamento do Pedido no Marketplace | Ao gerar a NF, as informações do Cliente e Endereço de Entrega deverão ser **obrigatoriamente** carregadas da tabela onde estão armazenadas as informações do Pedido Sincronizado com o Marketplace. |
 
 # Cadastro de Clientes
 
-A API Tray retorna os dados principais do Cliente no detalhamento do Pedido Completo, contudo, é necessário **avaliar** a necessidade em capturar os Clientes cadastrados no Marketplace e seus endereços envolvidos. Inicialmente, havendo a captura dos Clientes, é necessário criar novos elementos, que são:
-
-| Elemento | Nome                                            | Descritivo                                         | Regra de Negócio                                                                                                         |
-| :------- | :---------------------------------------------- | :------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| Flag     | Cadastrado via Marketplace (nome do Integrador) | Informação identificadora da Origem do Cadastro    | Não permitir alterações.                                                                                                 |
-| Campo    | **Código do Cliente no Marketplace**            | **Código Identificador do Cliente no Marketplace** | Informação mais importante requerida para captura dos Endereços do Cliente na API de Endereços. Não permitir alterações. |
+A API Tray retorna os dados principais do Cliente no detalhamento do Pedido Completo no Objeto `Customer` e `CustomerAddresses`.
 
 ## Relacionamento de Dados - Clientes
 
-| Ganso             | Tray                         | Tipo Retorno | Descritivo                  | Regra de Negócio                                                                                                                    |
-| :---------------- | :--------------------------- | :----------: | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `nome`            | `Customer.name`              |   `string`   | Nome                        | Observar limite de tamanho no Sistema Ganso: 50 caracteres. Se maior, truncar a informação.                                         |
-| `rg`              | `Customer.rg`                |   `string`   | RG                          | Observar limite de tamanho no Sistema Ganso: 15 caracteres. Se maior, truncar a informação. Eliminar a máscara do campo de retorno. |
-| `cpf`             | `Customer.cpf`               |   `string`   | CPF                         | -                                                                                                                                   |
-| `telefone`        | `Customer.phone`             |   `string`   | Telefone Fixo               | Observar limite de tamanho no Sistema Ganso: 13 caracteres. Se maior, truncar a informação.                                         |
-| `celular`         | `Customer.cellphone`         |   `string`   | Telefone Celular            | Observar limite de tamanho no Sistema Ganso: 13 caracteres. Se maior, truncar a informação.                                         |
-| `nascimento`      | `Customer.birth_date`        |    `date`    | Data de Aniversário         | Converter o Formato para 'DDMMAAAA'. A API retorna no Formato 'AAAADDMM'.                                                           |
-| `sexo`            | `Customer.gender`            |   `number`   | Gênero/Sexo                 | Se 0 = 'Masculino'. Se 1 = 'Feminino'.                                                                                              |
-| `email`           | `Customer.email`             |   `string`   | E-mail                      | Observar limite de tamanho no Sistema Ganso: 350 caracteres. Se maior, truncar a informação.                                        |
-| `apelido`         | `Customer.nickname`          |   `string`   | Apelido                     | Observar limite de tamanho no Sistema Ganso: 60 caracteres. Se maior, truncar a informação.                                         |
-| `observacao`      | `Customer.observation`       |   `string`   | Observações sobre o Cliente | Observar limite de tamanho no Sistema Ganso: 100 caracteres. Se maior, truncar a informação.                                        |
-| `pessoa`          | `Customer.type`              |   `number`   | Tipo de Cliente             | Se 0 = 'Física'. Se 1 = 'Jurídica'                                                                                                  |
-| `cnpj`            | `Customer.cnpj`              |   `string`   | CNPJ                        | Remover a máscara do retorno.                                                                                                       |
-| `razao_social`    | `Customer.company_name`      |   `string`   | Razão Social                | Observar limite de tamanho no Sistema Ganso: 60 caracteres. Se maior, truncar a informação.                                         |
-| `insc_estadual`   | `Customer.state_inscription` |   `string`   | Inscrição Estadual          | Observar limite de tamanho no Sistema Ganso: 20 caracteres. Se maior, truncar a informação.                                         |
-| `endereco`        | `Customer.address`           |   `string`   | Endereço Principal          | Observar limite de tamanho no Sistema Ganso: 45 caracteres.                                                                         |
-| `cep`             | `Customer.zip_code`          |   `string`   | CEP Principal               | Remover a máscara do retorno.                                                                                                       |
-| `numero`          | `Customer.number`            |   `number`   | Número Principal            | Observar limite de tamanho no Sistema Ganso: 6 caracteres.                                                                          |
-| `complemento`     | `Customer.complement`        |   `string`   | Complemento Principal       | Observar limite de tamanho no Sistema Ganso: 60 caracteres.                                                                         |
-| `bairro`          | `Customer.neighborhood`      |   `string`   | Bairro Principal            | Observar limite de tamanho no Sistema Ganso: 25 caracteres.                                                                         |
-| `cod_cidade`      | `Customer.city`              |   `string`   | Cidade Princial             | Localizar um Código de cidade, na tabela `CIDADE_VILA`, que corresponda a informação do retorno `city` e `state`.                   |
-| -                 | `Customer.state`             |   `string`   | Sigla do Estado             | Informação Complementar da Cidade. Auxiliará identificação do Código da Cidade                                                      |
-| `ent_endereco`    | `Customer.address`           |   `string`   | Endereço Entrega            | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-| `ent_cep`         | `Customer.zip_code`          |   `string`   | CEP Entrega                 | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-| `ent_numero`      | `Customer.number`            |   `string`   | Número Entrega              | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-| `ent_complemento` | `Customer.complement`        |   `string`   | Complemento Entrega         | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-| `ent_bairro`      | `Customer.neighborhood`      |   `string`   | Bairro Entrega              | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-| `ent_cod_cidade`  | `Customer.city`              |   `string`   | Cidade Entrega              | Utilizar o endpoint `customer/adresses` de consulta de endereços e capturar os dados cujo campo `type=1` e campo `active=1`         |
-
-## Regras de Negócio - Clientes
-
-| #     | Descritivo                                                                                                            | Tratativas                                                                                                                                                                                                                                                                                     |
-| :---- | :-------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| RNC01 | Regra Geral para Clientes do Marketplace                                                                              | Não permitir alterações de dados de Cliente originados do Marketplace, **exceto** Endereço de Entrega.                                                                                                                                                                                         |
-| RNC02 | Verificar se Cliente do Marketplace já possui cadastro no Sistema Ganso                                               | Verificar através do CPF ou CNPJ se Cliente do Marketplace já existe no Sistema Ganso. Se existir, verificar informações e atualizar endereço e demais dados importantes para conclusão da Venda e NF-e. \*                                                                                    |
-| RNC03 | Definição de valores padrão de Cadastro para os campos **Situação**, **Tipo** e **Contribuinte ICMS**                 | Situação = Ativo<br>Tipo = Informal<br><br>Contribuinte ICMS:<br> Se `type="0"` então 'N'.<br>Se `type="1"` e `state_inscription <> "ISENTO"` então 'S'. <br> Se `type="1"` e `state_inscription="ISENTO"` então 'Isento'.                                                                     |
-| RNC04 | Buscar todos os Endereços Ativos do Cliente e Relacioná-los em tabela específica (se rotina de captura implementada). | Buscar todos os Endereços do Cliente Ativos na API de Clientes, em `customer/addresses` e relacioná-los com o `id` do Cliente conforme regra:<br> Se `type=0` então **Endereço de Cobrança**. Se `type=1` então **Endereço de Entrega**. Se `type=2` então **Endereço Tipo Lista de Presente** |
-
-> :bulb: Nota: Um Cliente cadastrado via Marketplace pode possuir mais que 3 endereços, definidos como Entrega ou Cobrança, diferenciando-os por uma descrição que o mesmo informa. (Discutir criação de tabela de relacionamento durante o planejamento)
-
-# Formas de Pagamento
+| Ganso           | Tray                         | Tipo Retorno | Descritivo                  | Regra de Negócio                                                                                                                    |
+| :-------------- | :--------------------------- | :----------: | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `nome`          | `Customer.name`              |   `string`   | Nome                        | Observar limite de tamanho no Sistema Ganso: 50 caracteres. Se maior, truncar a informação.                                         |
+| `rg`            | `Customer.rg`                |   `string`   | RG                          | Observar limite de tamanho no Sistema Ganso: 15 caracteres. Se maior, truncar a informação. Eliminar a máscara do campo de retorno. |
+| `cpf`           | `Customer.cpf`               |   `string`   | CPF                         | -                                                                                                                                   |
+| `telefone`      | `Customer.phone`             |   `string`   | Telefone Fixo               | Observar limite de tamanho no Sistema Ganso: 13 caracteres. Se maior, truncar a informação.                                         |
+| `celular`       | `Customer.cellphone`         |   `string`   | Telefone Celular            | Observar limite de tamanho no Sistema Ganso: 13 caracteres. Se maior, truncar a informação.                                         |
+| `nascimento`    | `Customer.birth_date`        |    `date`    | Data de Aniversário         | Converter o Formato para 'DDMMAAAA'. A API retorna no Formato 'AAAADDMM'.                                                           |
+| `sexo`          | `Customer.gender`            |   `number`   | Gênero/Sexo                 | Se 0 = 'Masculino'. Se 1 = 'Feminino'.                                                                                              |
+| `email`         | `Customer.email`             |   `string`   | E-mail                      | Observar limite de tamanho no Sistema Ganso: 350 caracteres. Se maior, truncar a informação.                                        |
+| `apelido`       | `Customer.nickname`          |   `string`   | Apelido                     | Observar limite de tamanho no Sistema Ganso: 60 caracteres. Se maior, truncar a informação.                                         |
+| `observacao`    | `Customer.observation`       |   `string`   | Observações sobre o Cliente | Observar limite de tamanho no Sistema Ganso: 100 caracteres. Se maior, truncar a informação.                                        |
+| `pessoa`        | `Customer.type`              |   `number`   | Tipo de Cliente             | Se 0 = 'Física'. Se 1 = 'Jurídica'                                                                                                  |
+| `cnpj`          | `Customer.cnpj`              |   `string`   | CNPJ                        | Remover a máscara do retorno.                                                                                                       |
+| `razao_social`  | `Customer.company_name`      |   `string`   | Razão Social                | Observar limite de tamanho no Sistema Ganso: 60 caracteres. Se maior, truncar a informação.                                         |
+| `insc_estadual` | `Customer.state_inscription` |   `string`   | Inscrição Estadual          | Observar limite de tamanho no Sistema Ganso: 20 caracteres. Se maior, truncar a informação.                                         |
+| `endereco`      | `Customer.address`           |   `string`   | Endereço Principal          | Observar limite de tamanho no Sistema Ganso: 45 caracteres.                                                                         |
+| `cep`           | `Customer.zip_code`          |   `string`   | CEP Principal               | Remover a máscara do retorno.                                                                                                       |
+| `numero`        | `Customer.number`            |   `number`   | Número Principal            | Observar limite de tamanho no Sistema Ganso: 6 caracteres.                                                                          |
+| `complemento`   | `Customer.complement`        |   `string`   | Complemento Principal       | Observar limite de tamanho no Sistema Ganso: 60 caracteres.                                                                         |
+| `bairro`        | `Customer.neighborhood`      |   `string`   | Bairro Principal            | Observar limite de tamanho no Sistema Ganso: 25 caracteres.                                                                         |
+| `cidade`        | `Customer.city`              |   `string`   | Cidade Princial             | Nome da Cidade informada.                                                                                                           |
+| `uf`            | `Customer.state`             |   `string`   | Sigla do Estado             | Informação Complementar da Cidade. Auxiliará identificação do Código da Cidade                                                      |
+| `pais`          | `Customer.country`           |   `string`   | País                        | Sigla do País ou Nome do País                                                                                                       |
 
 # Documentos Fiscais (DF-e)
 
-## Requisito Obrigatório
+**Requisito Obrigatório:** Implementar Requisitos da [NT2020.006](./NT2020-006.md) para disponibilizar os campos necessários para informar o **Intermediador/Marketplace**.
 
-Implementar Requisitos da [NT2020.006](./NT2020-006.md) para disponibilizar os campos necessários para informar o **Intermediador/Marketplace**.
+## Regras de Negócio - DF-e
+
+| #     | Descritivo                                           | Tratativas                                                                                                                                                                                                                                                                                                      |
+| :---- | :--------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RND01 | Definir Tipo de Atendimento (Indicativo de Presença) | Se venda por Marketplace, definir Indicativo de Presença como 2 = Operação não presencial, pela Internet.                                                                                                                                                                                                       |
+| RND02 | Definir Consumidor Final                             | Se `Customer.type=0` (Pessoa Física) definir como **"Sim"**. Se `Customer.type=1` (Pessoa Jurídica) definir como **"Não"**.                                                                                                                                                                                     |
+| RND03 | Definir Contribuinte ICMS                            | Se `Customer.type=0` (Pessoa Física) definir como **"Não"**. Se `Customer.type=1` e `Customer.state_inscription<>'ISENTO'` (Pessoa Jurídica não Contribuinte) definir como **"Sim"**. Se `Customer.type=1` e `Customer.state_inscription='ISENTO'` (Pessoa Jurídica não Contribuinte) definir como **"Isento"** |
 
 # Relatórios
 
@@ -157,6 +152,7 @@ Além das alterações nas rotinas de Vendas, é necessário incluir novos filtr
 | :-- | :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- |
 | I01 | Usuário Ganso remover um Produto do Marketplace que possui Pedido com Pagamento efetuado não Sincronizado no Sistema Ganso. | Efetuar uma verificação na API de Pedidos antes de permitir a Exclusão do Produto.     |
 | I02 | Cliente do Marketplace **cancelar** um Pedido com Pagamento efetuado, Sincronizado, com NF-e Emitida e não Enviado.         | Usuário deve proceder com a Rotina de Devolução de Vendas e emitir a NF-e de Devolução |
+| I03 | Cliente do Marketplace **cancelar** um Pedido com Pagamento efetuado, Sincronizado, **sem** NF-e Emitida.                   | Efetuar o Cancelamento Automatizado do DAV-Pedido gerado                               |
 
 # Referências
 
