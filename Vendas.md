@@ -19,7 +19,7 @@ O presente documento é complementar à documentação de [Requisitos Iniciais](
 
 # Parâmetros
 
-Para controle dos processos de Venda, foram levantados novos parâmetros conforme descritivo abaixo. Estes parâmetros são específicos para o Integrador Tray, e devem ser incluídos na Aba **Integrações/Marketplaces**.
+Para controle dos processos de Venda, foram levantados novos parâmetros conforme descritivo abaixo. Estes parâmetros são específicos para o Integrador Tray, e devem ser incluídos na Aba **Integrações/Marketplaces** em um grupo para **Vendas**.
 
 | Elemento  | Nome                            | Posição                              | Descritivo                                                                                          | Regras de Negócio                                                                                                              |
 | :-------- | :------------------------------ | :----------------------------------- | :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
@@ -57,9 +57,13 @@ De modo a Simplificar a gestão dos Pedidos realizados no Marketplace sincroniza
 
 | #   | Descritivo                                                                                        | Regra de Negócio                                                                                                                                               |
 | :-- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| R01 | Incluir filtro **"Somente Pedidos Realizados pelo Marketplace"**                                  | Listar apenas Pedidos gerados pela Sincronização com Marketplace. Utilizar coloração distinta para destaque das informações, como ocorre com as Vendas Mobile. |
-| R02 | Incluir filtro **"Somente Pedidos sem Documento Fiscal"**                                         | Listar apenas Pedidos gerados pela Sincronização com Marketplace e que ainda não possuem documento fiscal vinculado.                                           |
+| R01 | Incluir filtro **"Somente Pedidos do Marketplace"**                                               | Listar apenas Pedidos gerados pela Sincronização com Marketplace. Utilizar coloração distinta para destaque das informações, como ocorre com as Vendas Mobile. |
+| R02 | Incluir filtro **"Sem Doc. Fiscal Emitido"**                                                      | Listar apenas Pedidos gerados pela Sincronização com Marketplace e que ainda não possuem documento fiscal vinculado.                                           |
 | R03 | Incluir **Código do Pedido do Marketplace** em coluna nova ou no campo **Identificação da Venda** | Exibir a informação para que o Usuário possa identificar no Marketplace o Pedido Realizado.                                                                    |
+
+Os novos filtros podem ser visualizados no Exemplo abaixo:
+
+![Tela de Consulta Avançada de DAV](./Order-Consulting.png)
 
 ## Relacionamento de Dados - Venda Retaguarda
 
